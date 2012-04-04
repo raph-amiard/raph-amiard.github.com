@@ -1,0 +1,13 @@
+body {
+    font: 1.2em helvetica,arial,freesans,clean,sans-serif;
+    width:600px;
+    margin: 0px auto;
+}
+
+a {
+    color: #111;
+}
+
+h5 {
+    font-size: 1.1em;
+}
