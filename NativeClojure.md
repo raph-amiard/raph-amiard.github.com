@@ -1,5 +1,5 @@
-Google Summer of Code : Pluggable backend infrastructure for ClojureScript, and development of a new backend
----------------------------------------------------------------------------------------------
+Google Summer of Code : Native Clojure
+--------------------------------------
 
 ### Who am I
 
@@ -18,69 +18,38 @@ Links:
 - [My (very unfinished) homepage][3]
 - [My github account][4]
 
-### My proposal : Decoupling ClojureScript's compiler backend
+### My proposal : Compiling Clojure to native code with LLVM and VMKit
 
-I'm very interrested in the proposal named "Pluggable backend". I also consider that the realisation of this proposal should be paired with the realisation of new backend for Clojurescript. In fact, i think that most generally, it is hard to assess the quality of a modularized software system until you are effectively taking advantage of said modularity.
+The basic idea behind my proposal is to compile Clojure to native code using the VMKit infrastructure. The benefits of this approach are numerous :
 
-To go even further, i would say that the design of the backend system should be partly derived from a concrete implementation of a new backend, in the spirit of bottom up design.
+- Possibility of creating AOT compiled clojure executables
+- Reliability and quality of the components used : VMKit has a solid JVM implementation, LLVM is used by industrial grade projects, and MMTK, VMKit's garbage collector, implements some of the most cutting edge collection algorithms to date.
 
-I have two ideas of new possible backends for ClojureScript, an easy one and a hard one, that i'm gonna expose in more detail. I'm interested in your feedback regarding which one would be the best fit for ClojureScript, and for the scope of a GSOC project.
+Two approaches are possible, with different drawbacks :
 
-#### ClojureScript to Lua compiler
+#### Compiling Clojure java implementation with J3
 
-This is probably the easiest of the two. The positives aspects of this idea :
+The first one is compiling clojure 'as-is' with J3, VMKit's JVM implementation. This is the easiest way. It would require fiddling with VMKit, as in it's current state, it is not totally well suited for ahead of time compilation. With that said, the project has the possibility of compiling large projects statically, although thoses capacities are not properly exposed.
 
-- Lua is a dynamic language, which is quite similar in semantics to Javascript. It is a prototype based dynamic language. This should make the port of the backend and associated runtime quite straightforward.
-- Lua runtime is small and quite fast for an interpreter. It would enable a way to run Clojure scripts in a straightforward way.
-- Lua has one of the most advanced JIT in existence for a dynamic language, surpassing even V8 in performance. This would possibly enable good performance. Moreover, LuaJIT, in the spirit of lua, is very lean, which would make deployment of clojurescript application in constrained environnments possible.
+#### Compiling Clojure directly to LLVM, using VMKit as a runtime
 
-There are no real downsides to this alternative, except that it's maybe too easy :)
-
-#### ClojureScript to LLVM compiler
-
-This is a much harder alternative. I'm gonna enumerate the negative sides of this approach first because they are in some ways more relevant than the positives :
-
-- LLVM is only a portable assembler representation, with no runtime associated to it. Realisation of this alternative would imply the development/reuse of a runtime, which most important part is the garbage collector.
-- LLVM is statically typed. While the realisation of a straightforward non optimizing compiler for it might be relatively simple, the performance of such a compiler would probably be not very good, and most certainly slower than a Javascript or Lua backend, which can benefit of runtimes already optimized for dynamic languages.
-- Such a backend would not emit text, but LLVM IR. This would need the use of Clojure bindings to the LLVM API.
-
-With that said, the upsides of such an approach are quite interesting too :
-
-- For most of the reasons cited above (Very different target language, different way of emitting code), it would also be a better test of the effectivity of the modularisation of the backend, by being very different from the Javascript backend.
-- Such a backend could provide a way to run *natively compiled* Clojure code, thus also providing a concrete solution for the "Native Clojure" project.
-
-### My vision of how i'm gonna realize this project
-
-I have already done a preliminary analysis of the ClojureScript compiler source code. In fact i have been asking about the possibility of realizing a Lua backend for ClojureScript on Clojure's irc channel a few monthes ago, at which time i already took a look at the source code to assess the rfeasability of such a thing.
-
-From what i have gathered, all of what should be considered the backend of the compiler is contained in the emit multimethod and related functions.
-
-An easy way, if maybe not optimal, of decoupling the backend, would be to make this part of the compiler parametrizable, putting the existing functions and methods in a dedicated namespace, and make the backend switchable in the compiler, using the Javascript/Closure backend by default.
-
-There may be a better decoupling possible, but i think the proper approach would be to first decouple in this way, begin development of the new backend, and then see if a common structure can be derived and factored.
-
-The compiler infrastructure is also using Google Closure library for various things not directly related to code generation (like library/module resolution). This part would need to be redone for the selected backend, probably from scratch, though it looks like it is properly decoupled from the rest of the compiler, using said compiler externally.
-
-#### Specifics to the LLVM alternative
-
-Choosing the LLVM alternative would require the integration/development of a runtime. If this path were to be chosen, i'd consider using the VMKit framework, which uses the very performant MMTK garbage collector. My familiarity with this project would help the development of this project.
+This approach would require creating a new VMKit virtual machine from scratch, as it has already been done for the Z3 project, and adapting the clojure compiler and runtime to run on it. This is a much more ambitious approach. An option would be adapting the ClojureScript compiler, which would probably be an easier path. The details of this approach are more thoroughly detailed in [my other GSOC application][9]
 
 ### Why i think i am the right person for this task
 
 - I am very motivated to conduct this project. While i may not be the most experienced Clojure developer around, i have a good familiarity with the language, and some of the idioms that are considered good development practice. I can read it quite fluently.
 - I have a good familiarity with compiler design, especially the part that is important for this project, that is source to source transformation. I have very recently realized such a compiler, in shape of the [Z3 project][6}, which while incomplete, is already capable of executing complex Ocaml programs.
-- I have developped a (small, thoroughly incomplete, very partly functional) Python to Lua compiler, so i am also familiar with compilation where both the source and the target language are dynamic general purpose languages, which will be usefull in case the Lua Backend alternative is chosen.
 - I have followed a course with Christian Queinnec, author of the [Lisp in small pieces][5] book, in which we hacked and modified a simple but full-featured lispy language compiler and interpreter. 
-- The [Z3 project][6] is using LLVM and VMKit, and has given me skills with those which could be very usefull if the LLVM Backend alternative is chosen.
+- The [Z3 project][6] is using LLVM and VMKit. This project is not finished, and i will continue to work on it during the next months. The knowledge i'm gaining about LLVM and VMKit is a key asset in the realisation of this GSOC project.
 - To conclude, i am thoroughly passionate about compiler design, which i intend to make my field of work, so i am quite serious about this.
 
 ### Other points
 
 ##### To what extent are you familiar with the software you're proposing to work with?
 
-I played around with ClojureScript, and developped one large application in Clojure, in the 1.0 era. Like i said previously, i'm probably not the most experienced Clojure developer around, but i know the language, and i'm very motivated to deepen my knowledge of it.
+I developped one modestly large application in Clojure in the 1.0 era, and played around with ClojureScript. Like i said previously, i'm probably not the most experienced Clojure developer around, but i know the language, and i'm very motivated to deepen my knowledge of it.
 
-I'm quite familiar with the Lua language, as well as with the LLVM and VMKit projects.
+I'm familiar with LLVM and VMKit. In the course of the Z3 project, we had to modify VMKit, and we probably will have to do it again, which is giving me a quite good understanding about it's internals.
 
 ##### How many hours are you going to work on this a week? 10? 20? 30? 40?
 
