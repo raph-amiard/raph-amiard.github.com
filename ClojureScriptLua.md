@@ -8,7 +8,7 @@ ClojureScript's compiler in it's current form is monolithic. There are two main 
 - The different phases of the compilation process are all coupled to each other and hosted in the same compilation unit. More specifically, the part of the code that handles code generation is hosted in the same namespace as the part of the code that handles parsing and analysis, and some helper functions and macro are directly tying them together.
 - The core compiler (cljs.compiler) is organized as a library, with some helpers function to use it in a REPL. The user-facing compiler is provided by the cljs.closure module, using google Closure library to organize the compilation services provided by the cljs.compiler namespace into a full-fledged compiler. That part is also totally javascript specific.
 
-Projects have already forked ClojureScript to target different languages, like [clojure-scheme][cljsch] for example. However, this approach is clearly not the most optimal if you want to maintain the different backends easily.
+Projects have already forked ClojureScript to target different languages, like [clojure-scheme][cljsc] for example. However, this approach is clearly not the most optimal if you want to maintain the different backends easily.
 
 This projects aims at decoupling and modularizing the backend (code emitter, target specific run-time parts) from the front end (parser and analyzer), and at providing a clear external interface for people wanting to implement their own backend, so that ideally, people wanting to target other languages could do it by creating an independent external module, rather than by forking ClojureScript itself.
 
