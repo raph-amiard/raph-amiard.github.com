@@ -123,7 +123,7 @@ I worked for approximately 6 months as a full time Django/Python developper for 
 
 [lisp]: http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html
 
-##### To what extent are you familiar with the software you're proposing to work with? Have you used it? Have you read the source? Have you modified the source?
+#### To what extent are you familiar with the software you're proposing to work with? Have you used it? Have you read the source? Have you modified the source?
 
 I played around with ClojureScript, and developped one large application in Clojure, in the 1.0 era. Like i said previously, i'm probably not the most experienced Clojure developer around, but i know the language, and i'm very motivated to deepen my knowledge of it.
 
@@ -131,11 +131,11 @@ I read a good part of the source of the ClojureScript compiler.
 
 I'm quite familiar with the Lua language.
 
-##### How many hours are you going to work on this a week? 10? 20? 30? 40?
+#### How many hours are you going to work on this a week? 10? 20? 30? 40?
 
 I intend to make this my full time project for the span of the GSOC. This probably means that i will work on it as long as i'm efficient, so between 30 and 40 hours a week.
 
-##### Do you have other commitments that we should know about? If so, please suggest a way to compensate if it will take much time away from Summer of Code.
+#### Do you have other commitments that we should know about? If so, please suggest a way to compensate if it will take much time away from Summer of Code.
 
 No other commitments
 
