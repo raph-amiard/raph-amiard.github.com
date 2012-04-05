@@ -48,27 +48,27 @@ Familiarize further with ClojureScript's code. Set up a good development workflo
 
 Define the interface ClojureScript's backends have to conform to. Create the interface, and modularize the javascript code generator, by putting it into a separate module and making it conform to the defined interface.
 
-** June 6 to June 12**
+**June 6 to June 12**
 
 Test and document the created code and interfaces. Create a module that enables the use of the JS backend on an repl in the same fashion than possible now. Adapt the cljs.closure user facing compiler to the refactored core compiler.
 
-** June 13 to June 30 **
+**June 13 to June 30**
 
 Develop the lua backend as a module conforming to the defined interface. Adapt said interfaces if unforeseen needs arises, and adapt the JS backend accordingly.
 
-** June 30 to July 13 **
+**June 30 to July 13**
 
 Test and document the lua backend. Create facilities so that it can be used on a clojure repl.
 
-** July 14 to July 21 **
+**July 14 to July 21**
 
 Create a user facing compiler module. Define the protocol by which clojure namespaces and files maps to Lua concepts. Document the eventual Lua libraries dependencies added by the user facing compiler.
 
-** July 21 to July 30 **
+**July 21 to July 30**
 
 Decouple target agnostic parts of the user facing compiler into a separate module, if possible. Document the created module. If not possible/interresting, document the process by which a new user facing compiler module is created.
 
-** July 31 to August 13**
+**July 31 to August 13**
 
 Create code examples and demos for the Lua backend, document it's use. Eventually create small bindings/helpers for a lua library (Mike Pall's LuaJIT ffi library would be particularly interresting).
 Further refine and document existing code. Take time to take further input from all the communities involved (Clojure, ClojureScript, Lua) regarding the created code. 
