@@ -107,6 +107,7 @@ Further refine and document existing code. Take time to take further input from 
 #### Relevant professionnal experience
 
 I worked for approximately 6 months as a full time Django/Python developper for the following web sites:
+
 - [Paperblog][ppb]
 - [Eloue][eloue]
 
