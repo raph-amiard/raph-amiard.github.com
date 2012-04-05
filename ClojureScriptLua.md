@@ -82,12 +82,14 @@ Further refine and document existing code. Take time to take further input from 
 [cljsc]: https://github.com/takeoutweight/clojure-scheme
 [luadistribs]: http://lua-users.org/wiki/LuaDistributions
 [cinc]: https://github.com/remleduff/CinC
+[cljpy]: https://github.com/halgari/clojure-py/
 
 ### About me
 
 #### General Information
 
 - Raphaël Amiard
+- Lives in Paris, France
 - Full contact information here
 - Student in Software Development at the Pierre and Marie Curie University - Paris
 - Specialized in Distributed Systems and Applications
