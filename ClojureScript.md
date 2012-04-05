@@ -1,6 +1,14 @@
 Google Summer of Code : Pluggable backend infrastructure for ClojureScript, and development of a new backend
 ---------------------------------------------------------------------------------------------
 
+### Abstract
+
+ClojureScript's compiler in it's current form is monolithic. The different phases of the compilation process are all coupled to each other and hosted in the same compilation unit. However, the analyze and parse phases of the compiler are not Javascript specific.
+
+In fact, projects have already forked ClojureScript to target different languages, like [clojure-scheme][cljsch] for example.
+
+This projects aims at decoupling and modularizing the backend (code emitter, target specific run-time parts) from the front end (parser and analyzer), and at providing a clear external interface for people wanting to implement their own backend, so that ideally, people wanting to target other languages could do it by creating an independent external module, rather than by forking ClojureScript itself.
+
 ### Who am I
 
 Hi, my name is Raphaël Amiard, i am a student in Software Development at the Pierre and Marie Curie University in Paris. Although the specialty i am studying is Distributed Systems and Applications, i'm very interested in compiler design. That's why the master's project I chose is to implement a compiler using the [VmKit Framework][1]. This compiler, named [Z3][6], compiles Ocaml bytecode to LLVM. Together with the people i'm working with, we decided to make this project open source, and eventually to turn it into a full fledged ocaml runtime able to run real applications with decent performance.
@@ -98,3 +106,4 @@ No other commitments
 [6]: http://www.github.com/raph-amiard/Z3/
 [7]: http://www.paperblog.com/
 [8]: http://www.e-loue.com/
+[cljsc]: https://github.com/takeoutweight/clojure-scheme

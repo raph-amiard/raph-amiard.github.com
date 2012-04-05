@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <link rel="stylesheet" href="basic.css" type="text/css" />
+</head>
+<body>
+<h2 id="google-summer-of-code-pluggable-backend-infrastructure-for-clojurescript-and-development-of-a-new-backend">Google Summer of Code : Pluggable backend infrastructure for ClojureScript, and development of a new backend</h2>
+<h3 id="abstract">Abstract</h3>
+<p>ClojureScript's compiler in it's current form is monolithic. There are two main ways the ClojureScript compiler is tied to the javascript language at the moment:</p>
+<ul>
+<li>The different phases of the compilation process are all coupled to each other and hosted in the same compilation unit. More specifically, the part of the code that handles code generation is hosted in the same namespace as the part of the code that handles parsing and analysis, and some helper functions and macro are directly tying them together.</li>
+<li>The core compiler (cljs.compiler) is organized as a library, with some helpers function to use it in a REPL. The user-facing compiler is provided by the cljs.closure module, using google Closure library to organize the compilation services provided by the cljs.compiler namespace into a full-fledged compiler. That part is also totally javascript specific.</li>
+</ul>
+<p>Projects have already forked ClojureScript to target different languages, like [clojure-scheme][cljsch] for example. However, this approach is clearly not the most optimal if you want to maintain the different backends easily.</p>
+<p>This projects aims at decoupling and modularizing the backend (code emitter, target specific run-time parts) from the front end (parser and analyzer), and at providing a clear external interface for people wanting to implement their own backend, so that ideally, people wanting to target other languages could do it by creating an independent external module, rather than by forking ClojureScript itself.</p>
+<p>This project would thus provide a fully modularized JavaScript/Closure backend for ClojureScript, using the newly developped API to interface with the core of the ClojureScript compiler.</p>
+<p>Additionally, this project would deliver a new target for the ClojureScript compiler, as a proof of concept of the efficiency of the modularization process. The development of the new target would be paired with the developpement of a new user-facing compiler module (equivalent to the cljs.closure module for javascript). In the process of developing this module, attempts would be made to factor the common parts of a user facing ClojureScript compiler module into a separate module, eventually providing an interface and helpers to people wanting to develop their own user facing compilers for their new backends.</p>
+<p>The newly developped backend would target the Lua language. Lua has been chosen for the following reasons :</p>
+<ul>
+<li>Lua is a dynamic language, which is quite similar in semantics to Javascript. It is a prototype based dynamic language. This should make the port of the backend and associated runtime quite straightforward.</li>
+<li>Lua runtime is small and quite fast for an interpreter. It would enable a way to run Clojure scripts in a straightforward way.</li>
+<li>Lua is extremely small and portable, opening the possibility of running Clojure code on a <a href="http://lua-users.org/wiki/LuaDistributions">very large number of platforms</a></li>
+<li>Lua has one of the most advanced JIT in existence for a dynamic language, surpassing even V8 in performance. This would possibly enable good performance for the resulting backend. Moreover, LuaJIT, in the spirit of lua, is very lean, which would make deployment of clojurescript applications in constrained environnments possible.</li>
+</ul>
+<h3 id="implementation-plan">Implementation plan</h3>
+<p>The project has the following main phases:</p>
+<ol style="list-style-type: decimal">
+<li>Modularize the backend (code generation) of the cljs.compiler module), and create an interface to which backends must conform.</li>
+<li>Move the Javascript code generation into a separate module that conforms to the defined interface. Move the js-specific helper functions of the cljs.compiler module into their own module.</li>
+<li>Create the new ClojureScript to Lua backend as a module conforming to the defined interface.</li>
+<li>Create helpers and a user facing compiler module for the lua backend offering similar functionnality as exists for Javascript.</li>
+<li>If possible and interresting, decouple target agnostic functionnality of the user facing compiler module into a separate module.</li>
+</ol>
+<h3 id="deliverables">Deliverables</h3>
+<ul>
+<li>A fork of the master branch of the ClojureScript compiler in which the two first phases of the Implementation plan, and eventually the fifth, are realized.</li>
+<li>A new backend developed living in a separate repository, compiling ClojureScript to Lua according to phases 3 and 4.</li>
+</ul>
+<h3 id="timeline">Timeline</h3>
+<p><strong>April 20 to May 21</strong></p>
+<p>Familiarize further with ClojureScript's code. Set up a good development workflow (version control, tools, etc.).Make myself known to the various people working on ClojureScript and related projects. Begin prototyping ideas and testing approaches as to how the various parts of the project could be implemented.</p>
+<p><strong>May 21 to June 6</strong></p>
+<p>Define the interface ClojureScript's backends have to conform to. Create the interface, and modularize the javascript code generator, by putting it into a separate module and making it conform to the defined interface.</p>
+<p><em>* June 6 to June 12</em>*</p>
+<p>Test and document the created code and interfaces. Create a module that enables the use of the JS backend on an repl in the same fashion than possible now. Adapt the cljs.closure user facing compiler to the refactored core compiler.</p>
+<p>** June 13 to June 30 **</p>
+<p>Develop the lua backend as a module conforming to the defined interface. Adapt said interfaces if unforeseen needs arises, and adapt the JS backend accordingly.</p>
+<p>** June 30 to July 13 **</p>
+<p>Test and document the lua backend. Create facilities so that it can be used on a clojure repl.</p>
+<p>** July 14 to July 21 **</p>
+<p>Create a user facing compiler module. Define the protocol by which clojure namespaces and files maps to Lua concepts. Document the eventual Lua libraries dependencies added by the user facing compiler.</p>
+<p>** July 21 to July 30 **</p>
+<p>Decouple target agnostic parts of the user facing compiler into a separate module, if possible. Document the created module. If not possible/interresting, document the process by which a new user facing compiler module is created.</p>
+<p><em>* July 31 to August 13</em>*</p>
+<p>Create code examples and demos for the Lua backend, document it's use. Eventually create small bindings/helpers for a lua library (Mike Pall's LuaJIT ffi library would be particularly interresting). Further refine and document existing code. Take time to take further input from all the communities involved (Clojure, ClojureScript, Lua) regarding the created code.</p>
+<h3 id="related-projects">Related projects</h3>
+<ul>
+<li><a href="https://github.com/takeoutweight/clojure-scheme">clojure-scheme</a> is a project that targets scheme from the original ClojureScript compiler. It modified the appropriate code directly though, without trying to modularize code generation.</li>
+<li><a href="https://github.com/remleduff/CinC">CinC</a> (Clojure in Clojure) is a project leveraging the ClojureScript compiler to create a full Clojure compiler in Clojure, targeting the JVM. Modular backends is a goal too. It is a similar but more ambitious project than the one presented here.</li>
+<li>[clojure-py][cljpy] is a project aiming to compile Clojure to python. It doesn't use the ClojureScript compiler though, a full compiler has been reimplemented in Python.</li>
+</ul>
+<h3 id="about-me">About me</h3>
+<h4 id="general-information">General Information</h4>
+<p>Raphaël Amiard Full contact information here Student in Software Development at the Pierre and Marie Curie University - Paris Specialized in Distributed Systems and Applications</p>
+<h4 id="personal-projects">Personal Projects</h4>
+<ul>
+<li><a href="http://www.github.com/raph-amiard/">My github page</a></li>
+<li><a href="http://www.github.com/raph-amiard/Z3/">Z3</a>, a Ocaml bytecode to [LLVM][llvm] compiler, leveraging the [VMKit Framework][vmkit]</li>
+<li><a href="http://www.github.com/raph-amiard/RADio/">RAD|io</a> Radio Administration Deck, amongst other things a web interface to the [liquidsoap project][liquidsoap] enabling the complete administration of the sound stream of a web radio.</li>
+<li><a href="http://www.radiozerozero.com/">RadioZeroZero</a>, a public french web radio powered by RAD|io</li>
+</ul>
+<h4 id="relevant-professionnal-experience">Relevant professionnal experience</h4>
+<p>I worked for approximately 6 months as a full time Django/Python developper for the following web sites: - <a href="http://www.paperblog.com/">Paperblog</a> - <a href="http://www.e-loue.com/">Eloue</a></p>
+<h4 id="why-are-you-the-right-person-for-this-task">Why are you the right person for this task?</h4>
+<ul>
+<li>I am very motivated to conduct this project. While i may not be the most experienced Clojure developer around, i have a good familiarity with the language, and some of the idioms that are considered good development practice. I can read it quite fluently.</li>
+<li>I have a good familiarity with compiler design, especially the part that is important for this project, that is source to source transformation. I have very recently realized such a compiler, in shape of the <a href="http://www.github.com/raph-amiard/Z3/">Z3 project</a>, which while incomplete, is already capable of executing complex Ocaml programs.</li>
+<li>I have developped a (small, thoroughly incomplete, very partly functional) Python to Lua compiler, so i am also familiar with compilation where both the source and the target language are dynamic general purpose languages, which will be usefull in case the Lua Backend alternative is chosen.</li>
+<li>I have followed a course with Christian Queinnec, author of the <a href="http://pagesperso-systeme.lip6.fr/Christian.Queinnec/WWW/LiSP.html">Lisp in small pieces</a> book, in which we hacked and modified a simple but full-featured lispy language compiler and interpreter.</li>
+<li>To conclude, i am thoroughly passionate about compiler design, which i intend to make my field of work, so i am quite serious about this.</li>
+</ul>
+<h5 id="to-what-extent-are-you-familiar-with-the-software-youre-proposing-to-work-with-have-you-used-it-have-you-read-the-source-have-you-modified-the-source">To what extent are you familiar with the software you're proposing to work with? Have you used it? Have you read the source? Have you modified the source?</h5>
+<p>I played around with ClojureScript, and developped one large application in Clojure, in the 1.0 era. Like i said previously, i'm probably not the most experienced Clojure developer around, but i know the language, and i'm very motivated to deepen my knowledge of it.</p>
+<p>I read a good part of the source of the ClojureScript compiler.</p>
+<p>I'm quite familiar with the Lua language.</p>
+<h5 id="how-many-hours-are-you-going-to-work-on-this-a-week-10-20-30-40">How many hours are you going to work on this a week? 10? 20? 30? 40?</h5>
+<p>I intend to make this my full time project for the span of the GSOC. This probably means that i will work on it as long as i'm efficient, so between 30 and 40 hours a week.</p>
+<h5 id="do-you-have-other-commitments-that-we-should-know-about-if-so-please-suggest-a-way-to-compensate-if-it-will-take-much-time-away-from-summer-of-code.">Do you have other commitments that we should know about? If so, please suggest a way to compensate if it will take much time away from Summer of Code.</h5>
+<p>No other commitments</p>
+<h4 id="where-do-you-live-and-can-we-assign-a-mentor-who-is-local-to-you-so-you-can-meet-in-a-coffee-shop-for-lunch">Where do you live, and can we assign a mentor who is local to you so you can meet in a coffee shop for lunch?</h4>
+<p>I live in France, so probably not. Virtual video meetings would be possible though.</p>
+<h4 id="are-you-comfortable-working-independently-under-a-supervisor-or-mentor-who-is-several-thousand-miles-away-not-to-mention-12-time-zones-away-how-will-you-work-with-your-mentor-to-track-your-work-have-you-worked-in-this-style-before">Are you comfortable working independently under a supervisor or mentor who is several thousand miles away, not to mention 12 time zones away? How will you work with your mentor to track your work? Have you worked in this style before?</h4>
+<p>I already worked remotely as part of my professionnal projects, using tools such as version control systems, instant messaging, distant code reviews, etc. The time difference between France and USA is manageable, and since GSOC would be my main summer project, i could adapt to my mentor's schedule.</p>
+<h4 id="if-your-native-language-is-not-english-are-you-comfortable-working-closely-with-a-supervisor-whose-native-language-is-english-what-is-your-native-language-as-that-may-help-us-find-a-mentor-who-has-the-same-native-language">If your native language is not English, are you comfortable working closely with a supervisor whose native language is English? What is your native language, as that may help us find a mentor who has the same native language?</h4>
+<p>Although most of this work has been conducted in french, i'm very comfortable communicating in english. And i'm doing so on a daily basis.</p>
+</body>
+</html>
