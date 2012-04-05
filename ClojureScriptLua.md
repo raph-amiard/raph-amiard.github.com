@@ -105,6 +105,7 @@ Further refine and document existing code. Take time to take further input from 
 [rad]: http://www.github.com/raph-amiard/RAD-io/
 [rzz]: http://www.radiozerozero.com/
 [github]: http://www.github.com/raph-amiard/
+[llvm]: http://www.llvm.org/
 
 #### Relevant professionnal experience
 
