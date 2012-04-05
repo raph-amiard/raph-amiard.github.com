@@ -87,10 +87,10 @@ Further refine and document existing code. Take time to take further input from 
 
 #### General Information
 
-Raphaël Amiard
-Full contact information here
-Student in Software Development at the Pierre and Marie Curie University - Paris
-Specialized in Distributed Systems and Applications
+- Raphaël Amiard
+- Full contact information here
+- Student in Software Development at the Pierre and Marie Curie University - Paris
+- Specialized in Distributed Systems and Applications
 
 #### Personal Projects
 
