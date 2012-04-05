@@ -22,6 +22,10 @@ The newly developed backend will target the Lua language.  Lua was chosen for th
 - Lua is small and portable, opening the possibility of running Clojure code on a [large number of platforms][luadistribs]
 - Lua has one of the most advanced JIT in existence for a dynamic language, surpassing even V8 in performance. This would possibly enable good performance for the resulting backend. Moreover, LuaJIT, in the spirit of Lua, is very lean, which would make deployment of ClojureScript applications in constrained environnments possible.
 
+Also, a source to source (as opposed to source to lua bytecode) compiler will be produced, which will enable the produced code to be used with every Lua compiler/interpreter.
+
+For example LuaJIT bytecode isn't compatible with Lua bytecode, and since running on LuaJIT is a key asset of the project, a source to source compiler is necessary.
+
 ### Implementation plan
 
 The project has the following main phases:
@@ -34,7 +38,7 @@ The project has the following main phases:
 
 ### Deliverables
 
-- A fork of the master branch of the ClojureScript compiler in which the two first phases of the implementation plan, and eventually the fifth, are realized.
+- A fork of the master branch of the ClojureScript compiler in which the two first phases of the implementation plan, and eventually the fifth, are realized. If the decision is made to merge the produced code into ClojureScript, a jira patch will be produced.
 - A new backend developed in a separate repository, able to compile ClojureScript code to Lua according to phases 3 and 4.
 
 ### Timeline
