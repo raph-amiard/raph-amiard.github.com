@@ -2,6 +2,7 @@ Google Summer of Code : Pluggable Backend Infrastructure for ClojureScript, and 
 ---------------------------------------------------------------------------
 
 ### Abstract 
+
 ClojureScript's compiler in its current form is monolithic. There are two main ways the ClojureScript compiler is currently tied to the JavaScript language: 
 
 - The different phases of the compilation process are all coupled to each other and hosted in the same compilation unit. More specifically, the part of the code that handles code generation is hosted in the same namespace as the part of the code that handles parsing and analysis, and some helper functions and macro are directly tying them together.
@@ -24,7 +25,7 @@ The newly developed backend will target the Lua language.  Lua was chosen for th
 
 Also, a source to source (as opposed to source to lua bytecode) compiler will be produced, which will enable the produced code to be used with every Lua compiler/interpreter.
 
-For example LuaJIT bytecode isn't compatible with Lua bytecode, and since running on LuaJIT is a key asset of the project, a source to source compiler is necessary.
+For example LuaJIT bytecode isn't compatible with Lua bytecode, and since running on LuaJIT is a key asset of the new backend, a source to source compiler is necessary.
 
 ### Implementation plan
 

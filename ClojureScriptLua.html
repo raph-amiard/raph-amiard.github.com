@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <title></title>
   <link rel="stylesheet" href="basic.css" type="text/css" />
@@ -26,7 +27,7 @@
 <li>Lua has one of the most advanced JIT in existence for a dynamic language, surpassing even V8 in performance. This would possibly enable good performance for the resulting backend. Moreover, LuaJIT, in the spirit of Lua, is very lean, which would make deployment of ClojureScript applications in constrained environnments possible.</li>
 </ul>
 <p>Also, a source to source (as opposed to source to lua bytecode) compiler will be produced, which will enable the produced code to be used with every Lua compiler/interpreter.</p>
-<p>For example LuaJIT bytecode isn't compatible with Lua bytecode, and since running on LuaJIT is a key asset of the project, a source to source compiler is necessary.</p>
+<p>For example LuaJIT bytecode isn't compatible with Lua bytecode, and since running on LuaJIT is a key asset of the new backend, a source to source compiler is necessary.</p>
 <h3 id="implementation-plan">Implementation plan</h3>
 <p>The project has the following main phases:</p>
 <ol style="list-style-type: decimal">
