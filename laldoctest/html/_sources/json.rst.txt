@@ -1,0 +1,442 @@
+.. ada:package:: JSON
+
+JSON
+----
+
+JSON exposes an API to parse and serialize data using the JSON
+(JavaScript Object Notation) format.
+
+Parsing JSON is as easy as calling the Read function::
+
+   Data : JSON_Value := Read ("[1, ""foo"", {""foo"": null}]");
+
+Encoding to JSON is not any more complex::
+
+   JSON_String : String := Write (Data);
+
+JSON trees (JSON_Value) are available for both inspection and
+modification::
+
+   Float_Number : JSON_Value := Create (Float'(1.0));
+   --  Mere float number
+
+   Object : JSON_Value := Get (Get (Data), 3);
+   --  JSON object from Data: {"foo": null}
+
+   Some_Array : JSON_Value :=
+      Create (Float_Number & Object & Create (False));
+   --  Synthetic JSON array: [1.0, {"foo": null}, False]
+
+   --  Modify Data in place
+   Data.Append (Some_Array);
+
+.. ada:type:: type JSON_Value_Type
+    :package: JSON
+    
+    Each JSON value (:ada:type:`JSON.JSON_Value` below) has a specific
+    kind...
+    
+.. ada:type:: type JSON_Elementary_Value_Type
+    :package: JSON
+    
+    Some are atoms...
+    
+.. ada:type:: type JSON_Container_Value_Type
+    :package: JSON
+    
+    While others are containers for other values
+    
+.. ada:type:: type UTF8_String
+    :package: JSON
+    
+    
+.. ada:type:: type UTF8_String_Access
+    :package: JSON
+    
+    
+.. ada:type:: type UTF8_Unbounded_String
+    :package: JSON
+    
+    
+.. ada:type:: type JSON_Value
+    :package: JSON
+    
+    Store a JSON value, which can be either a simple type (integer, string,
+    ...) or an object with multiple fields, or an array (see JSON_Value_Type
+    above).
+    
+    This type has by-reference semantics, so using the standard assignment
+    operator as in::
+    
+        A := B;
+    
+    just creates an alias. This means that modifying B will also modify A
+    (and modifying A will of course modify B).
+    
+    If you want to create a separate copy, you must use the Clone function.
+    
+    .. ada:function:: function "&" (Value1, Value2 : JSON_Value) return JSON_Array
+        :package: JSON
+        
+        Return a new array that contains Value1 and Value2
+        
+    .. ada:function:: function Is_Empty (Val : JSON_Value) return Boolean
+        :package: JSON
+        
+        Return True if Val is empty array, empty object or null value. Return
+        False in all other cases.
+        
+    .. ada:function:: function Read (Strm : Ada.Strings.Unbounded.Unbounded_String; Filename : String := "<data>") return JSON_Value
+        :package: JSON
+        
+        
+    .. ada:function:: function Read (Strm : String; Filename : String := "<data>") return JSON_Value
+        :package: JSON
+        
+        Parse the JSON document in Strm and return it. On parsing error, print
+        an error message referencing Filename on the standard output and raise
+        an Invalid_JSON_Stream exception.
+        
+    .. ada:function:: function Write (Item : JSON_Value; Compact : Boolean := True) return String
+        :package: JSON
+        
+        
+    .. ada:function:: function Write (Item : JSON_Value; Compact : Boolean := True) return Ada.Strings.Unbounded.Unbounded_String
+        :package: JSON
+        
+        Return a string that encodes Item in JSON. Unless Compact is True, this
+        creates an indented multi-line representation.
+        
+    .. ada:function:: function Create return JSON_Value
+        :package: JSON
+        
+        Create a 'null' JSON value
+        
+    .. ada:function:: function Create (Val : Boolean) return JSON_Value
+        :package: JSON
+        
+        Create a boolean-typed JSON value
+        
+    .. ada:function:: function Create (Val : Integer) return JSON_Value
+        :package: JSON
+        
+        
+    .. ada:function:: function Create (Val : Long_Integer) return JSON_Value
+        :package: JSON
+        
+        
+    .. ada:function:: function Create (Val : Long_Long_Integer) return JSON_Value
+        :package: JSON
+        
+        Create an integer-typed JSON value
+        
+    .. ada:function:: function Create (Val : Float) return JSON_Value
+        :package: JSON
+        
+        Create a float-typed JSON value
+        
+    .. ada:function:: function Create (Val : Long_Float) return JSON_Value
+        :package: JSON
+        
+        
+    .. ada:function:: function Create (Val : UTF8_String) return JSON_Value
+        :package: JSON
+        
+        Create a string-typed JSON value
+        
+    .. ada:function:: function Create (Val : UTF8_Unbounded_String) return JSON_Value
+        :package: JSON
+        
+        Create a string-typed JSON value
+        
+    .. ada:function:: function Create_Object return JSON_Value
+        :package: JSON
+        
+        Create an empty object. Values need to be added using the below
+        Set_Field methods.
+        
+    .. ada:procedure:: procedure Sort (Val : in out JSON_Value; Less : access function (Left, Right : JSON_Value) return Boolean)
+        :package: JSON
+        
+        If Val is a JSON array or a JSON object, reorder its elements/fields
+        such that they are sorted smallest first according to the strict
+        comparison that Less implements. Note that for JSON objects, field
+        values are compared, not field names.
+        
+    .. ada:procedure:: procedure Append (Arr : JSON_Value; Item : JSON_Value)
+        :package: JSON
+        
+        Assuming Arr is a JSON array, append Item to it
+        
+    .. ada:function:: function Clone (Val : JSON_Value) return JSON_Value
+        :package: JSON
+        
+        Return a deep clone of Val.  Any later change in Val or its fields
+        (recursively) will have no impact on the resulting value.
+        
+    .. ada:function:: function "=" (Left, Right : JSON_Value) return Boolean
+        :package: JSON
+        
+        Return whether Left and Right are structurally identical.
+        
+        The actual contents is compared, not the pointers. So two objects
+        constructed independently, with the same contents, will match. For JSON
+        objects, the order for fields is irrelevant, for objects. It is relevant
+        for arrays however.
+        
+    .. ada:procedure:: procedure Set_Field (Val : JSON_Value; Field_Name : UTF8_String; Field : JSON_Value)
+        :package: JSON
+        
+        Assuming Val is a JSON object, add a new field or modify the existing
+        one for the given Field_Name. The field value is Field afterwards.
+        
+    .. ada:procedure:: procedure Set_Field (Val : JSON_Value; Field_Name : UTF8_String; Field : Boolean)
+        :package: JSON
+        
+        
+    .. ada:procedure:: procedure Set_Field (Val : JSON_Value; Field_Name : UTF8_String; Field : Integer)
+        :package: JSON
+        
+        
+    .. ada:procedure:: procedure Set_Field (Val : JSON_Value; Field_Name : UTF8_String; Field : Long_Integer)
+        :package: JSON
+        
+        
+    .. ada:procedure:: procedure Set_Field (Val : JSON_Value; Field_Name : UTF8_String; Field : Float)
+        :package: JSON
+        
+        
+    .. ada:procedure:: procedure Set_Field_Long_Float (Val : JSON_Value; Field_Name : UTF8_String; Field : Long_Float)
+        :package: JSON
+        
+        
+    .. ada:procedure:: procedure Set_Field (Val : JSON_Value; Field_Name : UTF8_String; Field : UTF8_String)
+        :package: JSON
+        
+        
+    .. ada:procedure:: procedure Set_Field (Val : JSON_Value; Field_Name : UTF8_String; Field : UTF8_Unbounded_String)
+        :package: JSON
+        
+        
+    .. ada:procedure:: procedure Set_Field (Val : JSON_Value; Field_Name : UTF8_String; Field : JSON_Array)
+        :package: JSON
+        
+        This performs a a shallow copy of Field, so any change you do to the
+        passed array for Field afterwards will not impact Val.
+        
+    .. ada:procedure:: procedure Set_Field_If_Not_Empty (Val : JSON_Value; Field_Name : UTF8_String; Field : UTF8_Unbounded_String)
+        :package: JSON
+        
+        Set Field only if it is not empty string
+        
+    .. ada:procedure:: procedure Set_Field_If_Not_Empty (Val : JSON_Value; Field_Name : UTF8_String; Field : UTF8_String)
+        :package: JSON
+        
+        Set Field only if it is not empty string
+        
+    .. ada:procedure:: procedure Set_Field_If_Not_Empty (Val : JSON_Value; Field_Name : UTF8_String; Field : JSON_Array)
+        :package: JSON
+        
+        Set Field only if it is not empty array.
+        This performs a a shallow copy of Field, so any change you do to the
+        passed array for Field afterwards will not impact Val.
+        
+    .. ada:procedure:: procedure Unset_Field (Val : JSON_Value; Field_Name : UTF8_String)
+        :package: JSON
+        
+        Assuming Val is a JSON object, remove its field whose name matches
+        Field_Name. Do nothing if there is no such a field.
+        
+    .. ada:function:: function Kind (Val : JSON_Value) return JSON_Value_Type
+        :package: JSON
+        
+        Return the kind corresponding to the Val JSON value
+        
+    .. ada:function:: function Get (Val : JSON_Value) return Boolean
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value) return Integer
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value) return Long_Integer
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value) return Long_Long_Integer
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value) return Float
+        :package: JSON
+        
+        
+    .. ada:function:: function Get_Long_Float (Val : JSON_Value) return Long_Float
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value) return UTF8_String
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value) return UTF8_Unbounded_String
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value) return JSON_Array
+        :package: JSON
+        
+        
+    .. ada:function:: function Has_Field (Val : JSON_Value; Field : UTF8_String) return Boolean
+        :package: JSON
+        
+        Assuming Val is a JSON object, return whether it contains a field whose
+        name is Field.
+        
+    .. ada:function:: function Get (Val : JSON_Value; Field : UTF8_String) return JSON_Value
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value; Field : UTF8_String) return Boolean
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value; Field : UTF8_String) return Integer
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value; Field : UTF8_String) return Long_Integer
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value; Field : UTF8_String) return Float
+        :package: JSON
+        
+        
+    .. ada:function:: function Get_Long_Float (Val : JSON_Value; Field : UTF8_String) return Long_Float
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value; Field : UTF8_String) return UTF8_String
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value; Field : UTF8_String) return UTF8_Unbounded_String
+        :package: JSON
+        
+        
+    .. ada:function:: function Get (Val : JSON_Value; Field : UTF8_String) return JSON_Array
+        :package: JSON
+        
+        
+    .. ada:procedure:: procedure Map_JSON_Object (Val : JSON_Value; CB : access procedure (Name : UTF8_String; Value : JSON_Value))
+        :package: JSON
+        
+        Assuming Val is a JSON object, call CB on all its fields
+        
+.. ada:type:: type JSON_Array
+    :package: JSON
+    
+    JSON array type. If an object of type JSON_Array is not otherwise
+    initialized, it is initialized to Empty_Array.
+    
+    Note that we use the Iterable aspect instead of the standard Ada 2012
+    iterator aspects because the latter brings impossible constraints: Ada
+    2012 iterators require JSON_Array to be tagged, which would break the
+    existing API: the Get function would be dispatching over more than one
+    type (:ada:type:`JSON_Array` because of the Arr argument, and
+    :ada:type:`JSON_Value` because of the return type).
+    
+    .. ada:function:: function Is_Empty (Arr : JSON_Array) return Boolean
+        :package: JSON
+        
+        Return whether Arr is an empty array
+        
+    .. ada:function:: function Length (Arr : JSON_Array) return Natural
+        :package: JSON
+        
+        Return the number of elements in Arr
+        
+    .. ada:function:: function Get (Arr : JSON_Array; Index : Positive) return JSON_Value
+        :package: JSON
+        
+        If Arr has at least Index elements, return the element at that index.
+        Raise a Constraint_Error otherwise.
+        
+    .. ada:procedure:: procedure Append (Arr : in out JSON_Array; Val : JSON_Value)
+        :package: JSON
+        
+        Append Val as a new element at the end of the Arr array
+        
+    .. ada:procedure:: procedure Prepend (Arr : in out JSON_Array; Val : JSON_Value)
+        :package: JSON
+        
+        Insert Val as the first element of the Arr array
+        
+    .. ada:procedure:: procedure Clear (Arr : in out JSON_Array)
+        :package: JSON
+        
+        Remove all elements in Arr
+        
+    .. ada:procedure:: procedure Sort (Arr : in out JSON_Array; Less : access function (Left, Right : JSON_Value) return Boolean)
+        :package: JSON
+        
+        Reorder the elements in Arr such that they are sorted smallest first
+        according to the strict comparison that Less implements.
+        
+    .. ada:procedure:: procedure Set_Element (Arr : in out JSON_Array; Index : Positive; Item : JSON_Value)
+        :package: JSON
+        
+        If Arr has at least Index elements, replace the element at that index
+        with Item. Raise a Constraint_Error otherwise.
+        
+    .. ada:function:: function "&" (Arr : JSON_Array; Value : JSON_Value) return JSON_Array
+        :package: JSON
+        
+        Return a new array that appends Value to Arr
+        
+    .. ada:function:: function Array_First (Arr : JSON_Array) return Positive
+        :package: JSON
+        
+        
+    .. ada:function:: function Array_Next (Arr : JSON_Array; Index : Positive) return Positive
+        :package: JSON
+        
+        
+    .. ada:function:: function Array_Has_Element (Arr : JSON_Array; Index : Positive) return Boolean
+        :package: JSON
+        
+        
+    .. ada:function:: function Array_Element (Arr : JSON_Array; Index : Positive) return JSON_Value
+        :package: JSON
+        
+        
+    .. ada:function:: function Create (Val : JSON_Array) return JSON_Value
+        :package: JSON
+        
+        Create a JSON value from the JSON array
+        
+.. ada:type:: type Parsing_Error
+    :package: JSON
+    
+    
+    .. ada:function:: function Format_Parsing_Error (Error : Parsing_Error) return String
+        :package: JSON
+        
+        Return a human-readable string to describe Error
+        
+.. ada:type:: type Read_Result
+    :package: JSON
+    
+    
+    .. ada:function:: function Read (Strm : Ada.Strings.Unbounded.Unbounded_String) return Read_Result
+        :package: JSON
+        
+        
+    .. ada:function:: function Read (Strm : String) return Read_Result
+        :package: JSON
+        
+        Parse the JSON document in Strm and return it. If there is a parsing
+        error, return the corresponding error information.
+        
