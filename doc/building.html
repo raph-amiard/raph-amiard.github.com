@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. Building Libadalang &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Core concepts" href="core_concepts.html" />
+    <link rel="prev" title="1. Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Building Libadalang</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">2.1. Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-library">2.2. Building the library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install">2.3. Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-libadalang-without-installing-it">2.4. Using Libadalang without installing it</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-documentation">2.5. Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>Building Libadalang</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/building.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="building-libadalang">
+<h1><span class="section-number">2. </span>Building Libadalang<a class="headerlink" href="#building-libadalang" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2><span class="section-number">2.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>To generate and build the library itself, you’ll need to go through the
+following steps:</p>
+<ul>
+<li><p>Install the GNAT tools and compiler. You can find Community Editions on
+<a class="reference external" href="https://www.adacore.com/download">AdaCore’s website</a>.</p></li>
+<li><p>Build and install the GNATcoll library (core, plus Iconv and GMP bindings).
+You can find its source release on <a class="reference external" href="https://www.adacore.com/download">AdaCore’s website</a> or directly on GitHub’s repositories for
+<a class="reference external" href="https://github.com/AdaCore/gnatcoll-core">gnatcoll-core</a> and
+<a class="reference external" href="https://github.com/AdaCore/gnatcoll-bindings">gnatcoll-bindings</a>. Just
+make sure you checkout the <code class="docutils literal notranslate"><span class="pre">gpl-20**</span></code> branch corresponding to your GNAT
+Community release.</p></li>
+<li><p>Install every Python dependency. We recommend creating a [virtual
+environment](<a class="reference external" href="https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/">https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/</a>)
+and installing them inside of it, this way:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python -mvenv env
+$ <span class="nb">source</span> env/bin/activate
+$ pip install -r REQUIREMENTS.dev
+</pre></div>
+</div>
+</li>
+</ul>
+<p>To develop comfortably:</p>
+<ul class="simple">
+<li><p>If you want interactive debugging when code is generated, install <a class="reference external" href="https://ipython.org">IPython</a>.</p></li>
+<li><p>If you want to compute code coverage for the code generator, install
+<a class="reference external" href="https://coverage.readthedocs.io/">coverage.py</a> (see <code class="docutils literal notranslate"><span class="pre">REQUIREMENTS.dev</span></code>).</p></li>
+<li><p>If you want to check memory issues, the testsuite has an option to track them
+using <a class="reference external" href="http://valgrind.org/">Valgrind</a>.</p></li>
+</ul>
+</div>
+<div class="section" id="building-the-library">
+<h2><span class="section-number">2.2. </span>Building the library<a class="headerlink" href="#building-the-library" title="Permalink to this headline">¶</a></h2>
+<p>First, let’s generate code for Libadalang itself. In the top-level directory,
+run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python ada/manage.py generate
+</pre></div>
+</div>
+<p>This generates Ada, C and Python source code for Libadalang in the <code class="docutils literal notranslate"><span class="pre">build</span></code>
+directory. In order to build this source code into a shared library, run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python ada/manage.py --library-types<span class="o">=</span>static,static-pic,relocatable build
+</pre></div>
+</div>
+<p>Assuming you satisfied all the above dependencies, both commands should
+successfuly run to completion.</p>
+<p>While developing Libadalang you might be happy to use the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python ada/manage.py --library-types<span class="o">=</span>static,static-pic,relocatable make
+</pre></div>
+</div>
+<p>It will wrap the two previous commands in one, generating the code and building
+it in one step.</p>
+</div>
+<div class="section" id="install">
+<h2><span class="section-number">2.3. </span>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<p>Once you built Libadalang, you can install the library in any place you want:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python ada/manage.py --library-types<span class="o">=</span>static,static-pic,relocatable install <span class="nv">$INSTALL_DIR</span>
+</pre></div>
+</div>
+<p>Then, depending on your operating system and your system configuration, you may
+need to update environment variables so that programs can load dynamic
+libraries:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># On most Unix systems:</span>
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$INSTALL_DIR</span>/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+
+<span class="c1"># On Windows, either:</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$INSTALL_DIR</span>/bin:<span class="nv">$PATH</span>
+<span class="c1"># ... or:</span>
+<span class="nb">set</span> PATH <span class="s2">&quot;</span><span class="nv">$INSTALL_DIR</span><span class="s2">\bin;</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>In addition, if GPRbuild is not installed in $INSTALL_DIR, you need to add
+<code class="docutils literal notranslate"><span class="pre">$INSTALL_DIR/share/gpr</span></code> to the <code class="docutils literal notranslate"><span class="pre">GPR_PROJECT_PATH</span></code> environment variable in
+order for GPRbuild to locate the installed project files, such as
+<code class="docutils literal notranslate"><span class="pre">libadalang.gpr</span></code>.</p>
+</div>
+<div class="section" id="using-libadalang-without-installing-it">
+<h2><span class="section-number">2.4. </span>Using Libadalang without installing it<a class="headerlink" href="#using-libadalang-without-installing-it" title="Permalink to this headline">¶</a></h2>
+<p>During development, it can be useful to update environment variables so that
+Libadalang can be used directly after a build, without performing a bona fide
+installation. The <code class="docutils literal notranslate"><span class="pre">setenv</span></code> command enables one to do that. Assuming a
+Bourne-compatible shell, run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">eval</span> <span class="sb">`</span>python ada/manage.py setenv<span class="sb">`</span>
+</pre></div>
+</div>
+<p>After this, you can both build programs that depend on Libadalang using
+GPRbuild and run Python interpreter to import the <code class="docutils literal notranslate"><span class="pre">libadalang</span></code> module.</p>
+</div>
+<div class="section" id="building-the-documentation">
+<h2><span class="section-number">2.5. </span>Building the documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Libadalang itself is required to build this Sphinx documentation: this allows
+to automatically generate the Ada API reference from the corresponding Ada
+source code (conversely for Python). As a consequence, you need either to have
+Libadalang installed (and in particular its Python bindings) or to update your
+environment without installing it: see the corresponding section above.</p>
+<p>In addition, you need to install the <code class="docutils literal notranslate"><span class="pre">laldoc</span></code> Python project, which contains
+documentation extraction helpers:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install contrib/laldoc
+</pre></div>
+</div>
+<p>From there, building this documentation as a set of static HTML pages is as
+easy as running the following command from the <code class="docutils literal notranslate"><span class="pre">user_manual</span></code> directory:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ make html
+</pre></div>
+</div>
+<p>Assuming successful completion, the documentation is then available in
+the <code class="docutils literal notranslate"><span class="pre">user_manual/_build/html</span></code> directory: you can start reading it from the
+<code class="docutils literal notranslate"><span class="pre">index.html</span></code> page.</p>
+<p>Note that on Mac OS X, security features require you to explicitly pass the
+<code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> environment variable:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ make html <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$LD_LIBRARY_PATH</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="core_concepts.html" class="btn btn-neutral float-right" title="3. Core concepts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

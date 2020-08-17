@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to the Libadalang User Manual! &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to the Libadalang User Manual!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-the-libadalang-user-manual">
+<h1>Welcome to the Libadalang User Manual!<a class="headerlink" href="#welcome-to-the-libadalang-user-manual" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#need">1.1. Need</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#enter-libadalang">1.2. Enter Libadalang</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#parsing-a-file">1.2.1. Parsing a file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#exploring-the-tree">1.2.2. Exploring the tree</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="building.html#setup">2.1. Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html#building-the-library">2.2. Building the library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html#install">2.3. Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html#using-libadalang-without-installing-it">2.4. Using Libadalang without installing it</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html#building-the-documentation">2.5. Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core_concepts.html#analysis-contexts-and-units">3.1. Analysis contexts and units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_concepts.html#tokens-and-trivias">3.2. Tokens and trivias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_concepts.html#syntax-and-semantic-tree">3.3. Syntax and semantic tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_concepts.html#unit-providers">3.4. Unit providers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="core_concepts.html#aggregate-projects">3.4.1. Aggregate projects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_tutorial.html#preliminary-setup">5.1. Preliminary setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_tutorial.html#browse-the-tree">5.2. Browse the tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_tutorial.html#final-program">5.2.1. Final program</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_tutorial.html#follow-references">5.3. Follow references</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_tutorial.html#resolving-files">5.3.1. Resolving files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_tutorial.html#resolving-types">5.3.2. Resolving types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_tutorial.html#ada-generic-application-framework">5.4. Ada generic application framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_tutorial.html#basics">5.4.1. Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_tutorial.html#parallelism">5.4.2. Parallelism</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_api_tutorial.html#preliminary-setup">6.1. Preliminary setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_api_tutorial.html#browse-the-tree">6.2. Browse the tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_api_tutorial.html#follow-references">6.3. Follow references</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python_api_tutorial.html#resolving-files">6.3.1. Resolving files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_core.html">7.1. Core packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_core.html#libadalang-common">7.1.3. Libadalang.Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_core.html#libadalang-analysis">7.1.4. Libadalang.Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_unit_providers.html">7.2. Unit providers</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_helpers.html">7.3. Helper packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_helpers.html#libadalang-helpers">7.3.2. Libadalang.Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_helpers.html#app">7.3.3. App</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_helpers.html#args">7.3.4. Args</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_misc.html">7.4. Miscellanous</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_misc.html#libadalang-lexer">7.4.4. Libadalang.Lexer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_misc.html#libadalang-iterators">7.4.5. Libadalang.Iterators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ada_api_misc.html#libadalang-introspection">7.4.6. Libadalang.Introspection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/advanced_iterators.html">9.1. Using advanced iterators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/advanced_iterators.html#input-source">9.1.1. Input source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/advanced_iterators.html#sample-code">9.1.2. Sample code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/advanced_iterators.html#output">9.1.3. Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/aggregate_projects.html">9.2. Dealing with aggregate projects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/aggregate_projects.html#general-examples">9.2.1. General examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/aggregate_projects.html#creating-one-provide-context-for-each-aggregated-project">9.2.2. Creating one provide/context for each aggregated project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generic_instantiation.html">9.3. Accessing actuals of generic instantiations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/generic_instantiation.html#input-source">9.3.1. Input source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/generic_instantiation.html#sample-code">9.3.2. Sample code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#remove-debug-text-apis">10.1. Remove <code class="docutils literal notranslate"><span class="pre">Debug_Text</span></code> APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#remove-short-image-apis">10.2. Remove <code class="docutils literal notranslate"><span class="pre">Short_Image</span></code> APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#rename-children-with-trivia-and-make-it-return-ghost-nodes">10.3. Rename <code class="docutils literal notranslate"><span class="pre">Children_With_Trivia</span></code> and make it return ghost nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#definingname-find-all-refs-calls-returns-refresult-array">10.4. <code class="docutils literal notranslate"><span class="pre">DefiningName.find_all_refs/calls</span></code> returns <code class="docutils literal notranslate"><span class="pre">RefResult</span></code> array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#enhance-support-for-aggregate-projects">10.5. Enhance support for aggregate projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#unify-naming-of-primitive-subp-properties">10.6. Unify naming of <code class="docutils literal notranslate"><span class="pre">*primitive_subp*</span></code> properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#change-the-grammar-of-acceptstmt-and-entrybody">10.7. Change the grammar of <code class="docutils literal notranslate"><span class="pre">AcceptStmt</span></code> and <code class="docutils literal notranslate"><span class="pre">EntryBody</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#get-rid-of-name-p-xref">10.8. Get rid of <code class="docutils literal notranslate"><span class="pre">Name.p_xref</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#replace-name-p-referenced-id-by-name-p-referenced-defining-name">10.9. Replace <code class="docutils literal notranslate"><span class="pre">Name.p_referenced_id</span></code> by <code class="docutils literal notranslate"><span class="pre">Name.p_referenced_defining_name</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#rename-basicdecl-p-is-unit-root-into-p-is-compilation-unit-root">10.10. Rename <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_unit_root</span></code> into <code class="docutils literal notranslate"><span class="pre">p_is_compilation_unit_root</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#static-evaluation-of-string-expressions">11.1. Static evaluation of string expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-expr-p-is-dynamically-tagged-property">11.2. Add <code class="docutils literal notranslate"><span class="pre">Expr.P_Is_Dynamically_Tagged</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#new-abstract-class-condexpr">11.3. New abstract class <code class="docutils literal notranslate"><span class="pre">CondExpr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-p-private-part-decl-property">11.4. Add <code class="docutils literal notranslate"><span class="pre">p_private_part_decl</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#implement-navigation-on-entries">11.5. Implement navigation on entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#implement-name-resolution-for-test-case-aspect">11.6. Implement name resolution for Test_Case aspect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-xref-for-stream-attributes-references">11.7. Add xref for stream attributes references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#name-resolution-for-task-and-entry-attributes">11.8. Name resolution for task and entry attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#new-origin-filename-and-origin-charset-functions">11.9. New Origin_Filename and Origin_Charset functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#expose-p-discriminants-list-property">11.10. Expose <code class="docutils literal notranslate"><span class="pre">p_discriminants_list</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-j0-in-the-app-framework">11.11. Handle <code class="docutils literal notranslate"><span class="pre">-j0</span></code> in the App framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-p-shapes-property">11.12. Add <code class="docutils literal notranslate"><span class="pre">P_Shapes</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#more-frequent-precise-element-type-in-field-docs">11.13. More frequent precise element type in field docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-others-designator-in-zip-with-params">11.14. Handle <code class="docutils literal notranslate"><span class="pre">others</span></code> designator in zip_with_params</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-failsafe-referenced-decl-name-properties">11.15. Add failsafe <code class="docutils literal notranslate"><span class="pre">referenced_decl/name</span></code> properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolve-generic-formal-objects">11.16. Resolve generic formal objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-p-valid-keywords-property">11.17. Add <code class="docutils literal notranslate"><span class="pre">p_valid_keywords</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-p-is-visible-property">11.18. Add <code class="docutils literal notranslate"><span class="pre">p_is_visible</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#preserve-casing-in-fully-qualified-name-output">11.19. Preserve casing in fully_qualified_name output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-type-s-static-predicates-in-nameres">11.20. Handle type’s static predicates in nameres</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-membership-expr-in-static-evaluator">11.21. Handle membership expr in static evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-a-root-type-property">11.22. Add a <code class="docutils literal notranslate"><span class="pre">root_type</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-p-is-interface-type-property">11.23. Add <code class="docutils literal notranslate"><span class="pre">p_is_interface_type</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-properties-for-computing-unit-dependencies">11.24. Add properties for computing unit dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-built-in-adanode-full-sloc-image">11.25. Add built-in <code class="docutils literal notranslate"><span class="pre">AdaNode.full_sloc_image</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-node-iterator-predicate-kind-in">11.26. Add node iterator predicate <code class="docutils literal notranslate"><span class="pre">Kind_In</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-property-p-get-enum-representation-clause">11.27. Add property <code class="docutils literal notranslate"><span class="pre">p_get_enum_representation_clause</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-a-base-subp-declarations-property">11.28. Add a <code class="docutils literal notranslate"><span class="pre">base_subp_declarations</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-python3-compatibility">11.29. Add Python3 compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#implement-singletoknode-canonical-text">11.30. Implement <code class="docutils literal notranslate"><span class="pre">SingleTokNode.canonical_text</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#more-helpful-error-message-for-as-node-converters">11.31. More helpful error message for <code class="docutils literal notranslate"><span class="pre">As_*</span></code> node converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#introduce-basicsubpdecl-primitive-subp-tagged-type">11.32. Introduce <code class="docutils literal notranslate"><span class="pre">BasicSubpDecl.primitive_subp_tagged_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-a-name-is-operator-name-property">11.33. Add a <code class="docutils literal notranslate"><span class="pre">Name.is_operator_name</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-a-command-line-app-framework-for-ada-api">11.34. Add a command line app framework for Ada API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-a-p-is-array-slice-property">11.35. Add a <code class="docutils literal notranslate"><span class="pre">p_is_array_slice</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-several-utility-properties-on-basetypedecl">11.36. Add several utility properties on <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#improved-handling-of-aggregate-projects">11.37. Improved handling of aggregate projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-a-basicdecl-p-is-formal-property">11.38. Add a <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_formal</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-property-basetypedecl-p-discrete-range">11.39. Add property <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl.p_discrete_range</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#add-a-basicdecl-p-is-preelaborable-property">11.40. Add a <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_preelaborable</span></code> property</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-library-level-use-all-type-clauses">12.1. Handle library-level <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">all</span> <span class="pre">type</span></code> clauses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#name-resolution-robustness-of-if-case-stmts">12.2. Name resolution robustness of if/case stmts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#nameres-failure-on-generic-instantiations">12.3. Nameres failure on generic instantiations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#nameres-crash-on-instantiations-of-modular-io">12.4. Nameres crash on instantiations of Modular_IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#nameres-call-to-incomplete-types-primitives">12.5. Nameres call to incomplete types’ primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-name-resolution-crash-on-runtime-files">12.6. Fix name resolution crash on runtime files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-is-write-reference-for-dot-calls">12.7. Fix <code class="docutils literal notranslate"><span class="pre">Is_Write_Reference</span></code> for dot calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-name-resolution-in-type-contracts">12.8. Fix name resolution in type contracts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#prevent-name-resolution-in-convention-aspect">12.9. Prevent name resolution in <code class="docutils literal notranslate"><span class="pre">Convention</span></code> aspect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#implement-name-resolution-for-entry-barriers">12.10. Implement name resolution for entry barriers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#name-resolution-on-separate-x-clause">12.11. Name resolution on <code class="docutils literal notranslate"><span class="pre">separate</span> <span class="pre">(X)</span></code> clause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-p-get-aspect-unchecked-union">12.12. Fix <code class="docutils literal notranslate"><span class="pre">P_Get_Aspect</span> <span class="pre">(&quot;unchecked_union&quot;)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#do-not-consider-subp-address-a-call">12.13. Do not consider <code class="docutils literal notranslate"><span class="pre">Subp'Address</span></code> a call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#name-resolution-of-use-at-clauses">12.14. Name resolution of <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">at</span></code> clauses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#name-resolution-for-generic-renaming-decls">12.15. Name resolution for generic renaming decls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-zip-with-params-on-incomplete-type-decls">12.16. Fix <code class="docutils literal notranslate"><span class="pre">zip_with_params</span></code> on incomplete type decls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-exception-message-for-invalid-conversions-in-as-functions">12.17. Fix exception message for invalid conversions in <code class="docutils literal notranslate"><span class="pre">As_*</span></code> functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#libadalang-analysis-text-raise-a-constraint-error">12.18. <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.*_Text</span></code> raise a <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#name-resolution-bug-with-custom-string-literals">12.19. Name resolution bug with custom string literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#inconsistent-results-of-navigation-properties">12.20. Inconsistent results of navigation properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#bug-in-the-resolution-of-if-expressions">12.21. Bug in the resolution of if-expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-name-resolution-for-access-attribute">12.22. Fix name resolution for <code class="docutils literal notranslate"><span class="pre">Access</span></code> attribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#name-resolution-for-storage-size-attribute">12.23. Name resolution for <code class="docutils literal notranslate"><span class="pre">Storage_Size</span></code> attribute.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-name-resolution-for-some-attributes">12.24. Fix name resolution for some attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-type-conversion-of-explicit-dereference">12.25. Fix type conversion of explicit dereference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#missed-child-units-during-find-all-references">12.26. Missed child units during <code class="docutils literal notranslate"><span class="pre">find_all_references</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-defining-name-s-navigation-queries-crash">12.27. Fix defining name’s navigation queries crash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-is-static-decl-for-array-types">12.28. Fix <code class="docutils literal notranslate"><span class="pre">is_static_decl</span></code> for array types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#nameres-bug-for-subp-defined-in-a-declare-block">12.29. Nameres bug for subp defined in a declare block</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-navigation-for-subps-inside-of-separate-pkg">12.30. Fix navigation for subps inside of separate pkg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolve-truncation-attribute">12.31. Resolve <code class="docutils literal notranslate"><span class="pre">Truncation</span></code> attribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-nameres-of-quantifier-expressions">12.32. Fix nameres of quantifier expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolve-formal-in-discriminant-constraint">12.33. Resolve formal in discriminant constraint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#zip-with-params-bug-on-variant-record-access">12.34. Zip_with_params bug on variant record access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-static-object-renamings">12.35. Handle static object renamings.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#various-bug-fixes-in-name-resolution">12.36. Various bug fixes in name resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#id1">12.37. Various bug fixes in name resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolve-range-constraints-in-case-constructs">12.38. Resolve range constraints in case constructs.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-the-p-primitive-subp-properties-for-subp-body-specs">12.39. Fix the <code class="docutils literal notranslate"><span class="pre">p_primitive_subp_*</span></code> properties for subp body specs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-name-resolution-of-index-constraints">12.40. Fix name resolution of index constraints.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-name-resolution-on-attributedefclause-nodes">12.41. Fix name resolution on <code class="docutils literal notranslate"><span class="pre">AttributeDefClause</span></code> nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-name-resolution-of-binary-operations-when-at-least-one-operand-has-a-universal-type">12.42. Fix name resolution of binary operations when at least one operand has a universal type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#crash-in-the-p-doc-property">12.43. Crash in the <code class="docutils literal notranslate"><span class="pre">P_Doc</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-static-evaluator-on-character-literals">12.44. Fix static evaluator on character literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#crash-when-resolving-exception-renaming-clause">12.45. Crash when resolving exception renaming clause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-crash-on-top-level-subprogram-renamings">12.46. Fix crash on top-level subprogram renamings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-fully-qualified-name-for-generic-decls">12.47. Fix fully_qualified_name for generic decls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#exception-when-calling-property-via-introspection">12.48. Exception when calling property via introspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#memory-leak-in-properties-to-find-all-references">12.49. Memory leak in properties to find-all-references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolve-defaults-for-generic-formal-subprograms">12.50. Resolve defaults for generic formal subprograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-nameres-involving-generic-instantiations-with-formal-objects">12.51. Fix nameres involving generic instantiations with formal objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-static-evaluation-of-range-attributes">12.52. Fix static evaluation of range attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolution-of-calls-to-primitives">12.53. Resolution of calls to primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#package-navigation-in-presence-of-homonyms">12.54. Package navigation in presence of homonyms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#navigation-of-subprograms-with-anonymous-access-parameters">12.55. Navigation of subprograms with anonymous access parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-behavior-of-basicdecl-has-aspect">12.56. Fix behavior of <code class="docutils literal notranslate"><span class="pre">BasicDecl.has_aspect</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#p-syntactic-fully-qualified-name-can-crash-in-presence-of-parsing-errors">12.57. P_syntactic_fully_qualified_name can crash in presence of parsing errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#crash-when-resolving-ambiguous-case-stmts">12.58. Crash when resolving ambiguous case stmts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#find-all-references-crash-with-empty-files">12.59. Find_all_references crash with empty files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#nameres-crash-with-calls-on-shadowed-types">12.60. Nameres crash with calls on shadowed types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-basicdecl-doc-not-working-on-generic-packages">12.61. Fix <code class="docutils literal notranslate"><span class="pre">BasicDecl.doc</span></code> not working on generic packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolution-of-array-slices">12.62. Resolution of array slices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-doc-s-leading-whitespace-stripping">12.63. Fix <code class="docutils literal notranslate"><span class="pre">doc</span></code>’s leading whitespace stripping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolution-of-calls-to-entries-of-singletasktypedecl">12.64. Resolution of calls to entries of <code class="docutils literal notranslate"><span class="pre">SingleTaskTypeDecl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolution-of-top-level-child-generic-subp-bodies">12.65. Resolution of top-level child generic subp bodies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolution-of-separate-generic-subprograms">12.66. Resolution of separate generic subprograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#duplicates-in-the-output-of-p-find-all-overrides">12.67. Duplicates in the output of <code class="docutils literal notranslate"><span class="pre">p_find_all_overrides</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-parsing-errors-in-with-clauses">12.68. Handle parsing errors in <code class="docutils literal notranslate"><span class="pre">with</span></code> clauses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-missing-standard-implementation-defined-attributes">12.69. Handle missing standard &amp; implementation defined attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-pred-succ-attributes-in-static-evaluator">12.70. Handle <code class="docutils literal notranslate"><span class="pre">Pred</span></code>/<code class="docutils literal notranslate"><span class="pre">Succ</span></code> attributes in static evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-full-type-view-resolution-correctly-for-operators">12.71. Handle full type view resolution correctly for operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#fix-association-of-pragma-volatile">12.72. Fix association of <code class="docutils literal notranslate"><span class="pre">pragma</span> <span class="pre">Volatile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#handle-full-type-view-resolution-correctly-in-case-of-hiding">12.73. Handle full type view resolution correctly in case of hiding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolution-of-binop-for-private-types-with-scalar-completion">12.74. Resolution of binop for private types with scalar completion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_changes.html#resolve-more-spark-specific-attributes-and-pragmas">12.75. Resolve more SPARK specific attributes and pragmas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design_documents/function_attributes.html">13.1. Proper handling of function attributes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/function_attributes.html#current-problem">13.1.1. Current problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/function_attributes.html#proposed-solution">13.1.2. Proposed Solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="design_documents/nameres_char_literals.html">13.2. Name Resolution of Char Literals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/nameres_char_literals.html#current-problem">13.2.1. Current problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/nameres_char_literals.html#proposed-solution">13.2.2. Proposed Solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="design_documents/solver_rewrite.html">13.3. Adalog solver rewrite</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/solver_rewrite.html#global-goal">13.3.1. Global goal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/solver_rewrite.html#expand-high-level-operations-to-low-level-ones">13.3.2. Expand high level operations to low level ones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/solver_rewrite.html#develop-relations">13.3.3. Develop relations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/solver_rewrite.html#check-completeness">13.3.4. Check completeness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/solver_rewrite.html#topo-sort-check-out-for-cycles">13.3.5. Topo sort/check out for cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="design_documents/solver_rewrite.html#execute-the-resulting-relation">13.3.6. Execute the resulting relation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introduction.html" class="btn btn-neutral float-right" title="1. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

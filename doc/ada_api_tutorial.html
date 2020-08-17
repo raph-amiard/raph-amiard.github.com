@@ -1,0 +1,706 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5. Ada API Tutorial &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Python API Tutorial" href="python_api_tutorial.html" />
+    <link rel="prev" title="4. Standard unit pecularities" href="standard_unit.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Ada API Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preliminary-setup">5.1. Preliminary setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#browse-the-tree">5.2. Browse the tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#final-program">5.2.1. Final program</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#follow-references">5.3. Follow references</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resolving-files">5.3.1. Resolving files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resolving-types">5.3.2. Resolving types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ada-generic-application-framework">5.4. Ada generic application framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basics">5.4.1. Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parallelism">5.4.2. Parallelism</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">5. </span>Ada API Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ada_api_tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ada-api-tutorial">
+<span id="id1"></span><h1><span class="section-number">5. </span>Ada API Tutorial<a class="headerlink" href="#ada-api-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Now that you are familiar with Libadalang’s <a class="reference internal" href="core_concepts.html#core-concepts"><span class="std std-ref">Core concepts</span></a>, let’s
+actually do some practice with the Ada API.</p>
+<div class="section" id="preliminary-setup">
+<h2><span class="section-number">5.1. </span>Preliminary setup<a class="headerlink" href="#preliminary-setup" title="Permalink to this headline">¶</a></h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This whole section is going to show you how to create a
+Libadalang app from scratch. This is good, and walks you over the concepts
+about how to use Libadalang. However, if all you want is a command line
+generic application, you should consider using the <a class="reference internal" href="#ada-generic-app"><span class="std std-ref">Ada generic application framework</span></a>.</p>
+</div>
+<p>As the previous section says, the first thing to do in order to use Libadalang
+is to create an analysis context:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>
+
+<span class="kd">procedure</span> <span class="nf">Main</span> <span class="kr">is</span>
+   <span class="kd">package</span> <span class="nc">LAL</span> <span class="kr">renames</span> <span class="nc">Libadalang.Analysis</span><span class="p">;</span>
+
+   <span class="no">Context</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Context</span> <span class="p">:=</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Create_Context</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="kc">null</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Main</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This very simple program will allow us to make sure the build environment is
+properly setup to use Libadalang. Save the above in a <code class="docutils literal notranslate"><span class="pre">main.adb</span></code> source file,
+and then write the following project file to <code class="docutils literal notranslate"><span class="pre">lal_test.gpr</span></code>:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="s">&quot;libadalang&quot;</span><span class="p">;</span>
+
+<span class="n">project</span> <span class="n">LAL_Test</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Main</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;main.adb&quot;</span><span class="p">);</span>
+   <span class="kr">for</span> <span class="n">Object_Dir</span> <span class="kn">use</span> <span class="s">&quot;obj&quot;</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">LAL_Test</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now you can run GPRbuild to compile the test program:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build with debug information</span>
+$ gprbuild -Plal_test.gpr -p -g
+</pre></div>
+</div>
+<p>This command should return without error and create an executable in
+<code class="docutils literal notranslate"><span class="pre">obj/main</span></code> or <code class="docutils literal notranslate"><span class="pre">obj\main.exe</span></code> depending on your platform. The last step is
+to check if the program works properly: it should do nothing, so no errors
+expected!</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Empty program output</span>
+$ obj/main
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="browse-the-tree">
+<h2><span class="section-number">5.2. </span>Browse the tree<a class="headerlink" href="#browse-the-tree" title="Permalink to this headline">¶</a></h2>
+<p>Ok, so now let’s do something actually useful with Libadalang. Let’s create a
+program that will read all the source files given in argument and then output
+all the object declarations they contain.</p>
+<p>Once you have an analysis context at hand, parsing an existing source file into
+an analysis unit is very simple:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="no">Context</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Context</span> <span class="p">:=</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Create_Context</span><span class="p">;</span>
+<span class="no">Unit</span>    <span class="p">:</span> <span class="kr">constant</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Unit</span> <span class="p">:=</span>
+   <span class="n">Context</span><span class="p">.</span><span class="n">Get_From_File</span> <span class="p">(</span><span class="s">&quot;my_file.adb&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Both <code class="docutils literal notranslate"><span class="pre">Analysis_Context</span></code> and <code class="docutils literal notranslate"><span class="pre">Analysis_Unit</span></code> values are references
+(assignment creates an alias, not a copy), and these are reference-counted, so
+you don’t need to do anything special to do regarding resource allocation.</p>
+<p>Assuming that parsing went well enough for the parsers to create a tree, the
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Root</span></code> unit primitive will return the root node
+associated to <code class="docutils literal notranslate"><span class="pre">Unit</span></code>. You can then use the <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Traverse</span></code>
+node primitive to call a function on all nodes in this tree:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nf">Process_Node</span> <span class="p">(</span><span class="nv">Node</span> <span class="p">: </span><span class="nv">LAL</span><span class="p">.</span><span class="nv">Ada_Node</span><span class="p">&#39;</span><span class="na">Class</span><span class="p">)</span> <span class="kr">return</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Visit_Status</span><span class="p">;</span>
+<span class="c1">--  Process the given node and return how to continue tree traversal</span>
+
+<span class="n">Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">Traverse</span> <span class="p">(</span><span class="n">Process_Node</span><span class="p">&#39;</span><span class="na">Access</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If there are fatal parsing errors, or if the file cannot be read, the unit
+root will be null, but the unit will have diagnostics: see the
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Has_Diagnostics</span></code>, <code class="docutils literal notranslate"><span class="pre">Diagnostics</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Format_GNU_Diagnostic</span></code> unit primitives to check the presence of diagnostics,
+get their list, and format them into user-friendly error messages.</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="c1">--  Report parsing errors, if any</span>
+<span class="kr">if</span> <span class="n">Unit</span><span class="p">.</span><span class="n">Has_Diagnostics</span> <span class="kr">then</span>
+   <span class="kr">for</span> <span class="n">D</span> <span class="kr">of</span> <span class="n">Unit</span><span class="p">.</span><span class="n">Diagnostics</span> <span class="kr">loop</span>
+      <span class="n">Put_Line</span> <span class="p">(</span><span class="n">Unit</span><span class="p">.</span><span class="n">Format_GNU_Diagnostic</span> <span class="p">(</span><span class="n">D</span><span class="p">));</span>
+   <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+<span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now what can we do with a node? One of the first things to do is to check the
+kind: is it a subprogram specification? a call expression? an object
+declaration? The <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Kind</span></code> node primitives will tell,
+returning the appropriate value from the
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Common.Ada_Node_Kind_Type</span></code> enumeration. Here, we want to process
+specifically the nodes whose kind is <code class="docutils literal notranslate"><span class="pre">Ada_Object_Decl</span></code>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>There is a correspondence between kind names and type names: The kind is
+prefixed by the language name, so the type name for an object declaration
+is <code class="docutils literal notranslate"><span class="pre">Object_Decl</span></code>, and the kind name is <code class="docutils literal notranslate"><span class="pre">Ada_Object_Decl</span></code>.</p>
+<p>For abstract node types with several derived types, such as <code class="docutils literal notranslate"><span class="pre">Basic_Decl</span></code>,
+subtypes are exposed with the corresponding name and range (here
+<code class="docutils literal notranslate"><span class="pre">Ada_Basic_Decl</span></code>).</p>
+</div>
+<p>Another useful thing to do with nodes is to relate them to the original source
+code. The first obvious way to do this is to get the source code excerpts that
+were parsed to create them: the <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Text</span></code> node
+primitive does this. Another way is to get the source location corresponding to
+the first/last tokens that belong to this node: the
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Sloc_Range</span></code> node primitive will do this, returning a
+<code class="docutils literal notranslate"><span class="pre">Langkit_Support.Slocs.Source_Location_Range</span></code> record. This provides the
+expected start/end line/column numbers.</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">Langkit_Support.Slocs</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Langkit_Support.Text</span><span class="p">;</span>
+
+<span class="kd">package</span> <span class="nc">Slocs</span> <span class="kr">renames</span> <span class="nc">Langkit_Support.Slocs</span><span class="p">;</span>
+<span class="kd">package</span> <span class="nc">Text</span> <span class="kr">renames</span> <span class="nc">Langkit_Support.Text</span><span class="p">;</span>
+
+<span class="n">Put_Line</span>
+  <span class="p">(</span><span class="s">&quot;Line&quot;</span>
+   <span class="o">&amp;</span> <span class="n">Slocs</span><span class="p">.</span><span class="n">Line_Number</span><span class="p">&#39;</span><span class="na">Image</span> <span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">Sloc_Range</span><span class="p">.</span><span class="n">Start_Line</span><span class="p">)</span>
+   <span class="o">&amp;</span> <span class="s">&quot;: &quot;</span> <span class="o">&amp;</span> <span class="n">Text</span><span class="p">.</span><span class="n">Image</span> <span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">Text</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="section" id="final-program">
+<span id="ada-example-program"></span><h3><span class="section-number">5.2.1. </span>Final program<a class="headerlink" href="#final-program" title="Permalink to this headline">¶</a></h3>
+<p>Put all these bit in the right order, and you should get something similar to
+the following program:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">Ada.Command_Line</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Langkit_Support.Slocs</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Langkit_Support.Text</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Common</span><span class="p">;</span>
+
+<span class="kd">procedure</span> <span class="nf">Main</span> <span class="kr">is</span>
+   <span class="kd">package</span> <span class="nc">LAL</span> <span class="kr">renames</span> <span class="nc">Libadalang.Analysis</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">LALCO</span> <span class="kr">renames</span> <span class="nc">Libadalang.Common</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">Slocs</span> <span class="kr">renames</span> <span class="nc">Langkit_Support.Slocs</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">Text</span> <span class="kr">renames</span> <span class="nc">Langkit_Support.Text</span><span class="p">;</span>
+
+   <span class="kd">function</span> <span class="nf">Process_Node</span> <span class="p">(</span><span class="nv">Node</span> <span class="p">: </span><span class="nv">LAL</span><span class="p">.</span><span class="nv">Ada_Node</span><span class="p">&#39;</span><span class="na">Class</span><span class="p">)</span> <span class="kr">return</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Visit_Status</span><span class="p">;</span>
+   <span class="c1">--  If Node is an object declaration, print its text. Always continue the</span>
+   <span class="c1">--  traversal.</span>
+
+   <span class="c1">------------------</span>
+   <span class="c1">-- Process_Node --</span>
+   <span class="c1">------------------</span>
+
+   <span class="kd">function</span> <span class="nf">Process_Node</span> <span class="p">(</span><span class="nv">Node</span> <span class="p">: </span><span class="nv">LAL</span><span class="p">.</span><span class="nv">Ada_Node</span><span class="p">&#39;</span><span class="na">Class</span><span class="p">)</span> <span class="kr">return</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Visit_Status</span>
+   <span class="kr">is</span>
+     <span class="kn">use</span> <span class="nn">type</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Ada_Node_Kind_Type</span><span class="p">;</span>
+   <span class="kr">begin</span>
+      <span class="kr">if</span> <span class="n">Node</span><span class="p">.</span><span class="n">Kind</span> <span class="o">=</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Ada_Object_Decl</span> <span class="kr">then</span>
+         <span class="n">Put_Line</span>
+           <span class="p">(</span><span class="s">&quot;Line&quot;</span>
+            <span class="o">&amp;</span> <span class="n">Slocs</span><span class="p">.</span><span class="n">Line_Number</span><span class="p">&#39;</span><span class="na">Image</span> <span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">Sloc_Range</span><span class="p">.</span><span class="n">Start_Line</span><span class="p">)</span>
+            <span class="o">&amp;</span> <span class="s">&quot;: &quot;</span> <span class="o">&amp;</span> <span class="n">Text</span><span class="p">.</span><span class="n">Image</span> <span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">Text</span><span class="p">));</span>
+      <span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
+      <span class="kr">return</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Into</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="nf">Process_Node</span><span class="p">;</span>
+
+   <span class="no">Context</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Context</span> <span class="p">:=</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Create_Context</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="c1">--  Try to parse all source file given as arguments</span>
+   <span class="kr">for</span> <span class="n">I</span> <span class="ow">in</span> <span class="mi">1</span> <span class="p">..</span> <span class="n">Ada</span><span class="p">.</span><span class="n">Command_Line</span><span class="p">.</span><span class="n">Argument_Count</span> <span class="kr">loop</span>
+      <span class="kr">declare</span>
+         <span class="no">Filename</span> <span class="p">:</span> <span class="kr">constant</span> <span class="kt">String</span> <span class="p">:=</span> <span class="n">Ada</span><span class="p">.</span><span class="n">Command_Line</span><span class="p">.</span><span class="n">Argument</span> <span class="p">(</span><span class="n">I</span><span class="p">);</span>
+         <span class="no">Unit</span>     <span class="p">:</span> <span class="kr">constant</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Unit</span> <span class="p">:=</span>
+            <span class="n">Context</span><span class="p">.</span><span class="n">Get_From_File</span> <span class="p">(</span><span class="n">Filename</span><span class="p">);</span>
+      <span class="kr">begin</span>
+         <span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;== &quot;</span> <span class="o">&amp;</span> <span class="n">Filename</span> <span class="o">&amp;</span> <span class="s">&quot; ==&quot;</span><span class="p">);</span>
+
+         <span class="c1">--  Report parsing errors, if any</span>
+         <span class="kr">if</span> <span class="n">Unit</span><span class="p">.</span><span class="n">Has_Diagnostics</span> <span class="kr">then</span>
+            <span class="kr">for</span> <span class="n">D</span> <span class="kr">of</span> <span class="n">Unit</span><span class="p">.</span><span class="n">Diagnostics</span> <span class="kr">loop</span>
+               <span class="n">Put_Line</span> <span class="p">(</span><span class="n">Unit</span><span class="p">.</span><span class="n">Format_GNU_Diagnostic</span> <span class="p">(</span><span class="n">D</span><span class="p">));</span>
+            <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+
+         <span class="c1">--  Otherwise, look for object declarations</span>
+         <span class="kr">else</span>
+            <span class="n">Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">Traverse</span> <span class="p">(</span><span class="n">Process_Node</span><span class="p">&#39;</span><span class="na">Access</span><span class="p">);</span>
+         <span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
+         <span class="n">New_Line</span><span class="p">;</span>
+      <span class="kr">end</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Main</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If you run this program on its own sources, you should get:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>== main.adb ==
+Line 33: Context : constant LAL.Analysis_Context := LAL.Create_Context;
+Line 38: Filename : constant String := Ada.Command_Line.Argument (I);
+Line 39: Unit     : constant LAL.Analysis_Unit :=\x0a            Context.Get_From_File (Filename);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="follow-references">
+<h2><span class="section-number">5.3. </span>Follow references<a class="headerlink" href="#follow-references" title="Permalink to this headline">¶</a></h2>
+<p>While the previous section only showed Libadalang’s syntactic capabilities, we
+can go further with semantic analysis. The most used feature in this domain is
+the computation of cross references (“xrefs”): the ability to reach the
+definition a particular identifier references.</p>
+<div class="section" id="resolving-files">
+<h3><span class="section-number">5.3.1. </span>Resolving files<a class="headerlink" href="#resolving-files" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned in the <a class="reference internal" href="core_concepts.html#core-concepts"><span class="std std-ref">Core concepts</span></a> section, the nature of semantic
+analysis requires to know how to fetch compilation units: which source file and
+where? Teaching Libadalang how to do this is done through the use of <a class="reference internal" href="core_concepts.html#unit-providers"><span class="std std-ref">unit
+providers</span></a>.</p>
+<p>The default unit provider, i.e. the one that is used if you don’t pass anything
+specific to <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Create_Context</span></code>, assumes that all
+compilation units follow the <a class="reference external" href="http://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/the_gnat_compilation_model.html#file-naming-rules">GNAT naming convention</a>
+and that all source files are in the current directory.</p>
+<p>If the organization of your project is completely custom, you can either
+derive <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Unit_Provider_Interface</span></code>, implementing the
+corresponding primitives according to your project rules, or use features from
+the <code class="docutils literal notranslate"><span class="pre">Libadalang.Auto_Provider</span></code> package to let Libadalang automatically
+discover your source files.</p>
+<p>However, if your project can be built with a GPR project file, Libadalang comes
+with a <code class="docutils literal notranslate"><span class="pre">GNATCOLL.Projects</span></code> adapter to leverage the knowledge of your GPR
+files: the <code class="docutils literal notranslate"><span class="pre">Libadalang.Project_Provider</span></code> package. Using it should be
+straightforward for people familiar with the <code class="docutils literal notranslate"><span class="pre">GNATCOLL.Projects</span></code> API:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kr">declare</span>
+   <span class="kd">package</span> <span class="nc">GPR</span> <span class="kr">renames</span> <span class="nc">GNATCOLL.Projects</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">LAL</span> <span class="kr">renames</span> <span class="nc">Libadalang.Analysis</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">LAL_GPR</span> <span class="kr">renames</span> <span class="nc">Libadalang.Project_Provider</span><span class="p">;</span>
+
+   <span class="n">Env</span>     <span class="p">:</span> <span class="n">GPR</span><span class="p">.</span><span class="n">Project_Environment_Access</span><span class="p">;</span>
+   <span class="no">Project</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">GPR</span><span class="p">.</span><span class="n">Project_Tree_Access</span> <span class="p">:=</span>
+      <span class="kr">new</span> <span class="n">GPR</span><span class="p">.</span><span class="n">Project_Tree</span><span class="p">;</span>
+
+   <span class="n">Context</span>  <span class="p">:</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Context</span><span class="p">;</span>
+   <span class="n">Provider</span> <span class="p">:</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Unit_Provider_Reference</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="n">GPR</span><span class="p">.</span><span class="n">Initialize</span> <span class="p">(</span><span class="n">Env</span><span class="p">);</span>
+   <span class="c1">--  Use procedures in GNATCOLL.Projects to set scenario</span>
+   <span class="c1">--  variables (Change_Environment), to set the target</span>
+   <span class="c1">--  and the runtime (Set_Target_And_Runtime), etc.</span>
+
+   <span class="n">Project</span><span class="p">.</span><span class="n">Load</span> <span class="p">(</span><span class="n">My_Project_Filename</span><span class="p">,</span> <span class="n">Env</span><span class="p">);</span>
+   <span class="n">Provider</span> <span class="p">:=</span> <span class="n">LAL_GPR</span><span class="p">.</span><span class="n">Create_Project_Unit_Provider_Reference</span>
+     <span class="p">(</span><span class="n">Project</span><span class="p">,</span> <span class="n">Env</span><span class="p">);</span>
+   <span class="n">Context</span> <span class="p">:=</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Create_Context</span> <span class="p">(</span><span class="n">Unit_Provider</span> <span class="p">=&gt;</span> <span class="n">Provider</span><span class="p">);</span>
+<span class="kr">end</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Once this compilation unit lookup matter is solved, all you need to do is to
+call the right properties to get the job done. Let’s update the previous little
+program so that it quotes, for each object declaration, the declaration of the
+corresponding type. First, use the above code snippet to load a project file
+from the first command-line argument:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nf">Load_Project</span> <span class="nf">return</span> <span class="nf">LAL</span><span class="p">.</span><span class="nf">Unit_Provider_Reference</span><span class="p">;</span>
+<span class="c1">--  Load the project file designated by the first command-line argument</span>
+
+<span class="c1">------------------</span>
+<span class="c1">-- Load_Project --</span>
+<span class="c1">------------------</span>
+
+<span class="kd">function</span> <span class="nf">Load_Project</span> <span class="nf">return</span> <span class="nf">LAL</span><span class="p">.</span><span class="nf">Unit_Provider_Reference</span> <span class="kr">is</span>
+   <span class="kd">package</span> <span class="nc">GPR</span> <span class="kr">renames</span> <span class="nc">GNATCOLL.Projects</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">LAL_GPR</span> <span class="kr">renames</span> <span class="nc">Libadalang.Project_Provider</span><span class="p">;</span>
+   <span class="kn">use</span> <span class="nn">type</span> <span class="n">GNATCOLL</span><span class="p">.</span><span class="n">VFS</span><span class="p">.</span><span class="n">Filesystem_String</span><span class="p">;</span>
+
+   <span class="no">Project_Filename</span> <span class="p">:</span> <span class="kr">constant</span> <span class="kt">String</span> <span class="p">:=</span> <span class="n">Ada</span><span class="p">.</span><span class="n">Command_Line</span><span class="p">.</span><span class="n">Argument</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+   <span class="no">Project_File</span>     <span class="p">:</span> <span class="kr">constant</span> <span class="n">GNATCOLL</span><span class="p">.</span><span class="n">VFS</span><span class="p">.</span><span class="n">Virtual_File</span> <span class="p">:=</span>
+      <span class="n">GNATCOLL</span><span class="p">.</span><span class="n">VFS</span><span class="p">.</span><span class="n">Create</span> <span class="p">(</span><span class="o">+</span><span class="n">Project_Filename</span><span class="p">);</span>
+
+   <span class="n">Env</span>     <span class="p">:</span> <span class="n">GPR</span><span class="p">.</span><span class="n">Project_Environment_Access</span><span class="p">;</span>
+   <span class="no">Project</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">GPR</span><span class="p">.</span><span class="n">Project_Tree_Access</span> <span class="p">:=</span> <span class="kr">new</span> <span class="n">GPR</span><span class="p">.</span><span class="n">Project_Tree</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="n">GPR</span><span class="p">.</span><span class="n">Initialize</span> <span class="p">(</span><span class="n">Env</span><span class="p">);</span>
+   <span class="n">Project</span><span class="p">.</span><span class="n">Load</span> <span class="p">(</span><span class="n">Project_File</span><span class="p">,</span> <span class="n">Env</span><span class="p">);</span>
+   <span class="kr">return</span> <span class="n">LAL_GPR</span><span class="p">.</span><span class="n">Create_Project_Unit_Provider_Reference</span>
+     <span class="p">(</span><span class="n">Project</span><span class="p">,</span> <span class="n">Env</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Load_Project</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This assumes that the first command-line argument is the name of the project
+file to load, so it is necessary to update the iteration on source file
+arguments to start at argument number 2:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="c1">--  Try to parse all remaining source file given as arguments</span>
+<span class="kr">for</span> <span class="n">I</span> <span class="ow">in</span> <span class="mi">2</span> <span class="p">..</span> <span class="n">Ada</span><span class="p">.</span><span class="n">Command_Line</span><span class="p">.</span><span class="n">Argument_Count</span> <span class="kr">loop</span>
+</pre></div>
+</div>
+<p>Then use our new <code class="docutils literal notranslate"><span class="pre">Load_Project</span></code> function when creating the analysis context:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="no">Context</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Context</span> <span class="p">:=</span>
+   <span class="n">LAL</span><span class="p">.</span><span class="n">Create_Context</span> <span class="p">(</span><span class="n">Unit_Provider</span> <span class="p">=&gt;</span> <span class="n">Load_Project</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="resolving-types">
+<span id="id2"></span><h3><span class="section-number">5.3.2. </span>Resolving types<a class="headerlink" href="#resolving-types" title="Permalink to this headline">¶</a></h3>
+<p>Finally, let’s update the <code class="docutils literal notranslate"><span class="pre">Process_Node</span></code> function to use Libadalang’s name
+resolution capabilities: when we find an object declaration, we’ll print the
+entity representing the type of the object declaration.</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nf">Process_Node</span> <span class="p">(</span><span class="nv">Node</span> <span class="p">: </span><span class="nv">LAL</span><span class="p">.</span><span class="nv">Ada_Node</span><span class="p">&#39;</span><span class="na">Class</span><span class="p">)</span> <span class="kr">return</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Visit_Status</span>
+<span class="kr">is</span>
+  <span class="kn">use</span> <span class="nn">type</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Ada_Node_Kind_Type</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="kr">if</span> <span class="n">Node</span><span class="p">.</span><span class="n">Kind</span> <span class="o">=</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Ada_Object_Decl</span> <span class="kr">then</span>
+      <span class="n">Put_Line</span>
+        <span class="p">(</span><span class="s">&quot;Line&quot;</span>
+         <span class="o">&amp;</span> <span class="n">Slocs</span><span class="p">.</span><span class="n">Line_Number</span><span class="p">&#39;</span><span class="na">Image</span> <span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">Sloc_Range</span><span class="p">.</span><span class="n">Start_Line</span><span class="p">)</span>
+         <span class="o">&amp;</span> <span class="s">&quot;: &quot;</span> <span class="o">&amp;</span> <span class="n">Text</span><span class="p">.</span><span class="n">Image</span> <span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">Text</span><span class="p">));</span>
+      <span class="kr">declare</span>
+         <span class="no">Type_Decl</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Base_Type_Decl</span> <span class="p">:=</span>
+            <span class="n">Node</span><span class="p">.</span><span class="n">As_Object_Decl</span><span class="p">.</span><span class="n">F_Type_Expr</span><span class="p">.</span><span class="n">P_Designated_Type_Decl</span><span class="p">;</span>
+      <span class="kr">begin</span>
+         <span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;   type is: &quot;</span> <span class="o">&amp;</span> <span class="n">Text</span><span class="p">.</span><span class="n">Image</span> <span class="p">(</span><span class="n">Type_Decl</span><span class="p">.</span><span class="n">Text</span><span class="p">));</span>
+      <span class="kr">end</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
+   <span class="kr">return</span> <span class="n">LALCO</span><span class="p">.</span><span class="n">Into</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Process_Node</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The most interesting part is the call to the <code class="docutils literal notranslate"><span class="pre">P_Designated_Type_Decl</span></code>
+property. Let’s decompose it:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Node.As_Object_Decl</span></code> converts the input <code class="docutils literal notranslate"><span class="pre">Ada_Node</span></code> object into an
+<code class="docutils literal notranslate"><span class="pre">Object_Decl</span></code> one. We can do this safely since we checked its kind right
+before.</p></li>
+<li><p>The call to <code class="docutils literal notranslate"><span class="pre">F_Type_Expr</span></code> (a primitive that is specific to <code class="docutils literal notranslate"><span class="pre">Object_Decl</span></code>
+nodes) retrieves its type expression field (the type for the declared
+object). The result is a <code class="docutils literal notranslate"><span class="pre">Type_Expr</span></code> node.</p></li>
+<li><p>Finally the call to the <code class="docutils literal notranslate"><span class="pre">P_Designated_Type_Decl</span></code> property fetches the type
+declaration corresponding to this type expression: a <code class="docutils literal notranslate"><span class="pre">Base_Type_Decl</span></code> node.</p></li>
+</ul>
+<p>This time, running this updated program on itself will yield something like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>== main.adb ==
+Line 30: Project_Filename : constant String := Ada.Command_Line.Argument (1);
+   type is: type String is array (Positive range &lt;&gt;) of Character;
+Line 31: Project_File     : constant GNATCOLL.VFS.Virtual_File :=\x0a         GNATCOLL.VFS.Create (+Ada.Command_Line.Argument (1));
+   type is: type Virtual_File is tagged private;
+Line 34: Env     : GPR.Project_Environment_Access;
+   type is: type Project_Environment_Access is access all Project_Environment&#39;Class;
+</pre></div>
+</div>
+<p>We have seen here the <code class="docutils literal notranslate"><span class="pre">P_Designated_Type_Decl</span></code> property, which resolves
+references to types, but Libadalang offers many more properties to deal with
+name resolution in Ada:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">P_Xref</span></code> property will try to resolve from any node to the corresponding
+declaration, much like an IDE would do when you Control-click on an
+identifier, for instance.</p></li>
+<li><p>All the <code class="docutils literal notranslate"><span class="pre">P_Body_Part*</span></code> and <code class="docutils literal notranslate"><span class="pre">P_Decl_Part*</span></code> properties will let you
+navigate between the specification and body that correspond to each other for
+various nodes: subprograms, packages, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P_Expression_Type</span></code> returns the type of an expression.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P_Generic_Instantiations</span></code> returns the list of package/subprogram generic
+instantiations that led to the creation of this node.</p></li>
+</ul>
+<p>You can find these and all the other properties documented in your favorite
+language’s API reference.</p>
+</div>
+</div>
+<div class="section" id="ada-generic-application-framework">
+<span id="ada-generic-app"></span><h2><span class="section-number">5.4. </span>Ada generic application framework<a class="headerlink" href="#ada-generic-application-framework" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basics">
+<h3><span class="section-number">5.4.1. </span>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h3>
+<p>In order to facilitate the creation of Ada command line applications,
+Libadalang ships an <code class="docutils literal notranslate"><span class="pre">App</span></code> generic package (in the <code class="docutils literal notranslate"><span class="pre">Libadalang.Helpers</span></code>
+unit), that you can simply instantiate in order to create a command line
+application with a lot of common functionality already built-in, so that you
+don’t have to reinvent it every time.</p>
+<p>The way it works is simple: you instantiate it, providing it several callbacks
+(see below) and call its <code class="docutils literal notranslate"><span class="pre">Run</span></code> procedure in your main. It then handles all
+the logistic around your application:</p>
+<ul class="simple">
+<li><p>parsing command-line arguments,</p></li>
+<li><p>setting up unit providers,</p></li>
+<li><p>creating analysis contexts,</p></li>
+<li><p>creating the list of source files to process for you.</p></li>
+</ul>
+<p>Your callbacks are then invoked when appropriate. The main ones are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">App_Setup</span></code> right after command line options are parsed;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Process_Unit</span></code> when processing one source file;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">App_Post_Process</span></code> after all source files are processed.</p></li>
+</ul>
+<p>Let’s say you want to create a simple application that will flag all the
+<code class="docutils literal notranslate"><span class="pre">goto</span></code> statements in a given closure. Here is what it would look like:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="c1">--  app.ads</span>
+
+<span class="kn">with</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Helpers</span><span class="p">;</span>
+
+<span class="kd">package</span> <span class="nc">App</span> <span class="kr">is</span>
+
+   <span class="kd">procedure</span> <span class="nf">Process_Unit</span> <span class="p">(</span><span class="nv">Unit</span> <span class="p">: </span><span class="nv">Analysis_Unit</span><span class="p">);</span>
+
+   <span class="kd">package</span> <span class="nc">App</span> <span class="kr">is new</span> <span class="nc">Libadalang.Helpers.App</span>
+     <span class="p">(</span><span class="nv">Name</span>         <span class="p">=&gt;</span> &quot;example_app&quot;<span class="p">,</span>
+      <span class="nv">Description</span>  <span class="p">=&gt;</span> &quot;Example app. Will flag goto statements&quot;<span class="p">,</span>
+      <span class="nv">Process_Unit</span> <span class="p">=&gt;</span> Process_Unit<span class="p">);</span>
+
+<span class="kr">end</span> <span class="nf">App</span><span class="p">;</span>
+
+<span class="c1">--  app.adb</span>
+
+<span class="kn">with</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Common</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Libadalang.Common</span><span class="p">;</span>
+
+<span class="kd">package</span> <span class="kd">body</span> <span class="nc">App</span> <span class="kr">is</span>
+
+   <span class="kd">procedure</span> <span class="nf">Process_Unit</span> <span class="p">(</span><span class="nv">Unit</span> <span class="p">: </span><span class="nv">Analysis_Unit</span><span class="p">)</span> <span class="kr">is</span>
+      <span class="kd">function</span> <span class="nf">Visit</span> <span class="p">(</span><span class="nv">Node</span> <span class="p">: </span><span class="nv">Ada_Node</span><span class="p">&#39;</span><span class="na">Class</span><span class="p">)</span> <span class="kr">return</span> <span class="n">Visit_Status</span><span class="p">;</span>
+
+      <span class="kd">function</span> <span class="nf">Visit</span> <span class="p">(</span><span class="nv">Node</span> <span class="p">: </span><span class="nv">Ada_Node</span><span class="p">&#39;</span><span class="na">Class</span><span class="p">)</span> <span class="kr">return</span> <span class="n">Visit_Status</span> <span class="kr">is</span>
+      <span class="kr">begin</span>
+         <span class="kr">case</span> <span class="n">Node</span><span class="p">.</span><span class="n">Kind</span> <span class="kr">is</span>
+         <span class="kr">when</span> <span class="n">Ada_Goto_Stmt</span> <span class="p">=&gt;</span>
+            <span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;Found goto stmt: &quot;</span> <span class="o">&amp;</span> <span class="n">Node</span><span class="p">.</span><span class="n">Short_Image</span><span class="p">);</span>
+            <span class="kr">return</span> <span class="n">Over</span><span class="p">;</span>
+         <span class="kr">when</span> <span class="kr">others</span> <span class="p">=&gt;</span>
+            <span class="kr">return</span> <span class="n">Into</span><span class="p">;</span>
+         <span class="kr">end</span> <span class="kr">case</span><span class="p">;</span>
+      <span class="kr">end</span> <span class="nf">Visit</span><span class="p">;</span>
+   <span class="kr">begin</span>
+      <span class="n">Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">Traverse</span> <span class="p">(</span><span class="n">Visit</span><span class="p">&#39;</span><span class="na">Access</span><span class="p">);</span>
+   <span class="kr">end</span> <span class="nf">Process_Unit</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">App</span><span class="p">;</span>
+
+<span class="c1">--  main.adb</span>
+
+<span class="kn">with</span> <span class="nn">App</span><span class="p">;</span>
+
+<span class="kd">procedure</span> <span class="nf">Main</span> <span class="kr">is</span>
+<span class="kr">begin</span>
+   <span class="n">App</span><span class="p">.</span><span class="n">App</span><span class="p">.</span><span class="n">Run</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Main</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Then, running the app on a project is as simple as</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Files are automatically deduced from the project file</span>
+$ ./main -P my_project.gpr
+
+<span class="c1"># Files are passed explicitly. Default project is used</span>
+$ ./main *.adb
+
+<span class="c1"># Analyze file.adb in the context of project.gpr, with scenario variable</span>
+<span class="c1"># BUILD_TYPE set to prod.</span>
+$ ./main file.adb -P project.gpr -XBUILD_TYPE<span class="o">=</span>prod
+</pre></div>
+</div>
+</div>
+<div class="section" id="parallelism">
+<h3><span class="section-number">5.4.2. </span>Parallelism<a class="headerlink" href="#parallelism" title="Permalink to this headline">¶</a></h3>
+<p>Even though it is disabled by default, <code class="docutils literal notranslate"><span class="pre">App</span></code> has supports for parallelism. If
+the generic instantiation passes <code class="docutils literal notranslate"><span class="pre">True</span></code> to the <code class="docutils literal notranslate"><span class="pre">Enable_Parallelism</span></code> formal,
+then your application will be able to process several units at the same time.</p>
+<p>Most of Libadalang is not thread safe, so how could this possibly work? When
+running the application, pass for instance the <code class="docutils literal notranslate"><span class="pre">-j8</span></code> argument to run 8 jobs
+in parallel.  Each job will get its own <code class="docutils literal notranslate"><span class="pre">Analysis_Context</span></code> instance, so that
+each job actually deals with thread-local data, avoiding concurrency issues.</p>
+<p>Working with parallel job requires special attention, which is why it is
+disabled by default:</p>
+<ul class="simple">
+<li><p>Calls to <code class="docutils literal notranslate"><span class="pre">Job_Setup</span></code>, <code class="docutils literal notranslate"><span class="pre">Process_Unit</span></code> and <code class="docutils literal notranslate"><span class="pre">Job_Post_Process</span></code> happen in
+parallel, so access to data that is not local to a thread must be properly
+synchronized. For instance, concurrent calls to <code class="docutils literal notranslate"><span class="pre">Ada.Text_IO.Put_Line</span></code> (on
+the same file) must be protected to avoid mixing line content, counters must
+be protected to avoid ABA problems, etc.</p></li>
+<li><p>Since each job creates its own <code class="docutils literal notranslate"><span class="pre">Analysis_Context</span></code> instance, each job will
+probably parse and run name resolution on the same units (results are not
+shared between contexts). This means that using 8 jobs will not magically
+divide computing time by 8. This also means that in the worst case, using 8
+jobs can consume up to 8 times the memory required to process the same list
+of units without parallelism.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python_api_tutorial.html" class="btn btn-neutral float-right" title="6. Python API Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="standard_unit.html" class="btn btn-neutral float-left" title="4. Standard unit pecularities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

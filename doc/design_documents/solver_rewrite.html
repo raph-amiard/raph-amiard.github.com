@@ -1,0 +1,437 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>13.3. Adalog solver rewrite &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="13.2. Name Resolution of Char Literals" href="nameres_char_literals.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">13. Development design documents</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="function_attributes.html">13.1. Proper handling of function attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nameres_char_literals.html">13.2. Name Resolution of Char Literals</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.3. Adalog solver rewrite</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#global-goal">13.3.1. Global goal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expand-high-level-operations-to-low-level-ones">13.3.2. Expand high level operations to low level ones</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduce-a-val-operation">13.3.2.1. Introduce a <code class="docutils literal notranslate"><span class="pre">Val</span></code> operation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#expand-unify-to-assign-and-val">13.3.2.2. Expand <code class="docutils literal notranslate"><span class="pre">Unify</span></code> to <code class="docutils literal notranslate"><span class="pre">Assign</span></code> and <code class="docutils literal notranslate"><span class="pre">Val</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#expand-member-into-any-and-assign">13.3.2.3. Expand <code class="docutils literal notranslate"><span class="pre">Member</span></code> into <code class="docutils literal notranslate"><span class="pre">Any</span></code> and <code class="docutils literal notranslate"><span class="pre">Assign</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#develop-relations">13.3.3. Develop relations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-algorithm">13.3.3.1. The algorithm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exponential-time-resolution-optimization">13.3.3.2. Exponential time resolution optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#check-completeness">13.3.4. Check completeness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#topo-sort-check-out-for-cycles">13.3.5. Topo sort/check out for cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execute-the-resulting-relation">13.3.6. Execute the resulting relation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">13. </span>Development design documents</a> &raquo;</li>
+        
+      <li><span class="section-number">13.3. </span>Adalog solver rewrite</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/design_documents/solver_rewrite.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adalog-solver-rewrite">
+<h1><span class="section-number">13.3. </span>Adalog solver rewrite<a class="headerlink" href="#adalog-solver-rewrite" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="global-goal">
+<h2><span class="section-number">13.3.1. </span>Global goal<a class="headerlink" href="#global-goal" title="Permalink to this headline">¶</a></h2>
+<p>Rewrite Adalog into a way that allows us to:</p>
+<ol class="arabic simple">
+<li><p>Express analyses about whether an equation is sound or not</p></li>
+<li><p>Refactor an equation into the list of all its disjunctions.</p></li>
+<li><p>Easily weed out branches that cannot provide a solution (because they
+cannot provide a sound solution where all variables are defined)</p></li>
+<li><p>Write a much simpler interpreter</p></li>
+</ol>
+<p>In this document I will try to summarize how we expect to do that.</p>
+</div>
+<div class="section" id="expand-high-level-operations-to-low-level-ones">
+<h2><span class="section-number">13.3.2. </span>Expand high level operations to low level ones<a class="headerlink" href="#expand-high-level-operations-to-low-level-ones" title="Permalink to this headline">¶</a></h2>
+<p>The first pass we want to go through, is to get rid of some of the
+existing Adalog relations, by expanding them to simpler bricks.</p>
+<p>One of the goals is to be able to clearly express which variables a
+relation <strong>defines</strong> or <strong>uses</strong>.</p>
+<div class="section" id="introduce-a-val-operation">
+<h3><span class="section-number">13.3.2.1. </span>Introduce a <code class="docutils literal notranslate"><span class="pre">Val</span></code> operation<a class="headerlink" href="#introduce-a-val-operation" title="Permalink to this headline">¶</a></h3>
+<p>We want to introduce a <code class="docutils literal notranslate"><span class="pre">Val</span></code> low level operation that simply accesses
+the value of a logic variable. The operation <code class="docutils literal notranslate"><span class="pre">Val</span> <span class="pre">(X)</span></code> <strong>uses</strong> <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</div>
+<div class="section" id="expand-unify-to-assign-and-val">
+<h3><span class="section-number">13.3.2.2. </span>Expand <code class="docutils literal notranslate"><span class="pre">Unify</span></code> to <code class="docutils literal notranslate"><span class="pre">Assign</span></code> and <code class="docutils literal notranslate"><span class="pre">Val</span></code><a class="headerlink" href="#expand-unify-to-assign-and-val" title="Permalink to this headline">¶</a></h3>
+<p>We want to transform</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="nc">Unify</span> <span class="nc">X</span> <span class="o">&lt;=&gt;</span> <span class="nc">Y</span>
+</pre></div>
+</div>
+<p>into</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="nc">X</span> <span class="o">&lt;=</span> <span class="nc">Val</span> <span class="o">(</span><span class="nc">Y</span><span class="o">)</span> <span class="ow">or</span> <span class="nc">Y</span> <span class="o">&lt;=</span> <span class="nc">Val</span> <span class="o">(</span><span class="nc">X</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>This way, we have two assign operations, one that <strong>uses</strong> <code class="docutils literal notranslate"><span class="pre">X</span></code> and
+<strong>depends on</strong> <code class="docutils literal notranslate"><span class="pre">Y</span></code>, the other that <strong>uses</strong> <code class="docutils literal notranslate"><span class="pre">Y</span></code> and <strong>depends on</strong>
+<code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</div>
+<div class="section" id="expand-member-into-any-and-assign">
+<h3><span class="section-number">13.3.2.3. </span>Expand <code class="docutils literal notranslate"><span class="pre">Member</span></code> into <code class="docutils literal notranslate"><span class="pre">Any</span></code> and <code class="docutils literal notranslate"><span class="pre">Assign</span></code><a class="headerlink" href="#expand-member-into-any-and-assign" title="Permalink to this headline">¶</a></h3>
+<p>This was the original implementation of <code class="docutils literal notranslate"><span class="pre">Member</span></code>, that was removed
+because of performance in the old execution scheme. In the new scheme,
+this will be necessary in order to do full disjunction expansion.</p>
+<p>What we want to do is to then expand</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="nc">Member</span> <span class="o">(</span><span class="nc">X</span><span class="o">,</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">})</span>
+</pre></div>
+</div>
+<p>into</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="nc">Any</span> <span class="o">(</span><span class="nc">X</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">,</span> <span class="nc">X</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="o">,</span> <span class="nc">X</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="o">,</span> <span class="nc">X</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="o">,</span> <span class="nc">X</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="o">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="develop-relations">
+<h2><span class="section-number">13.3.3. </span>Develop relations<a class="headerlink" href="#develop-relations" title="Permalink to this headline">¶</a></h2>
+<p>Here, we want to apply a development rule, similar to arithmetic
+development rules, which is</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="nc">A</span> <span class="ow">and</span> <span class="o">(</span><span class="nc">B</span> <span class="ow">or</span> <span class="nc">C</span><span class="o">)</span>  <span class="o">=&gt;</span> <span class="o">(</span><span class="nc">A</span> <span class="ow">and</span> <span class="nc">B</span><span class="o">)</span> <span class="ow">or</span> <span class="o">(</span><span class="nc">B</span> <span class="ow">and</span> <span class="nc">C</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>or, with variadic logic operations:</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="nc">All</span><span class="o">(</span><span class="nc">A</span><span class="o">,</span> <span class="nc">B</span><span class="o">,</span> <span class="nc">C</span><span class="o">,</span> <span class="o">...,</span> <span class="nc">Any</span><span class="o">(</span><span class="nc">D</span><span class="o">,</span> <span class="nc">E</span><span class="o">,</span> <span class="nc">F</span><span class="o">))</span>
+
+   <span class="o">&lt;=&gt;</span>
+
+<span class="nc">Any</span><span class="o">(</span>
+    <span class="nc">All</span><span class="o">(</span><span class="nc">D</span><span class="o">,</span> <span class="nc">A</span><span class="o">,</span> <span class="nc">B</span><span class="o">,</span> <span class="nc">C</span><span class="o">,</span> <span class="o">...),</span>
+    <span class="nc">All</span><span class="o">(</span><span class="nc">E</span><span class="o">,</span> <span class="nc">A</span><span class="o">,</span> <span class="nc">B</span><span class="o">,</span> <span class="nc">C</span><span class="o">,</span> <span class="o">...),</span>
+    <span class="nc">All</span><span class="o">(</span><span class="nc">F</span><span class="o">,</span> <span class="nc">A</span><span class="o">,</span> <span class="nc">B</span><span class="o">,</span> <span class="nc">C</span><span class="o">,</span> <span class="o">...)</span>
+<span class="o">)</span>
+</pre></div>
+</div>
+<p>Applying this transformation recursively, until we reach a point where
+there is only one top-level disjunction, and all other relations are
+either conjunctions or non-composite relations. Since an All(All) can be
+inlined, the expected max depth of the relation is 3. At this stage the
+relation is effectively a list of either conjunctions or non-composite
+relations. The latter being a very unlikely and pretty simple corner
+case, let’s assume that we have a disjunction list of all possible
+conjunctions.</p>
+<div class="section" id="the-algorithm">
+<h3><span class="section-number">13.3.3.1. </span>The algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Note: Here we assume that every <code class="docutils literal notranslate"><span class="pre">Any</span></code> can only contain <code class="docutils literal notranslate"><span class="pre">All</span></code>
+relations or atomic relations, because other <code class="docutils literal notranslate"><span class="pre">Any</span></code> relations would
+have been inlined.</p>
+</div></blockquote>
+<p>Given an <code class="docutils literal notranslate"><span class="pre">All</span></code> relation that contains number of <code class="docutils literal notranslate"><span class="pre">Any</span></code> between
+<code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">..</span> <span class="pre">N</span></code>, we want to:</p>
+<ul class="simple">
+<li><p>Sort the relation to have the atomic relations first, and the
+<code class="docutils literal notranslate"><span class="pre">Any</span></code>s afterwards.</p></li>
+<li><p>Take the first <code class="docutils literal notranslate"><span class="pre">Any</span></code>, and “inline” every other relation (including
+subsequent <code class="docutils literal notranslate"><span class="pre">Any</span></code>s) of the parent <code class="docutils literal notranslate"><span class="pre">All</span></code> inside each of its
+branches.</p></li>
+<li><p>If there were remaining <code class="docutils literal notranslate"><span class="pre">Any</span></code> relations, run this algorithm
+recursively on every resulting <code class="docutils literal notranslate"><span class="pre">All</span></code> relations that is inside the
+first <code class="docutils literal notranslate"><span class="pre">Any</span></code>.</p></li>
+<li><p>Return the first <code class="docutils literal notranslate"><span class="pre">Any</span></code>, destroy self</p></li>
+</ul>
+</div>
+<div class="section" id="exponential-time-resolution-optimization">
+<h3><span class="section-number">13.3.3.2. </span>Exponential time resolution optimization<a class="headerlink" href="#exponential-time-resolution-optimization" title="Permalink to this headline">¶</a></h3>
+<p>It is likely that it is during that expansion phase that we want to
+optimize out exponential time resolution problems. Assuming we start
+with an <code class="docutils literal notranslate"><span class="pre">All</span></code> relation that contains an <code class="docutils literal notranslate"><span class="pre">Any</span></code>, we can try to do an
+optimization similar to the one described in the <a class="reference external" href="https://hackmd.io/oaacRJy6TauNDEcgGEtPhQ">Exponential resolution
+in Adalog</a> document.</p>
+<p>The above document informally describes the construction of a constraint
+map, mapping specific variables to “constraints”. We can define more
+formally those constraints using the terms defined in this document:</p>
+<blockquote>
+<div><p>A constraint is any atomic relation that is part of the All relation,
+and that <strong>uses</strong> the value of a logic variable.</p>
+</div></blockquote>
+<p>We can then create a mapping from logic variables to constraints,
+mapping the variable used by a relation to the relation, for every
+atomic relation that <strong>uses</strong> a logic variable.</p>
+<p>Then, before inlining Self’s relations in the <code class="docutils literal notranslate"><span class="pre">Any</span></code> sub-branches, we
+can iterate over every of those sub-branches:</p>
+<ol class="arabic simple">
+<li><p>If the sub-branch is an atomic relation, check if it <strong>defines</strong> the
+value of a variable, and also that it doesn’t <strong>use</strong> any other
+variable. If that is the case, check if there is one or several
+constraints for this variable in the constraint set. If that is the
+case, execute the relation, then the constraints. If the result is
+negative, we can get rid of the relation right away.</p></li>
+<li><p>If the sub-branch is an <code class="docutils literal notranslate"><span class="pre">All</span></code>, run the above algorithm over all of
+its atomic components.</p></li>
+</ol>
+<p>When transforming children <code class="docutils literal notranslate"><span class="pre">All</span></code> relations, we pass down the existing
+set of constraints. It will then be added to the one that will be
+constructed in the recursive call.</p>
+</div>
+</div>
+<div class="section" id="check-completeness">
+<h2><span class="section-number">13.3.4. </span>Check completeness<a class="headerlink" href="#check-completeness" title="Permalink to this headline">¶</a></h2>
+<p>We define an equation as being complete if at least one of the <code class="docutils literal notranslate"><span class="pre">All</span></code>
+branches in the toplevel <code class="docutils literal notranslate"><span class="pre">Any</span></code> binds every variables involved in the
+equation. After development, we want to check that this condition is
+satisfied. If not, return a special error.</p>
+</div>
+<div class="section" id="topo-sort-check-out-for-cycles">
+<h2><span class="section-number">13.3.5. </span>Topo sort/check out for cycles<a class="headerlink" href="#topo-sort-check-out-for-cycles" title="Permalink to this headline">¶</a></h2>
+<p>Once we’ve transformed a relation - any relation, not necessarily the
+top level one - into the form above, we can do a topological sort of the
+relations inside a conjunction.</p>
+<p>After this transformation, every relation inside a conj is assumed to be
+an atomic relation. Every relation <strong>uses</strong> a logic variable, or
+<strong>defines</strong> a logic variable, or both (but not for the same variable).
+This *allows us to build a dependency graph. If we do a topological
+sort of this dependency graph, it allows us to:</p>
+<ol class="arabic simple">
+<li><p>Check for cycles. For example, such a conjunction would be detected
+and flagged as incorrect</p></li>
+</ol>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="nc">All</span><span class="o">(</span><span class="nc">X</span> <span class="o">&lt;=</span> <span class="nc">Val</span> <span class="o">(</span><span class="nc">Y</span><span class="o">),</span> <span class="nc">Y</span> <span class="o">&lt;=</span> <span class="nc">Val</span> <span class="o">(</span><span class="nc">X</span><span class="o">))</span>
+</pre></div>
+</div>
+<p>because, expanded into a dependency list it gives the following:</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="o">[(</span><span class="nc">Uses</span><span class="o">(</span><span class="nc">X</span><span class="o">),</span> <span class="nc">Defines</span><span class="o">(</span><span class="nc">Y</span><span class="o">)),</span> <span class="o">(</span><span class="nc">Uses</span><span class="o">(</span><span class="nc">Y</span><span class="o">),</span> <span class="nc">Defines</span><span class="o">(</span><span class="nc">X</span><span class="o">))]</span>
+</pre></div>
+</div>
+<p>which in turns forms the following dependency graph</p>
+<div class="highlight-graphviz notranslate"><div class="highlight"><pre><span></span>digraph g{
+  y_to_x -&gt; x_to_y
+  x_to_y -&gt; y_to_x
+  y_to_x [label=&quot;X ← Val (Y)&quot;,shape=box,style=rounded];
+  x_to_y [label=&quot;Y ← Val (X)&quot;,shape=box,style=rounded];
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="execute-the-resulting-relation">
+<h2><span class="section-number">13.3.6. </span>Execute the resulting relation<a class="headerlink" href="#execute-the-resulting-relation" title="Permalink to this headline">¶</a></h2>
+<p>Executing the resulting relations should be extremely simple, since you
+have a structure like this:</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="nc">Any</span><span class="o">(</span>
+    <span class="nc">All</span><span class="o">(</span><span class="nc">A11</span><span class="o">,</span> <span class="nc">A12</span><span class="o">,</span> <span class="nc">A13</span><span class="o">,</span> <span class="o">...),</span>
+    <span class="nc">All</span><span class="o">(</span><span class="nc">A21</span><span class="o">,</span> <span class="nc">A22</span><span class="o">,</span> <span class="nc">A23</span><span class="o">,</span> <span class="o">...),</span>
+    <span class="nc">All</span><span class="o">(</span><span class="nc">A31</span><span class="o">,</span> <span class="nc">A32</span><span class="o">,</span> <span class="nc">A33</span><span class="o">,</span> <span class="o">...),</span>
+    <span class="o">...</span>
+<span class="o">)</span>
+</pre></div>
+</div>
+<p>Where every <code class="docutils literal notranslate"><span class="pre">A..</span></code> relation is an atomic relation that you can execute
+in order. The execution algorithm is then to:</p>
+<ol class="arabic simple">
+<li><p>Take every all branch one after the other.</p></li>
+<li><p>Execute every atomic relation in it one after the other. If one
+returns false, switch to the next all branch, and reset all
+variables.</p></li>
+<li><p>If we get to the end of the All without a failure, then we have a
+solution.</p></li>
+</ol>
+<p>This is very easy to execute, and almost completely stateless, unlike
+the previous interpreter. Writing an interpreter should be trivial, and
+writing a JIT should even be possible if needed :)</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="nameres_char_literals.html" class="btn btn-neutral float-left" title="13.2. Name Resolution of Char Literals" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

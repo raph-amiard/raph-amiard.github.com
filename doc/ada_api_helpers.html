@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>7.3. Helper packages &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7.4. Miscellanous" href="ada_api_misc.html" />
+    <link rel="prev" title="7.2. Unit providers" href="ada_api_unit_providers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ada_api_core.html">7.1. Core packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_unit_providers.html">7.2. Unit providers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.3. Helper packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#libadalang-helpers">7.3.2. Libadalang.Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app">7.3.3. App</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#args">7.3.4. Args</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_misc.html">7.4. Miscellanous</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="ada_api_ref.html"><span class="section-number">7. </span>Ada API reference</a> &raquo;</li>
+        
+      <li><span class="section-number">7.3. </span>Helper packages</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ada_api_helpers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="helper-packages">
+<h1><span class="section-number">7.3. </span>Helper packages<a class="headerlink" href="#helper-packages" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="package-Libadalang.Helpers"></span><div class="section" id="libadalang-helpers">
+<h2><span class="section-number">7.3.2. </span>Libadalang.Helpers<a class="headerlink" href="#libadalang-helpers" title="Permalink to this headline">¶</a></h2>
+<p>This package provides various helpers to build applications based on
+Libadalang.</p>
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.Unit_Vectors">
+<em class="property">package </em><code class="sig-name descname">Unit_Vectors</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Ada.Containers.Vectors</code><a class="headerlink" href="#Libadalang.Helpers.Unit_Vectors" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Unit_Vectors</span> <span class="kr">is new</span> <span class="nc">Ada.Containers.Vectors</span>
+     <span class="p">(</span>Positive<span class="p">,</span> Analysis_Unit<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>Ada.Containers.Vectors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.String_Vectors">
+<em class="property">package </em><code class="sig-name descname">String_Vectors</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Ada.Containers.Vectors</code><a class="headerlink" href="#Libadalang.Helpers.String_Vectors" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">String_Vectors</span> <span class="kr">is new</span> <span class="nc">Ada.Containers.Vectors</span>
+     <span class="p">(</span>Positive<span class="p">,</span> Unbounded_String<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>Ada.Containers.Vectors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada procedure">
+<dt id="Libadalang.Helpers.Abort_App">
+<em class="property">procedure </em><code class="sig-name descname">Abort_App</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Message</span><span class="p"> : </span><span class="n">String</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Libadalang.Helpers.Abort_App" title="Permalink to this definition">¶</a></dt>
+<dd><p>If provided, print Message to the standard error output and abort the
+current App. This will set the process exit status to Failure (see
+Ada.Command_Line).</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Helpers.Source_Provider_Kind">
+<em class="property">type </em><code class="sig-name descname">Source_Provider_Kind</code><a class="headerlink" href="#Libadalang.Helpers.Source_Provider_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Helpers.Source_Provider">
+<em class="property">type </em><code class="sig-name descname">Source_Provider</code><a class="headerlink" href="#Libadalang.Helpers.Source_Provider" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Discriminants</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Kind</strong> (<a class="reference internal" href="generated/libadalang-helpers.html#Libadalang.Helpers.Source_Provider_Kind" title="Libadalang.Helpers.Source_Provider_Kind"><em>Libadalang.Helpers.Source_Provider_Kind</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Components</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Project</strong> (<em>GNATCOLL.Projects.Project_Tree_Access</em>) – </p></li>
+<li><p><strong>Dirs</strong> (<em>Libadalang.Helpers.String_Vectors.Vector</em>) – </p></li>
+<li><p><strong>Found_Files</strong> (<em>Libadalang.Helpers.String_Vectors.Vector</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Helpers.App_Context">
+<em class="property">type </em><code class="sig-name descname">App_Context</code><a class="headerlink" href="#Libadalang.Helpers.App_Context" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Components</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Provider</strong> (<a class="reference internal" href="generated/libadalang-helpers.html#Libadalang.Helpers.Source_Provider" title="Libadalang.Helpers.Source_Provider"><em>Libadalang.Helpers.Source_Provider</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Helpers.Job_ID">
+<em class="property">type </em><code class="sig-name descname">Job_ID</code><a class="headerlink" href="#Libadalang.Helpers.Job_ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifier for a job in App. Unless Enable_Parallelism is False, there
+is only one job, whose ID is 1. If there are multiple jobs, their IDs go
+from 1 up to the number of jobs.</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Helpers.App_Job_Context">
+<em class="property">type </em><code class="sig-name descname">App_Job_Context</code><a class="headerlink" href="#Libadalang.Helpers.App_Job_Context" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Components</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ID</strong> (<a class="reference internal" href="generated/libadalang-helpers.html#Libadalang.Helpers.Job_ID" title="Libadalang.Helpers.Job_ID"><em>Libadalang.Helpers.Job_ID</em></a>) – Identifier for this job</p></li>
+<li><p><strong>App_Ctx</strong> (<a class="reference internal" href="generated/libadalang-helpers.html#Libadalang.Helpers.App_Job_Context" title="Libadalang.Helpers.App_Job_Context"><em>Libadalang.Helpers.App_Job_Context</em></a>) – Reference to the app-wide context</p></li>
+<li><p><strong>Analysis_Ctx</strong> (<a class="reference internal" href="generated/libadalang-analysis.html#Libadalang.Analysis.Analysis_Context" title="Libadalang.Analysis.Analysis_Context"><em>Libadalang.Analysis.Analysis_Context</em></a>) – Context to analyze source file (each job gets its own context)</p></li>
+<li><p><strong>Units_Processed</strong> (<em>Libadalang.Helpers.Unit_Vectors.Vector</em>) – List of analysis units that this job processed so far</p></li>
+<li><p><strong>Aborted</strong> (<em>Standard.Boolean</em>) – Whether this jobs was aborted (see the Abort_App_Exception/Abort_App
+entities above).</p></li>
+</ul>
+</dd>
+</dl>
+<p>Whether this jobs was aborted (see the Abort_App_Exception/Abort_App
+entities above).</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Helpers.App_Job_Context_Array">
+<em class="property">type </em><code class="sig-name descname">App_Job_Context_Array</code><a class="headerlink" href="#Libadalang.Helpers.App_Job_Context_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="package-App"></span></div>
+<div class="section" id="app">
+<h2><span class="section-number">7.3.3. </span>App<a class="headerlink" href="#app" title="Permalink to this headline">¶</a></h2>
+<p>This package is a convenient and easy way to create an application based
+on Libadalang, with out of the box facilities such as:</p>
+<ul class="simple">
+<li><p>Automatic handling of project files, including an option to process
+all the files of the project, and handling of scenario variables.</p></li>
+<li><p>Automatic command line option parser, with descriptive help.</p></li>
+</ul>
+<p>As an application author, all you have to do is to provide a
+<code class="docutils literal notranslate"><span class="pre">Process_Unit</span></code> procedure, that will process one unit out of the set of
+units to process. Users then have several options in order to run
+applications:</p>
+<ul class="simple">
+<li><p>Run it with project-related options (at least <code class="docutils literal notranslate"><span class="pre">-P</span></code>): by default, the
+app will process all units that belong to the root project that is
+passed. If the user passes at least one file name as additional
+command-line arguments, the app will process only these units.</p></li>
+<li><p>Run it with one or several <code class="docutils literal notranslate"><span class="pre">--auto-dir</span></code> options. In this case, the
+app will consider all Ada sources present in the given directories,
+and will call <code class="docutils literal notranslate"><span class="pre">Process_Unit</span></code> on all of them, unless the user passes
+one file name as additional command-line arguments: the app will
+process only these units.</p></li>
+<li><p>Just pass at least one file name on the command-line. In this case,
+the app will consider only Ada sources in the current directory and
+process only files passed on the command-line.</p></li>
+</ul>
+<p>Note that name resolution in Ada units requires the app to know where
+the sources are located: this is automatic when loading a project file,
+but just passing files on the command-line is not enough if all source
+files are not in the current directory.</p>
+<dl class="ada object">
+<dt id="Libadalang.Helpers.App.Trace">
+<code class="sig-name descname">Trace</code><em class="property"> : constant GNATCOLL.Traces.Trace_Handle</em><a class="headerlink" href="#Libadalang.Helpers.App.Trace" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Object type</dt>
+<dd class="field-odd"><p>GNATCOLL.Traces.Trace_Handle</p>
+</dd>
+<dt class="field-even">Default value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">GNATCOLL.Traces.Create</span> <span class="pre">(&quot;LIBADALANG.APP.&quot;</span> <span class="pre">&amp;</span> <span class="pre">Name,</span> <span class="pre">GNATCOLL.Traces.From_Config)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="package-Args"></span></div>
+<div class="section" id="args">
+<h2><span class="section-number">7.3.4. </span>Args<a class="headerlink" href="#args" title="Permalink to this headline">¶</a></h2>
+<p>This package contains the arguments parser for your app. It contains
+the instantiation of the parser, and the set of default arguments, so
+that you can also use their values in your app if needed.</p>
+<dl class="ada object">
+<dt id="Libadalang.Helpers.App.Args.Parser">
+<code class="sig-name descname">Parser</code><em class="property"> : Argument_Parser</em><a class="headerlink" href="#Libadalang.Helpers.App.Args.Parser" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Object type</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Argument_Parser</p>
+</dd>
+<dt class="field-even">Default value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Create_Argument_Parser</span> <span class="pre">(Help</span> <span class="pre">=&gt;</span> <span class="pre">Description)</span></code></p>
+</dd>
+</dl>
+<p>Argument parser for your application. Supports a set of default
+options. You can add your own on this parser.</p>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Charset">
+<em class="property">package </em><code class="sig-name descname">Charset</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Option</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Charset" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Charset</span> <span class="kr">is new</span> <span class="nc">Parse_Option</span>
+           <span class="p">(</span>Parser<span class="p">,</span> &quot;<span class="o">-</span>C&quot;<span class="p">,</span> &quot;<span class="c1">--charset&quot;, &quot;Charset to use for source decoding&quot;,</span>
+            Unbounded_String<span class="p">,</span>
+            <span class="nv">Default_Val</span> <span class="p">=&gt;</span> To_Unbounded_String <span class="p">(</span>&quot;iso<span class="o">-</span>8859<span class="o">-</span>1&quot;<span class="p">));</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Option</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Project_File">
+<em class="property">package </em><code class="sig-name descname">Project_File</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Option</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Project_File" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Project_File</span> <span class="kr">is new</span> <span class="nc">Parse_Option</span>
+           <span class="p">(</span>Parser<span class="p">,</span> &quot;<span class="o">-</span>P&quot;<span class="p">,</span> &quot;<span class="c1">--project&quot;,</span>
+            <span class="nv">Arg_Type</span>    <span class="p">=&gt;</span> Unbounded_String<span class="p">,</span>
+            <span class="nv">Default_Val</span> <span class="p">=&gt;</span> Null_Unbounded_String<span class="p">,</span>
+            <span class="nv">Help</span>        <span class="p">=&gt;</span> &quot;Project file to use&quot;<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Option</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Scenario_Vars">
+<em class="property">package </em><code class="sig-name descname">Scenario_Vars</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Option_List</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Scenario_Vars" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Scenario_Vars</span> <span class="kr">is new</span> <span class="nc">Parse_Option_List</span>
+           <span class="p">(</span>Parser<span class="p">,</span> <span class="nv">Short</span> <span class="p">=&gt;</span> &quot;<span class="o">-</span>X&quot;<span class="p">,</span> <span class="nv">Long</span> <span class="p">=&gt;</span> &quot;<span class="c1">--scenario-variable&quot;,</span>
+            <span class="nv">Arg_Type</span>      <span class="p">=&gt;</span> Unbounded_String<span class="p">,</span>
+            <span class="nv">Accumulate</span>    <span class="p">=&gt;</span> True<span class="p">,</span>
+            <span class="nv">Help</span>          <span class="p">=&gt;</span> &quot;Scenario variables to pass to the project file&quot;<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Option_List</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Target">
+<em class="property">package </em><code class="sig-name descname">Target</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Option</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Target" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Target</span> <span class="kr">is new</span> <span class="nc">Parse_Option</span>
+           <span class="p">(</span>Parser<span class="p">,</span> <span class="nv">Long</span> <span class="p">=&gt;</span> &quot;<span class="c1">--target&quot;,</span>
+            <span class="nv">Arg_Type</span>      <span class="p">=&gt;</span> Unbounded_String<span class="p">,</span>
+            <span class="nv">Default_Val</span>   <span class="p">=&gt;</span> Null_Unbounded_String<span class="p">,</span>
+            <span class="nv">Help</span>          <span class="p">=&gt;</span> &quot;Name of the target to use when loading the&quot;
+                             <span class="o">&amp;</span> &quot; project&quot;<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Option</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.RTS">
+<em class="property">package </em><code class="sig-name descname">RTS</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Option</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.RTS" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span>package RTS is new Parse_Option
+           (Parser, Long =&gt; &quot;--RTS&quot;,
+            Arg_Type      =&gt; Unbounded_String,
+            Default_Val   =&gt; Null_Unbounded_String,
+            Help          =&gt; &quot;Name of the runtime (RTS) to use when loading&quot;
+                             &amp; &quot; the project&quot;);
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Option</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Config_File">
+<em class="property">package </em><code class="sig-name descname">Config_File</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Option</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Config_File" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Config_File</span> <span class="kr">is new</span> <span class="nc">Parse_Option</span>
+           <span class="p">(</span>Parser<span class="p">,</span> <span class="nv">Long</span> <span class="p">=&gt;</span> &quot;<span class="c1">--config&quot;,</span>
+            <span class="nv">Arg_Type</span>      <span class="p">=&gt;</span> Unbounded_String<span class="p">,</span>
+            <span class="nv">Default_Val</span>   <span class="p">=&gt;</span> Null_Unbounded_String<span class="p">,</span>
+            <span class="nv">Help</span>          <span class="p">=&gt;</span> &quot;Name of the configuration project file. If&quot;
+                             <span class="o">&amp;</span> &quot; passed<span class="p">,</span> thid file must exist and neither&quot;
+                             <span class="o">&amp;</span> &quot; <span class="c1">--target, nor --RTS must be passed.&quot;);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Option</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Auto_Dirs">
+<em class="property">package </em><code class="sig-name descname">Auto_Dirs</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Option_List</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Auto_Dirs" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Auto_Dirs</span> <span class="kr">is new</span> <span class="nc">Parse_Option_List</span>
+           <span class="p">(</span>Parser<span class="p">,</span> &quot;<span class="o">-</span>A&quot;<span class="p">,</span> &quot;<span class="c1">--auto-dir&quot;,</span>
+            <span class="nv">Arg_Type</span>   <span class="p">=&gt;</span> Unbounded_String<span class="p">,</span>
+            <span class="nv">Accumulate</span> <span class="p">=&gt;</span> True<span class="p">,</span>
+            <span class="nv">Help</span>       <span class="p">=&gt;</span>
+               &quot;Directories to use for the auto provider. If at least one is&quot;
+               <span class="o">&amp;</span> &quot; passed<span class="p">,</span> the auto provider will be used<span class="p">,</span> and project options&quot;
+               <span class="o">&amp;</span> &quot; ignored&quot;<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Option_List</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Jobs">
+<em class="property">package </em><code class="sig-name descname">Jobs</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Option</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Jobs" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Jobs</span> <span class="kr">is new</span> <span class="nc">Parse_Option</span>
+           <span class="p">(</span>Parser<span class="p">,</span> &quot;<span class="o">-</span>j&quot;<span class="p">,</span> &quot;<span class="c1">--jobs&quot;,</span>
+            <span class="nv">Arg_Type</span>    <span class="p">=&gt;</span> Natural<span class="p">,</span>
+            <span class="nv">Default_Val</span> <span class="p">=&gt;</span> 1<span class="p">,</span>
+            <span class="nv">Help</span>        <span class="p">=&gt;</span> &quot;Number of parallel jobs to use. If zero<span class="p">,</span> use&quot;
+                           <span class="o">&amp;</span> &quot; maximal parallelism<span class="p">:</span> create one job per CPU.&quot;<span class="p">,</span>
+            <span class="nv">Enabled</span>     <span class="p">=&gt;</span> Enable_Parallelism<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Option</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.No_Traceback">
+<em class="property">package </em><code class="sig-name descname">No_Traceback</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Flag</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.No_Traceback" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">No_Traceback</span> <span class="kr">is new</span> <span class="nc">Parse_Flag</span>
+           <span class="p">(</span>Parser<span class="p">,</span> <span class="nv">Long</span> <span class="p">=&gt;</span> &quot;<span class="c1">--no-traceback&quot;,</span>
+            <span class="nv">Help</span>         <span class="p">=&gt;</span> &quot;Do not display traceback for exceptions&quot;<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Flag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Sym_Traceback">
+<em class="property">package </em><code class="sig-name descname">Sym_Traceback</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Flag</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Sym_Traceback" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Sym_Traceback</span> <span class="kr">is new</span> <span class="nc">Parse_Flag</span>
+           <span class="p">(</span>Parser<span class="p">,</span> <span class="nv">Long</span> <span class="p">=&gt;</span> &quot;<span class="c1">--symbolic-traceback&quot;,</span>
+            <span class="nv">Help</span>         <span class="p">=&gt;</span> &quot;Show symbolic tracebacks for exceptions&quot;<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Flag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Helpers.App.Args.Files">
+<em class="property">package </em><code class="sig-name descname">Files</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Parse_Positional_Arg_List</code><a class="headerlink" href="#Libadalang.Helpers.App.Args.Files" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Files</span> <span class="kr">is new</span> <span class="nc">Parse_Positional_Arg_List</span>
+           <span class="p">(</span>Parser<span class="p">,</span>
+            <span class="nv">Name</span>        <span class="p">=&gt;</span> &quot;files&quot;<span class="p">,</span>
+            <span class="nv">Arg_Type</span>    <span class="p">=&gt;</span> Unbounded_String<span class="p">,</span>
+            <span class="nv">Help</span>        <span class="p">=&gt;</span> &quot;Files to analyze&quot;<span class="p">,</span>
+            <span class="nv">Allow_Empty</span> <span class="p">=&gt;</span> True<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Opt_Parse.Parse_Positional_Arg_List</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada procedure">
+<dt id="Libadalang.Helpers.App.Run">
+<em class="property">procedure </em><code class="sig-name descname">Run</code> <span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Libadalang.Helpers.App.Run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the app. You should just call this from your main procedure for
+your project.</p>
+</dd></dl>
+
+<dl class="ada procedure">
+<dt id="Libadalang.Helpers.App.Dump_Exception">
+<em class="property">procedure </em><code class="sig-name descname">Dump_Exception</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">E</span><span class="p"> : </span><span class="n">Ada.Exceptions.Exception_Occurrence</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Libadalang.Helpers.App.Dump_Exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump the exception <code class="docutils literal notranslate"><span class="pre">E</span></code>, honoring the <code class="docutils literal notranslate"><span class="pre">Args.No_Traceback</span></code> flag
+(i.e.  don’t show tracebacks when asked not to).</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ada_api_misc.html" class="btn btn-neutral float-right" title="7.4. Miscellanous" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ada_api_unit_providers.html" class="btn btn-neutral float-left" title="7.2. Unit providers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

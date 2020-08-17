@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Libadalang.Lexer &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Libadalang.Lexer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/libadalang-lexer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="package-Libadalang.Lexer"></span><div class="section" id="libadalang-lexer">
+<h1>Libadalang.Lexer<a class="headerlink" href="#libadalang-lexer" title="Permalink to this headline">¶</a></h1>
+<p>This package provides types and primitives to split text streams into lists
+of tokens.</p>
+<dl class="ada type">
+<dt id="Libadalang.Lexer.Lexer_Input">
+<em class="property">type </em><code class="sig-name descname">Lexer_Input</code><a class="headerlink" href="#Libadalang.Lexer.Lexer_Input" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Discriminants</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Kind</strong> (<a class="reference internal" href="libadalang-common.html#Libadalang.Common.Lexer_Input_Kind" title="Libadalang.Common.Lexer_Input_Kind"><em>Libadalang.Common.Lexer_Input_Kind</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Components</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Charset</strong> (<em>Ada.Strings.Unbounded.Unbounded_String</em>) – Name of the charset to use in order to decode the input source</p></li>
+<li><p><strong>Read_BOM</strong> (<em>Standard.Boolean</em>) – Whether the lexer should look for an optional Byte Order Mark</p></li>
+<li><p><strong>Filename</strong> (<em>GNATCOLL.VFS.Virtual_File</em>) – Name of the file to read</p></li>
+<li><p><strong>Bytes</strong> (<em>Ada.Strings.Unbounded.Unbounded_String</em>) – Source buffer to read</p></li>
+<li><p><strong>Text</strong> (<em>Langkit_Support.Text.Unbounded_Text_Type</em>) – Source buffer to read</p></li>
+</ul>
+</dd>
+</dl>
+<p>Source buffer to read</p>
+<dl class="ada procedure">
+<dt id="Libadalang.Lexer.Extract_Tokens">
+<em class="property">procedure </em><code class="sig-name descname">Extract_Tokens</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Input</span><span class="p"> : </span><span class="n">Lexer_Input</span></em>; <em class="sig-param"><span class="n">Tab_Stop</span><span class="p"> : </span><span class="n">Positive</span></em>; <em class="sig-param"><span class="n">With_Trivia</span><span class="p"> : </span><span class="n">Boolean</span></em>; <em class="sig-param"><span class="n">TDH</span><span class="p"> : </span><span class="n">Token_Data_Handler</span></em>; <em class="sig-param"><span class="n">Diagnostics</span><span class="p"> : </span><span class="n">Diagnostics_Vectors.Vector</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Libadalang.Lexer.Extract_Tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract tokens out of the given <code class="docutils literal notranslate"><span class="pre">Input</span></code> and store them into <code class="docutils literal notranslate"><span class="pre">TDH</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Tab_Stop</span></code> is a positive number to describe the effect of tabulation
+characters on the column number in source files.</p>
+<p>Raise a <code class="docutils literal notranslate"><span class="pre">Name_Error</span></code> exception if this involves reading a file that
+can not be open. Raise an <code class="docutils literal notranslate"><span class="pre">Unknown_Charset</span></code> exception if the requested
+charset is unknown. Raise an <code class="docutils literal notranslate"><span class="pre">Invalid_Input</span></code> exception if the source
+cannot be decoded using the given <code class="docutils literal notranslate"><span class="pre">Charset</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Lexer.Is_Keyword">
+<em class="property">function </em><code class="sig-name descname">Is_Keyword</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">TDH</span><span class="p"> : </span><span class="n">Token_Data_Handler</span></em>; <em class="sig-param"><span class="n">Index</span><span class="p"> : </span><span class="n">Token_Or_Trivia_Index</span></em>; <em class="sig-param"><span class="n">Version</span><span class="p"> : </span><span class="n">Language_Version</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Lexer.Is_Keyword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an Ada language version, return whether a token is an Ada keyword.</p>
+<p>Due to the way Libadalang works, every token added after Ada 83 is lexed
+as a regular identifier, and then treated specially by the parser in some
+circumstances (being akin to the notion of reserved word).</p>
+<p>This function returns True for regular lexer keywords, as well as for those
+identifiers.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

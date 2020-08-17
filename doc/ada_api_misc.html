@@ -1,0 +1,1216 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>7.4. Miscellanous &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="8. Python API reference" href="python_api_ref.html" />
+    <link rel="prev" title="7.3. Helper packages" href="ada_api_helpers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ada_api_core.html">7.1. Core packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_unit_providers.html">7.2. Unit providers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ada_api_helpers.html">7.3. Helper packages</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.4. Miscellanous</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#libadalang-lexer">7.4.4. Libadalang.Lexer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libadalang-iterators">7.4.5. Libadalang.Iterators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libadalang-introspection">7.4.6. Libadalang.Introspection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="ada_api_ref.html"><span class="section-number">7. </span>Ada API reference</a> &raquo;</li>
+        
+      <li><span class="section-number">7.4. </span>Miscellanous</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ada_api_misc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="miscellanous">
+<h1><span class="section-number">7.4. </span>Miscellanous<a class="headerlink" href="#miscellanous" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="package-Libadalang.Lexer"></span><div class="section" id="libadalang-lexer">
+<h2><span class="section-number">7.4.4. </span>Libadalang.Lexer<a class="headerlink" href="#libadalang-lexer" title="Permalink to this headline">¶</a></h2>
+<p>This package provides types and primitives to split text streams into lists
+of tokens.</p>
+<dl class="ada type">
+<dt id="Libadalang.Lexer.Lexer_Input">
+<em class="property">type </em><code class="sig-name descname">Lexer_Input</code><a class="headerlink" href="#Libadalang.Lexer.Lexer_Input" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Discriminants</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Kind</strong> (<a class="reference internal" href="generated/libadalang-common.html#Libadalang.Common.Lexer_Input_Kind" title="Libadalang.Common.Lexer_Input_Kind"><em>Libadalang.Common.Lexer_Input_Kind</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Components</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Charset</strong> (<em>Ada.Strings.Unbounded.Unbounded_String</em>) – Name of the charset to use in order to decode the input source</p></li>
+<li><p><strong>Read_BOM</strong> (<em>Standard.Boolean</em>) – Whether the lexer should look for an optional Byte Order Mark</p></li>
+<li><p><strong>Filename</strong> (<em>GNATCOLL.VFS.Virtual_File</em>) – Name of the file to read</p></li>
+<li><p><strong>Bytes</strong> (<em>Ada.Strings.Unbounded.Unbounded_String</em>) – Source buffer to read</p></li>
+<li><p><strong>Text</strong> (<em>Langkit_Support.Text.Unbounded_Text_Type</em>) – Source buffer to read</p></li>
+</ul>
+</dd>
+</dl>
+<p>Source buffer to read</p>
+<dl class="ada procedure">
+<dt id="Libadalang.Lexer.Extract_Tokens">
+<em class="property">procedure </em><code class="sig-name descname">Extract_Tokens</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Input</span><span class="p"> : </span><span class="n">Lexer_Input</span></em>; <em class="sig-param"><span class="n">Tab_Stop</span><span class="p"> : </span><span class="n">Positive</span></em>; <em class="sig-param"><span class="n">With_Trivia</span><span class="p"> : </span><span class="n">Boolean</span></em>; <em class="sig-param"><span class="n">TDH</span><span class="p"> : </span><span class="n">Token_Data_Handler</span></em>; <em class="sig-param"><span class="n">Diagnostics</span><span class="p"> : </span><span class="n">Diagnostics_Vectors.Vector</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Libadalang.Lexer.Extract_Tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract tokens out of the given <code class="docutils literal notranslate"><span class="pre">Input</span></code> and store them into <code class="docutils literal notranslate"><span class="pre">TDH</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Tab_Stop</span></code> is a positive number to describe the effect of tabulation
+characters on the column number in source files.</p>
+<p>Raise a <code class="docutils literal notranslate"><span class="pre">Name_Error</span></code> exception if this involves reading a file that
+can not be open. Raise an <code class="docutils literal notranslate"><span class="pre">Unknown_Charset</span></code> exception if the requested
+charset is unknown. Raise an <code class="docutils literal notranslate"><span class="pre">Invalid_Input</span></code> exception if the source
+cannot be decoded using the given <code class="docutils literal notranslate"><span class="pre">Charset</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Lexer.Is_Keyword">
+<em class="property">function </em><code class="sig-name descname">Is_Keyword</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">TDH</span><span class="p"> : </span><span class="n">Token_Data_Handler</span></em>; <em class="sig-param"><span class="n">Index</span><span class="p"> : </span><span class="n">Token_Or_Trivia_Index</span></em>; <em class="sig-param"><span class="n">Version</span><span class="p"> : </span><span class="n">Language_Version</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Lexer.Is_Keyword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an Ada language version, return whether a token is an Ada keyword.</p>
+<p>Due to the way Libadalang works, every token added after Ada 83 is lexed
+as a regular identifier, and then treated specially by the parser in some
+circumstances (being akin to the notion of reserved word).</p>
+<p>This function returns True for regular lexer keywords, as well as for those
+identifiers.</p>
+</dd></dl>
+
+<span class="target" id="package-Libadalang.Iterators"></span></div>
+<div class="section" id="libadalang-iterators">
+<h2><span class="section-number">7.4.5. </span>Libadalang.Iterators<a class="headerlink" href="#libadalang-iterators" title="Permalink to this headline">¶</a></h2>
+<p>This package provides an interface to iterate on nodes in parse trees and
+to look for node patterns.</p>
+<p>First, as an alternative to <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Traverse</span></code>, you can
+do:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kr">declare</span>
+   <span class="n">It</span>   <span class="p">:</span> <span class="n">Traverse_Iterator</span><span class="p">&#39;</span><span class="na">Class</span> <span class="p">:=</span> <span class="n">Traverse</span> <span class="p">(</span><span class="n">My_Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">);</span>
+   <span class="n">Node</span> <span class="p">:</span> <span class="n">Ada_Node</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="kr">while</span> <span class="n">It</span><span class="p">.</span><span class="n">Next</span> <span class="p">(</span><span class="n">Node</span><span class="p">)</span> <span class="kr">loop</span>
+      <span class="c1">--  Process Node</span>
+   <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+<span class="kr">end</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now, if you are exclusively looking for nodes whose text is either <code class="docutils literal notranslate"><span class="pre">foo</span></code>
+or <code class="docutils literal notranslate"><span class="pre">bar</span></code>, you can replace the call to <code class="docutils literal notranslate"><span class="pre">Traverse</span></code> with the following:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="n">Find</span> <span class="p">(</span><span class="n">My_Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">,</span> <span class="n">Text_Is</span> <span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span> <span class="kr">or</span> <span class="n">Text_Is</span> <span class="p">(</span><span class="s">&quot;bar&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Find</span></code>-like functions below take as a second argument a <em>predicate</em>,
+which is an object that can decide if a node should be processed or not.
+This package provides several built-in predicates (<code class="docutils literal notranslate"><span class="pre">Kind_Is</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Text_Is</span></code>, etc.), then you can either define your own, derivating the
+<code class="docutils literal notranslate"><span class="pre">Ada_Node_Predicate_Interface</span></code> type, or compose them using Ada’s boolean operators.</p>
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Iterators.Ada_Node_Iterators">
+<em class="property">package </em><code class="sig-name descname">Ada_Node_Iterators</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Support.Iterators</code><a class="headerlink" href="#Libadalang.Iterators.Ada_Node_Iterators" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Ada_Node_Iterators</span> <span class="kr">is new</span> <span class="nc">Support.Iterators</span>
+     <span class="p">(</span><span class="nv">Element_Type</span>  <span class="p">=&gt;</span> Ada_Node<span class="p">,</span>
+      <span class="nv">Element_Array</span> <span class="p">=&gt;</span> Ada_Node_Array<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>Langkit_Support.Iterators</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Iterators.Traverse_Iterator">
+<em class="property">type </em><code class="sig-name descname">Traverse_Iterator</code><a class="headerlink" href="#Libadalang.Iterators.Traverse_Iterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterator that yields nodes from a tree</p>
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Traverse">
+<em class="property">function </em><code class="sig-name descname">Traverse</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Root</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em><span class="sig-paren">)</span> &#x2192; Traverse_Iterator'Class<a class="headerlink" href="#Libadalang.Iterators.Traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator that yields all nodes under <code class="docutils literal notranslate"><span class="pre">Root</span></code> (included) in a
+prefix DFS (depth first search) fashion.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Find">
+<em class="property">function </em><code class="sig-name descname">Find</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Root</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em>; <em class="sig-param"><span class="n">Predicate</span><span class="p"> : </span><span class="n">access function (N : Ada_Node) return Boolean</span></em><span class="sig-paren">)</span> &#x2192; Traverse_Iterator'Class<a class="headerlink" href="#Libadalang.Iterators.Find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator that yields all nodes under <code class="docutils literal notranslate"><span class="pre">Root</span></code> (included) that
+satisfy the <code class="docutils literal notranslate"><span class="pre">Predicate</span></code> predicate.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="id0">
+<em class="property">function </em><code class="sig-name descname">Find</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Root</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em>; <em class="sig-param"><span class="n">Predicate</span><span class="p"> : </span><span class="n">Ada_Node_Predicate’Class</span></em><span class="sig-paren">)</span> &#x2192; Traverse_Iterator'Class<a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator that yields all nodes under <code class="docutils literal notranslate"><span class="pre">Root</span></code> (included) that
+satisfy the <code class="docutils literal notranslate"><span class="pre">Predicate</span></code> predicate.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Iterators.Ada_Node_Predicate_Interface">
+<em class="property">type </em><code class="sig-name descname">Ada_Node_Predicate_Interface</code><a class="headerlink" href="#Libadalang.Iterators.Ada_Node_Predicate_Interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predicate on nodes.</p>
+<p>Useful predicates often rely on values from some context, so predicates
+that are mere accesses to a function are not powerful enough. Having a
+full interface for this makes it possible to package both the predicate
+code and some data it needs.</p>
+<p>Note that predicates are not thread-safe: make sure you don’t use a
+predicate from multiple threads, as they can contain caches.</p>
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Evaluate">
+<em class="property">function </em><code class="sig-name descname">Evaluate</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">P</span><span class="p"> : </span><span class="n">Ada_Node_Predicate_Interface</span></em>; <em class="sig-param"><span class="n">N</span><span class="p"> : </span><span class="n">Ada_Node</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Iterators.Evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of the predicate for the <code class="docutils literal notranslate"><span class="pre">N</span></code> node</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Iterators.Ada_Node_Predicate_References">
+<em class="property">package </em><code class="sig-name descname">Ada_Node_Predicate_References</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">GNATCOLL.Refcount.Shared_Pointers</code><a class="headerlink" href="#Libadalang.Iterators.Ada_Node_Predicate_References" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Ada_Node_Predicate_References</span> <span class="kr">is new</span>
+      <span class="nc">GNATCOLL.Refcount.Shared_Pointers</span> <span class="p">(</span>Ada_Node_Predicate_Interface&#39;Class<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>GNATCOLL.Refcount.Shared_Pointers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Iterators.Ada_Node_Predicate">
+<em class="property">type </em><code class="sig-name descname">Ada_Node_Predicate</code><a class="headerlink" href="#Libadalang.Iterators.Ada_Node_Predicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ref-counted reference to a predicate</p>
+<dl class="ada function">
+<dt id="Libadalang.Iterators.-not">
+<span id="Libadalang.Iterators."not""></span><em class="property">function </em><code class="sig-name descname">&quot;not&quot;</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Predicate</span><span class="p"> : </span><span class="n">Ada_Node_Predicate</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.-not" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes that are <em>not</em> accepted by
+<code class="docutils literal notranslate"><span class="pre">Predicate</span></code>.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.-and">
+<span id="Libadalang.Iterators."and""></span><em class="property">function </em><code class="sig-name descname">&quot;and&quot;</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Left</span><span class="p">, </span><span class="n">Right</span><span class="p"> : </span><span class="n">Ada_Node_Predicate</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.-and" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes that are accepted by both
+<code class="docutils literal notranslate"><span class="pre">Left</span></code> and <code class="docutils literal notranslate"><span class="pre">Right</span></code>.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.-or">
+<span id="Libadalang.Iterators."or""></span><em class="property">function </em><code class="sig-name descname">&quot;or&quot;</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Left</span><span class="p">, </span><span class="n">Right</span><span class="p"> : </span><span class="n">Ada_Node_Predicate</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.-or" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes that are accepted by <code class="docutils literal notranslate"><span class="pre">Left</span></code>
+or <code class="docutils literal notranslate"><span class="pre">Right</span></code>.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.For_All">
+<em class="property">function </em><code class="sig-name descname">For_All</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Predicates</span><span class="p"> : </span><span class="n">Ada_Node_Predicate_Array</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.For_All" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes that are accepted by all
+given <code class="docutils literal notranslate"><span class="pre">Predicates</span></code>.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.For_Some">
+<em class="property">function </em><code class="sig-name descname">For_Some</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Predicates</span><span class="p"> : </span><span class="n">Ada_Node_Predicate_Array</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.For_Some" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes that are accepted by at least
+one of the given <code class="docutils literal notranslate"><span class="pre">Predicates</span></code>.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.For_All_Children">
+<em class="property">function </em><code class="sig-name descname">For_All_Children</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Predicate</span><span class="p"> : </span><span class="n">Ada_Node_Predicate</span></em>; <em class="sig-param"><span class="n">Skip_Null</span><span class="p"> : </span><span class="n">Boolean</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.For_All_Children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes for which <code class="docutils literal notranslate"><span class="pre">Predicate</span></code>
+accepts all children. Unless <code class="docutils literal notranslate"><span class="pre">Skip_Null</span></code> is false, this does not
+evaluate the predicate on null children.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.For_Some_Children">
+<em class="property">function </em><code class="sig-name descname">For_Some_Children</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Predicate</span><span class="p"> : </span><span class="n">Ada_Node_Predicate</span></em>; <em class="sig-param"><span class="n">Skip_Null</span><span class="p"> : </span><span class="n">Boolean</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.For_Some_Children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes for which <code class="docutils literal notranslate"><span class="pre">Predicate</span></code>
+accepts at least one child. Unless <code class="docutils literal notranslate"><span class="pre">Skip_Null</span></code> is false, this does not
+evaluate the predicate on null children.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Child_With">
+<em class="property">function </em><code class="sig-name descname">Child_With</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Field</span><span class="p"> : </span><span class="n">Field_Reference</span></em>; <em class="sig-param"><span class="n">Predicate</span><span class="p"> : </span><span class="n">Ada_Node_Predicate</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.Child_With" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes which have a child
+corresponding to the given field reference and for which this child is
+accepted by the given predicate.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Kind_Is">
+<em class="property">function </em><code class="sig-name descname">Kind_Is</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.Kind_Is" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes of the given <code class="docutils literal notranslate"><span class="pre">Kind</span></code></p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Kind_In">
+<em class="property">function </em><code class="sig-name descname">Kind_In</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">First</span><span class="p">, </span><span class="n">Last</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.Kind_In" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes whose kind is in First ..
+Last.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Text_Is">
+<em class="property">function </em><code class="sig-name descname">Text_Is</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Text</span><span class="p"> : </span><span class="n">Text_Type</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.Text_Is" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes that match the given <code class="docutils literal notranslate"><span class="pre">Text</span></code></p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Node_Is_Null">
+<em class="property">function </em><code class="sig-name descname">Node_Is_Null</code> <span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.Node_Is_Null" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only null nodes</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Decl_Defines">
+<em class="property">function </em><code class="sig-name descname">Decl_Defines</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Name</span><span class="p"> : </span><span class="n">Text_Type</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.Decl_Defines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only <code class="docutils literal notranslate"><span class="pre">Basic_Decl</span></code> nodes that define the
+given <code class="docutils literal notranslate"><span class="pre">Name</span></code>.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Xref_Is">
+<em class="property">function </em><code class="sig-name descname">Xref_Is</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Name</span><span class="p"> : </span><span class="n">Defining_Name</span></em>; <em class="sig-param"><span class="n">Imprecise_Fallback</span><span class="p"> : </span><span class="n">Boolean</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Predicate<a class="headerlink" href="#Libadalang.Iterators.Xref_Is" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a predicate that accepts only nodes whose <code class="docutils literal notranslate"><span class="pre">P_Gnat_Xref</span></code> property
+returns <code class="docutils literal notranslate"><span class="pre">Name</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Iterators.Ada_Node_Predicate_Array">
+<em class="property">type </em><code class="sig-name descname">Ada_Node_Predicate_Array</code><a class="headerlink" href="#Libadalang.Iterators.Ada_Node_Predicate_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Iterators.Find_First">
+<em class="property">function </em><code class="sig-name descname">Find_First</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Root</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em>; <em class="sig-param"><span class="n">Predicate</span><span class="p"> : </span><span class="n">access function (N : Ada_Node) return Boolean</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node<a class="headerlink" href="#Libadalang.Iterators.Find_First" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first node found under <code class="docutils literal notranslate"><span class="pre">Root</span></code> (included) that satisfies the
+given <code class="docutils literal notranslate"><span class="pre">Predicate</span></code>. Return a null node if there is no such node.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="id1">
+<em class="property">function </em><code class="sig-name descname">Find_First</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Root</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em>; <em class="sig-param"><span class="n">Predicate</span><span class="p"> : </span><span class="n">Ada_Node_Predicate’Class</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node<a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first node found under <code class="docutils literal notranslate"><span class="pre">Root</span></code> (included) that satisfies the
+given <code class="docutils literal notranslate"><span class="pre">Predicate</span></code>. Return a null node if there is no such node.</p>
+</dd></dl>
+
+<span class="target" id="package-Libadalang.Introspection"></span></div>
+<div class="section" id="libadalang-introspection">
+<h2><span class="section-number">7.4.6. </span>Libadalang.Introspection<a class="headerlink" href="#libadalang-introspection" title="Permalink to this headline">¶</a></h2>
+<p>This package provides primitives to inspect the structure of parse trees.
+It answers questions such as: what is the index of a syntax field in a
+node? or conversely, to what syntax field does a couple (index, node kind)
+correspond?</p>
+<p>For instance, the following code snippet prints the name of the first
+syntax field in <code class="docutils literal notranslate"><span class="pre">Node</span></code>:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kr">declare</span>
+   <span class="no">Field_Ref</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Field_Reference</span> <span class="p">:=</span>
+      <span class="n">Field_Reference_From_Index</span> <span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">Kind</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="kr">begin</span>
+   <span class="n">Ada</span><span class="p">.</span><span class="n">Text_IO</span><span class="p">.</span><span class="n">Put_Line</span> <span class="p">(</span><span class="n">Field_Name</span> <span class="p">(</span><span class="n">Field_Ref</span><span class="p">));</span>
+<span class="kr">end</span><span class="p">;</span>
+</pre></div>
+</div>
+<dl class="ada function">
+<dt id="Libadalang.Introspection.DSL_Name">
+<em class="property">function </em><code class="sig-name descname">DSL_Name</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Introspection.DSL_Name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name corresponding to Id in the Langkit DSL</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Lookup_DSL_Name">
+<em class="property">function </em><code class="sig-name descname">Lookup_DSL_Name</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Name</span><span class="p"> : </span><span class="n">String</span></em><span class="sig-paren">)</span> &#x2192; Any_Node_Type_Id<a class="headerlink" href="#Libadalang.Introspection.Lookup_DSL_Name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look for the node type for which Name is in the Lankgit DSL. Return it
+if found, otherwise return None.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Is_Abstract">
+<em class="property">function </em><code class="sig-name descname">Is_Abstract</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Introspection.Is_Abstract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether Id designates an abstract node</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Is_Concrete">
+<em class="property">function </em><code class="sig-name descname">Is_Concrete</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Introspection.Is_Concrete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Kind_For">
+<em class="property">function </em><code class="sig-name descname">Kind_For</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Kind_Type<a class="headerlink" href="#Libadalang.Introspection.Kind_For" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the node kind corresponding to Id. This raises a Constraint_Error
+if Id designates an abstract node.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Id_For_Kind">
+<em class="property">function </em><code class="sig-name descname">Id_For_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em><span class="sig-paren">)</span> &#x2192; Node_Type_Id<a class="headerlink" href="#Libadalang.Introspection.Id_For_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the node type corresponding to the given node Kind</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Is_Root_Node">
+<em class="property">function </em><code class="sig-name descname">Is_Root_Node</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Introspection.Is_Root_Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether Id is a reference for the root node type</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Base_Type">
+<em class="property">function </em><code class="sig-name descname">Base_Type</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Node_Type_Id<a class="headerlink" href="#Libadalang.Introspection.Base_Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>If Id is the root node type, raise a Constaint_Error. Otherwise, return
+a reference to Id’s base type.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Derived_Types">
+<em class="property">function </em><code class="sig-name descname">Derived_Types</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Node_Type_Id_Array<a class="headerlink" href="#Libadalang.Introspection.Derived_Types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return type references for all direct derivations for Id</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Is_Derived_From">
+<em class="property">function </em><code class="sig-name descname">Is_Derived_From</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p">, </span><span class="n">Parent</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Introspection.Is_Derived_From" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the type that Id represents is derives (directly or
+indirectly) from the type that Parent represents.</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Introspection.Any_Value_Type">
+<em class="property">type </em><code class="sig-name descname">Any_Value_Type</code><a class="headerlink" href="#Libadalang.Introspection.Any_Value_Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Polymorphic value to contain Kind values. This type has by-reference
+semantics, so copying it is cheap.</p>
+<dl class="ada object">
+<dt id="Libadalang.Introspection.No_Value">
+<code class="sig-name descname">No_Value</code><em class="property"> : constant Any_Value_Type</em><a class="headerlink" href="#Libadalang.Introspection.No_Value" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Object type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="generated/libadalang-introspection.html#Libadalang.Introspection.Any_Value_Type" title="Libadalang.Introspection.Any_Value_Type">Libadalang.Introspection.Any_Value_Type</a></p>
+</dd>
+</dl>
+<p>Special Any_Value_Type to mean: no reference to a value</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Kind">
+<em class="property">function </em><code class="sig-name descname">Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Value_Kind<a class="headerlink" href="#Libadalang.Introspection.Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the kind of values that Value holds</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Boolean">
+<em class="property">function </em><code class="sig-name descname">As_Boolean</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Introspection.As_Boolean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Boolean">
+<em class="property">function </em><code class="sig-name descname">Create_Boolean</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Boolean</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Boolean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Integer">
+<em class="property">function </em><code class="sig-name descname">As_Integer</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Integer<a class="headerlink" href="#Libadalang.Introspection.As_Integer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Integer">
+<em class="property">function </em><code class="sig-name descname">Create_Integer</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Integer</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Integer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Big_Integer">
+<em class="property">function </em><code class="sig-name descname">As_Big_Integer</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Big_Integer<a class="headerlink" href="#Libadalang.Introspection.As_Big_Integer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Big_Integer">
+<em class="property">function </em><code class="sig-name descname">Create_Big_Integer</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Big_Integer</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Big_Integer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Character">
+<em class="property">function </em><code class="sig-name descname">As_Character</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Character_Type<a class="headerlink" href="#Libadalang.Introspection.As_Character" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Character">
+<em class="property">function </em><code class="sig-name descname">Create_Character</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Character_Type</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Character" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Token">
+<em class="property">function </em><code class="sig-name descname">As_Token</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Token_Reference<a class="headerlink" href="#Libadalang.Introspection.As_Token" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Token">
+<em class="property">function </em><code class="sig-name descname">Create_Token</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Token" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Unbounded_Text">
+<em class="property">function </em><code class="sig-name descname">As_Unbounded_Text</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Unbounded_Text_Type<a class="headerlink" href="#Libadalang.Introspection.As_Unbounded_Text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Unbounded_Text">
+<em class="property">function </em><code class="sig-name descname">Create_Unbounded_Text</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Unbounded_Text_Type</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Unbounded_Text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Analysis_Unit">
+<em class="property">function </em><code class="sig-name descname">As_Analysis_Unit</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Analysis_Unit<a class="headerlink" href="#Libadalang.Introspection.As_Analysis_Unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Analysis_Unit">
+<em class="property">function </em><code class="sig-name descname">Create_Analysis_Unit</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Analysis_Unit</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Analysis_Unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Node">
+<em class="property">function </em><code class="sig-name descname">As_Node</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node<a class="headerlink" href="#Libadalang.Introspection.As_Node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Node">
+<em class="property">function </em><code class="sig-name descname">Create_Node</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Analysis_Unit_Kind">
+<em class="property">function </em><code class="sig-name descname">As_Analysis_Unit_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Analysis_Unit_Kind<a class="headerlink" href="#Libadalang.Introspection.As_Analysis_Unit_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Analysis_Unit_Kind">
+<em class="property">function </em><code class="sig-name descname">Create_Analysis_Unit_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Analysis_Unit_Kind</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Analysis_Unit_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Lookup_Kind">
+<em class="property">function </em><code class="sig-name descname">As_Lookup_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Lookup_Kind<a class="headerlink" href="#Libadalang.Introspection.As_Lookup_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Lookup_Kind">
+<em class="property">function </em><code class="sig-name descname">Create_Lookup_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Lookup_Kind</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Lookup_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Find_All_Mode">
+<em class="property">function </em><code class="sig-name descname">As_Find_All_Mode</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Find_All_Mode<a class="headerlink" href="#Libadalang.Introspection.As_Find_All_Mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Find_All_Mode">
+<em class="property">function </em><code class="sig-name descname">Create_Find_All_Mode</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Find_All_Mode</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Find_All_Mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Ref_Result_Kind">
+<em class="property">function </em><code class="sig-name descname">As_Ref_Result_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Ref_Result_Kind<a class="headerlink" href="#Libadalang.Introspection.As_Ref_Result_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Ref_Result_Kind">
+<em class="property">function </em><code class="sig-name descname">Create_Ref_Result_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Ref_Result_Kind</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Ref_Result_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Grammar_Rule">
+<em class="property">function </em><code class="sig-name descname">As_Grammar_Rule</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Grammar_Rule<a class="headerlink" href="#Libadalang.Introspection.As_Grammar_Rule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Grammar_Rule">
+<em class="property">function </em><code class="sig-name descname">Create_Grammar_Rule</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Grammar_Rule</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Grammar_Rule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Text_Type">
+<em class="property">function </em><code class="sig-name descname">As_Text_Type</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Text_Type<a class="headerlink" href="#Libadalang.Introspection.As_Text_Type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Text_Type">
+<em class="property">function </em><code class="sig-name descname">Create_Text_Type</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Text_Type</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Text_Type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Aspect">
+<em class="property">function </em><code class="sig-name descname">As_Aspect</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Aspect<a class="headerlink" href="#Libadalang.Introspection.As_Aspect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Aspect">
+<em class="property">function </em><code class="sig-name descname">Create_Aspect</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Aspect</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Aspect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Completion_Item">
+<em class="property">function </em><code class="sig-name descname">As_Completion_Item</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Completion_Item<a class="headerlink" href="#Libadalang.Introspection.As_Completion_Item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Completion_Item">
+<em class="property">function </em><code class="sig-name descname">Create_Completion_Item</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Completion_Item</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Completion_Item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Completion_Item_Array">
+<em class="property">function </em><code class="sig-name descname">As_Completion_Item_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Completion_Item_Array<a class="headerlink" href="#Libadalang.Introspection.As_Completion_Item_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Completion_Item_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Completion_Item_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Completion_Item_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Completion_Item_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Discrete_Range">
+<em class="property">function </em><code class="sig-name descname">As_Discrete_Range</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Discrete_Range<a class="headerlink" href="#Libadalang.Introspection.As_Discrete_Range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Discrete_Range">
+<em class="property">function </em><code class="sig-name descname">Create_Discrete_Range</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Discrete_Range</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Discrete_Range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Discriminant_Values">
+<em class="property">function </em><code class="sig-name descname">As_Discriminant_Values</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Discriminant_Values<a class="headerlink" href="#Libadalang.Introspection.As_Discriminant_Values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Discriminant_Values">
+<em class="property">function </em><code class="sig-name descname">Create_Discriminant_Values</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Discriminant_Values</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Discriminant_Values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Discriminant_Values_Array">
+<em class="property">function </em><code class="sig-name descname">As_Discriminant_Values_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Discriminant_Values_Array<a class="headerlink" href="#Libadalang.Introspection.As_Discriminant_Values_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Discriminant_Values_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Discriminant_Values_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Discriminant_Values_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Discriminant_Values_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Doc_Annotation">
+<em class="property">function </em><code class="sig-name descname">As_Doc_Annotation</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Doc_Annotation<a class="headerlink" href="#Libadalang.Introspection.As_Doc_Annotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Doc_Annotation">
+<em class="property">function </em><code class="sig-name descname">Create_Doc_Annotation</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Doc_Annotation</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Doc_Annotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Doc_Annotation_Array">
+<em class="property">function </em><code class="sig-name descname">As_Doc_Annotation_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Doc_Annotation_Array<a class="headerlink" href="#Libadalang.Introspection.As_Doc_Annotation_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Doc_Annotation_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Doc_Annotation_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Doc_Annotation_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Doc_Annotation_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Ada_Node_Array">
+<em class="property">function </em><code class="sig-name descname">As_Ada_Node_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node_Array<a class="headerlink" href="#Libadalang.Introspection.As_Ada_Node_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Ada_Node_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Ada_Node_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Ada_Node_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Ada_Node_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Base_Formal_Param_Decl_Array">
+<em class="property">function </em><code class="sig-name descname">As_Base_Formal_Param_Decl_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Base_Formal_Param_Decl_Array<a class="headerlink" href="#Libadalang.Introspection.As_Base_Formal_Param_Decl_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Base_Formal_Param_Decl_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Base_Formal_Param_Decl_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Base_Formal_Param_Decl_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Base_Formal_Param_Decl_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Base_Type_Decl_Array">
+<em class="property">function </em><code class="sig-name descname">As_Base_Type_Decl_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Base_Type_Decl_Array<a class="headerlink" href="#Libadalang.Introspection.As_Base_Type_Decl_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Base_Type_Decl_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Base_Type_Decl_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Base_Type_Decl_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Base_Type_Decl_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Basic_Decl_Array">
+<em class="property">function </em><code class="sig-name descname">As_Basic_Decl_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Basic_Decl_Array<a class="headerlink" href="#Libadalang.Introspection.As_Basic_Decl_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Basic_Decl_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Basic_Decl_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Basic_Decl_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Basic_Decl_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Compilation_Unit_Array">
+<em class="property">function </em><code class="sig-name descname">As_Compilation_Unit_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Compilation_Unit_Array<a class="headerlink" href="#Libadalang.Introspection.As_Compilation_Unit_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Compilation_Unit_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Compilation_Unit_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Compilation_Unit_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Compilation_Unit_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Defining_Name_Array">
+<em class="property">function </em><code class="sig-name descname">As_Defining_Name_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Defining_Name_Array<a class="headerlink" href="#Libadalang.Introspection.As_Defining_Name_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Defining_Name_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Defining_Name_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Defining_Name_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Defining_Name_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Expr_Array">
+<em class="property">function </em><code class="sig-name descname">As_Expr_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Expr_Array<a class="headerlink" href="#Libadalang.Introspection.As_Expr_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Expr_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Expr_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Expr_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Expr_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Generic_Instantiation_Array">
+<em class="property">function </em><code class="sig-name descname">As_Generic_Instantiation_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Generic_Instantiation_Array<a class="headerlink" href="#Libadalang.Introspection.As_Generic_Instantiation_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Generic_Instantiation_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Generic_Instantiation_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Generic_Instantiation_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Generic_Instantiation_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Param_Spec_Array">
+<em class="property">function </em><code class="sig-name descname">As_Param_Spec_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Param_Spec_Array<a class="headerlink" href="#Libadalang.Introspection.As_Param_Spec_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Param_Spec_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Param_Spec_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Param_Spec_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Param_Spec_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Type_Decl_Array">
+<em class="property">function </em><code class="sig-name descname">As_Type_Decl_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Type_Decl_Array<a class="headerlink" href="#Libadalang.Introspection.As_Type_Decl_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Type_Decl_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Type_Decl_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Type_Decl_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Type_Decl_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Param_Actual">
+<em class="property">function </em><code class="sig-name descname">As_Param_Actual</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Param_Actual<a class="headerlink" href="#Libadalang.Introspection.As_Param_Actual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Param_Actual">
+<em class="property">function </em><code class="sig-name descname">Create_Param_Actual</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Param_Actual</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Param_Actual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Param_Actual_Array">
+<em class="property">function </em><code class="sig-name descname">As_Param_Actual_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Param_Actual_Array<a class="headerlink" href="#Libadalang.Introspection.As_Param_Actual_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Param_Actual_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Param_Actual_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Param_Actual_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Param_Actual_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Ref_Result">
+<em class="property">function </em><code class="sig-name descname">As_Ref_Result</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Ref_Result<a class="headerlink" href="#Libadalang.Introspection.As_Ref_Result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Ref_Result">
+<em class="property">function </em><code class="sig-name descname">Create_Ref_Result</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Ref_Result</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Ref_Result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Ref_Result_Array">
+<em class="property">function </em><code class="sig-name descname">As_Ref_Result_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Ref_Result_Array<a class="headerlink" href="#Libadalang.Introspection.As_Ref_Result_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Ref_Result_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Ref_Result_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Ref_Result_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Ref_Result_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Refd_Decl">
+<em class="property">function </em><code class="sig-name descname">As_Refd_Decl</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Refd_Decl<a class="headerlink" href="#Libadalang.Introspection.As_Refd_Decl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Refd_Decl">
+<em class="property">function </em><code class="sig-name descname">Create_Refd_Decl</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Refd_Decl</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Refd_Decl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Refd_Def">
+<em class="property">function </em><code class="sig-name descname">As_Refd_Def</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Refd_Def<a class="headerlink" href="#Libadalang.Introspection.As_Refd_Def" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Refd_Def">
+<em class="property">function </em><code class="sig-name descname">Create_Refd_Def</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Refd_Def</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Refd_Def" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Shape">
+<em class="property">function </em><code class="sig-name descname">As_Shape</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Shape<a class="headerlink" href="#Libadalang.Introspection.As_Shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Shape">
+<em class="property">function </em><code class="sig-name descname">Create_Shape</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Shape</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Shape_Array">
+<em class="property">function </em><code class="sig-name descname">As_Shape_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Shape_Array<a class="headerlink" href="#Libadalang.Introspection.As_Shape_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Shape_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Shape_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Shape_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Shape_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Substitution">
+<em class="property">function </em><code class="sig-name descname">As_Substitution</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Substitution<a class="headerlink" href="#Libadalang.Introspection.As_Substitution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Substitution">
+<em class="property">function </em><code class="sig-name descname">Create_Substitution</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Substitution</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Substitution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Substitution_Array">
+<em class="property">function </em><code class="sig-name descname">As_Substitution_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Substitution_Array<a class="headerlink" href="#Libadalang.Introspection.As_Substitution_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Substitution_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Substitution_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Substitution_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Substitution_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Analysis_Unit_Array">
+<em class="property">function </em><code class="sig-name descname">As_Analysis_Unit_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Analysis_Unit_Array<a class="headerlink" href="#Libadalang.Introspection.As_Analysis_Unit_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Analysis_Unit_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Analysis_Unit_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Analysis_Unit_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Analysis_Unit_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.As_Unbounded_Text_Type_Array">
+<em class="property">function </em><code class="sig-name descname">As_Unbounded_Text_Type_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Value_Type</span></em><span class="sig-paren">)</span> &#x2192; Unbounded_Text_Type_Array<a class="headerlink" href="#Libadalang.Introspection.As_Unbounded_Text_Type_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Create_Unbounded_Text_Type_Array">
+<em class="property">function </em><code class="sig-name descname">Create_Unbounded_Text_Type_Array</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Unbounded_Text_Type_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Create_Unbounded_Text_Type_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Satisfies">
+<em class="property">function </em><code class="sig-name descname">Satisfies</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Value</span><span class="p"> : </span><span class="n">Value_Type</span></em>; <em class="sig-param"><span class="n">Constraint</span><span class="p"> : </span><span class="n">Value_Constraint</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Introspection.Satisfies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the given Value satisfy the given Constraint</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Property_Argument_Default_Value">
+<em class="property">function </em><code class="sig-name descname">Property_Argument_Default_Value</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Property</span><span class="p"> : </span><span class="n">Property_Reference</span></em>; <em class="sig-param"><span class="n">Argument_Number</span><span class="p"> : </span><span class="n">Positive</span></em><span class="sig-paren">)</span> &#x2192; Any_Value_Type<a class="headerlink" href="#Libadalang.Introspection.Property_Argument_Default_Value" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the argument corresponding to Argument_Number of the given
+Property has a default value, return it. Return No_Value otherwise.
+This raises a Property_Error if Property has no such argument.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Introspection.Value_Type">
+<em class="property">type </em><code class="sig-name descname">Value_Type</code><a class="headerlink" href="#Libadalang.Introspection.Value_Type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Introspection.Value_Array">
+<em class="property">type </em><code class="sig-name descname">Value_Array</code><a class="headerlink" href="#Libadalang.Introspection.Value_Array" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="ada function">
+<dt id="Libadalang.Introspection.Eval_Node_Data">
+<em class="property">function </em><code class="sig-name descname">Eval_Node_Data</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Node</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em>; <em class="sig-param"><span class="n">Node_Data</span><span class="p"> : </span><span class="n">Node_Data_Reference</span></em>; <em class="sig-param"><span class="n">Arguments</span><span class="p"> : </span><span class="n">Value_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Eval_Node_Data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate Node_Data on the given Node and the given arguments. If node
+data evaluation raises a Property_Error, forward it. Otherwise, return
+its result.</p>
+<p>This raises a Node_Data_Evaluation_Error if Node has no such node data
+or if the provided arguments are invalid for it.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Eval_Property">
+<em class="property">function </em><code class="sig-name descname">Eval_Property</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Node</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em>; <em class="sig-param"><span class="n">Property</span><span class="p"> : </span><span class="n">Property_Reference</span></em>; <em class="sig-param"><span class="n">Arguments</span><span class="p"> : </span><span class="n">Value_Array</span></em><span class="sig-paren">)</span> &#x2192; Value_Type<a class="headerlink" href="#Libadalang.Introspection.Eval_Property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate Property on the given Node and the given arguments. If the
+property raises a Property_Error, forward it, otherwise return its
+result.</p>
+<p>This raises a Node_Data_Evaluation_Error if Node has no such property or
+if the provided arguments are invalid for this property.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Introspection.Any_Value_Array">
+<em class="property">type </em><code class="sig-name descname">Any_Value_Array</code><a class="headerlink" href="#Libadalang.Introspection.Any_Value_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="id2">
+<em class="property">function </em><code class="sig-name descname">DSL_Name</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Constraint</span><span class="p"> : </span><span class="n">Value_Constraint</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name corresponding to Constraint in the Langkit DSL</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Node_Data_Name">
+<em class="property">function </em><code class="sig-name descname">Node_Data_Name</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Node_Data</span><span class="p"> : </span><span class="n">Node_Data_Reference</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Introspection.Node_Data_Name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a lower-case name for Node_Data</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Node_Data_Type">
+<em class="property">function </em><code class="sig-name descname">Node_Data_Type</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Node_Data</span><span class="p"> : </span><span class="n">Node_Data_Reference</span></em><span class="sig-paren">)</span> &#x2192; Value_Constraint<a class="headerlink" href="#Libadalang.Introspection.Node_Data_Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the constraint associated with Node_Data’s type (or its return
+type).</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Lookup_Node_Data">
+<em class="property">function </em><code class="sig-name descname">Lookup_Node_Data</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em>; <em class="sig-param"><span class="n">Name</span><span class="p"> : </span><span class="n">String</span></em><span class="sig-paren">)</span> &#x2192; Any_Node_Data_Reference<a class="headerlink" href="#Libadalang.Introspection.Lookup_Node_Data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look for the node data corresponding to the given Name (lower-case
+name) in the given node type reference (Id). Return it if found,
+otherwise return None.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Field_Name">
+<em class="property">function </em><code class="sig-name descname">Field_Name</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Field</span><span class="p"> : </span><span class="n">Field_Reference</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Introspection.Field_Name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a lower-case name for <code class="docutils literal notranslate"><span class="pre">Field</span></code></p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Field_Type">
+<em class="property">function </em><code class="sig-name descname">Field_Type</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Field</span><span class="p"> : </span><span class="n">Field_Reference</span></em><span class="sig-paren">)</span> &#x2192; Node_Type_Id<a class="headerlink" href="#Libadalang.Introspection.Field_Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a reference to the node type that covers what Field can contain</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Eval_Field">
+<em class="property">function </em><code class="sig-name descname">Eval_Field</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Node</span><span class="p"> : </span><span class="n">Ada_Node’Class</span></em>; <em class="sig-param"><span class="n">Field</span><span class="p"> : </span><span class="n">Field_Reference</span></em><span class="sig-paren">)</span> &#x2192; Ada_Node<a class="headerlink" href="#Libadalang.Introspection.Eval_Field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate Field on the given Node. Return the corresponding Node.</p>
+<p>This raises a Node_Data_Evaluation_Error if Node has no such field.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Index">
+<em class="property">function </em><code class="sig-name descname">Index</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em>; <em class="sig-param"><span class="n">Field</span><span class="p"> : </span><span class="n">Field_Reference</span></em><span class="sig-paren">)</span> &#x2192; Positive<a class="headerlink" href="#Libadalang.Introspection.Index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the index in nodes to access the given <code class="docutils literal notranslate"><span class="pre">Field</span></code> considering the
+given <code class="docutils literal notranslate"><span class="pre">Kind</span></code> of node.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Field_Reference_From_Index">
+<em class="property">function </em><code class="sig-name descname">Field_Reference_From_Index</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em>; <em class="sig-param"><span class="n">Index</span><span class="p"> : </span><span class="n">Positive</span></em><span class="sig-paren">)</span> &#x2192; Field_Reference<a class="headerlink" href="#Libadalang.Introspection.Field_Reference_From_Index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the field reference corresponding to the given <code class="docutils literal notranslate"><span class="pre">Index</span></code> in nodes
+of the given <code class="docutils literal notranslate"><span class="pre">Kind</span></code>. Raise an <code class="docutils literal notranslate"><span class="pre">Invalid_Field</span></code> exception if there is
+no field corresponding to this index.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Fields">
+<em class="property">function </em><code class="sig-name descname">Fields</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em><span class="sig-paren">)</span> &#x2192; Field_Reference_Array<a class="headerlink" href="#Libadalang.Introspection.Fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of fields that nodes of the given <code class="docutils literal notranslate"><span class="pre">Kind</span></code> have. This
+returns an empty array for list nodes.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="id3">
+<em class="property">function </em><code class="sig-name descname">Fields</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Field_Reference_Array<a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Likewise, but taking a reference to a node type instead</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Property_Name">
+<em class="property">function </em><code class="sig-name descname">Property_Name</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Property</span><span class="p"> : </span><span class="n">Property_Reference</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Introspection.Property_Name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a lower-case name for <code class="docutils literal notranslate"><span class="pre">Property</span></code></p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Property_Return_Type">
+<em class="property">function </em><code class="sig-name descname">Property_Return_Type</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Property</span><span class="p"> : </span><span class="n">Property_Reference</span></em><span class="sig-paren">)</span> &#x2192; Value_Constraint<a class="headerlink" href="#Libadalang.Introspection.Property_Return_Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the type constraint for Property’s return type</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Property_Argument_Types">
+<em class="property">function </em><code class="sig-name descname">Property_Argument_Types</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Property</span><span class="p"> : </span><span class="n">Property_Reference</span></em><span class="sig-paren">)</span> &#x2192; Value_Constraint_Array<a class="headerlink" href="#Libadalang.Introspection.Property_Argument_Types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the type constraints for Property’s arguments</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Property_Argument_Name">
+<em class="property">function </em><code class="sig-name descname">Property_Argument_Name</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Property</span><span class="p"> : </span><span class="n">Property_Reference</span></em>; <em class="sig-param"><span class="n">Argument_Number</span><span class="p"> : </span><span class="n">Positive</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Introspection.Property_Argument_Name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the lower-cased name for Property’s argument whose index is
+Argument_Number. This raises a Property_Error if Property has no such
+argument.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Properties">
+<em class="property">function </em><code class="sig-name descname">Properties</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em><span class="sig-paren">)</span> &#x2192; Property_Reference_Array<a class="headerlink" href="#Libadalang.Introspection.Properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of properties that nodes of the given <code class="docutils literal notranslate"><span class="pre">Kind</span></code> have</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="id4">
+<em class="property">function </em><code class="sig-name descname">Properties</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Id</span><span class="p"> : </span><span class="n">Node_Type_Id</span></em><span class="sig-paren">)</span> &#x2192; Property_Reference_Array<a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Likewise, but taking a reference to a node type instead</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Introspection.Token_Node_Kind">
+<em class="property">function </em><code class="sig-name descname">Token_Node_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em><span class="sig-paren">)</span> &#x2192; Token_Kind<a class="headerlink" href="#Libadalang.Introspection.Token_Node_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the token kind corresponding to the given token node kind</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python_api_ref.html" class="btn btn-neutral float-right" title="8. Python API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ada_api_helpers.html" class="btn btn-neutral float-left" title="7.3. Helper packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>9.1. Using advanced iterators &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9.2. Dealing with aggregate projects" href="aggregate_projects.html" />
+    <link rel="prev" title="9. Examples repository" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">9. Examples repository</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.1. Using advanced iterators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#input-source">9.1.1. Input source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-code">9.1.2. Sample code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">9.1.3. Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="aggregate_projects.html">9.2. Dealing with aggregate projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic_instantiation.html">9.3. Accessing actuals of generic instantiations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">9. </span>Examples repository</a> &raquo;</li>
+        
+      <li><span class="section-number">9.1. </span>Using advanced iterators</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/examples/advanced_iterators.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-advanced-iterators">
+<h1><span class="section-number">9.1. </span>Using advanced iterators<a class="headerlink" href="#using-advanced-iterators" title="Permalink to this headline">¶</a></h1>
+<p>Libadalang users often need to go over all nodes in a unit that match specific
+criteria. For instance: go through all number declarations whose expression is
+a simple integer literal. The <code class="docutils literal notranslate"><span class="pre">Traverse</span></code> functions in <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis</span></code>
+already make this more handy than implementing the tree traversal using the
+generic <code class="docutils literal notranslate"><span class="pre">Child</span></code> function on nodes, but it’s still cumbersome, as one need to
+declare a callback function to process each node.</p>
+<p>The advanced iterators API (<code class="docutils literal notranslate"><span class="pre">Libadalang.Iterators</span></code>) provide helpers to make
+this even more convenient.</p>
+<div class="section" id="input-source">
+<h2><span class="section-number">9.1.1. </span>Input source<a class="headerlink" href="#input-source" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Tunables</span> <span class="kr">is</span>
+   <span class="no">Bit_Count</span>   <span class="p">:</span> <span class="kr">constant</span> <span class="p">:=</span> <span class="mi">1337</span><span class="p">;</span>
+   <span class="no">Bytes_Count</span> <span class="p">:</span> <span class="kr">constant</span> <span class="p">:=</span> <span class="p">(</span><span class="n">Bit_Count</span> <span class="o">+</span> <span class="mi">7</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Tunables</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sample-code">
+<h2><span class="section-number">9.1.2. </span>Sample code<a class="headerlink" href="#sample-code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span>
+
+<span class="kn">with</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>  <span class="kn">use</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Common</span><span class="p">;</span>    <span class="kn">use</span> <span class="nn">Libadalang.Common</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Iterators</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Libadalang.Iterators</span><span class="p">;</span>
+
+<span class="kd">procedure</span> <span class="nf">Foo</span> <span class="kr">is</span>
+   <span class="no">Unit</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Analysis_Unit</span> <span class="p">:=</span>
+      <span class="n">Create_Context</span><span class="p">.</span><span class="n">Get_From_File</span> <span class="p">(</span><span class="s">&quot;tunables.ads&quot;</span><span class="p">);</span>
+
+   <span class="c1">--  Create a predicate that will accept only...</span>
+   <span class="no">P</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Ada_Node_Predicate</span> <span class="p">:=</span>
+
+      <span class="c1">--  Number_Decl nodes...</span>
+      <span class="n">Kind_Is</span> <span class="p">(</span><span class="n">Ada_Number_Decl</span><span class="p">)</span>
+
+      <span class="c1">--  Whose F_Expr fields contain...</span>
+      <span class="ow">and</span> <span class="n">Child_With</span>
+        <span class="p">(</span><span class="n">Number_Decl_F_Expr</span><span class="p">,</span>
+
+         <span class="c1">--  Int_Literal nodes</span>
+         <span class="n">Kind_Is</span> <span class="p">(</span><span class="n">Ada_Int_Literal</span><span class="p">));</span>
+
+   <span class="c1">--  Create an iterator that will yield all nodes under (and including)</span>
+   <span class="c1">--  Unit.Root that satisfy this predicate.</span>
+   <span class="n">It</span>   <span class="p">:</span> <span class="n">Traverse_Iterator</span><span class="p">&#39;</span><span class="na">Class</span> <span class="p">:=</span> <span class="n">Find</span> <span class="p">(</span><span class="n">Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">,</span> <span class="n">P</span><span class="p">);</span>
+   <span class="n">Node</span> <span class="p">:</span> <span class="n">Ada_Node</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="c1">--  Go through all these nodes</span>
+   <span class="kr">while</span> <span class="n">It</span><span class="p">.</span><span class="n">Next</span> <span class="p">(</span><span class="n">Node</span><span class="p">)</span> <span class="kr">loop</span>
+      <span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;Found: &quot;</span> <span class="o">&amp;</span> <span class="n">Node</span><span class="p">.</span><span class="n">Short_Image</span><span class="p">);</span>
+   <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Foo</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2><span class="section-number">9.1.3. </span>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Found: &lt;NumberDecl [&quot;Bit_Count&quot;] tunables.ads:2:4-2:35&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="aggregate_projects.html" class="btn btn-neutral float-right" title="9.2. Dealing with aggregate projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="9. Examples repository" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

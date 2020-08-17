@@ -1,0 +1,846 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Libadalang.Common &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Libadalang.Common</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/libadalang-common.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="package-Libadalang.Common"></span><div class="section" id="libadalang-common">
+<h1>Libadalang.Common<a class="headerlink" href="#libadalang-common" title="Permalink to this headline">¶</a></h1>
+<p>This package provides types and functions used in the whole Libadalang
+package tree.</p>
+<dl class="ada object">
+<dt id="Libadalang.Common.Main_Trace">
+<code class="sig-name descname">Main_Trace</code><em class="property"> : constant GNATCOLL.Traces.Trace_Handle</em><a class="headerlink" href="#Libadalang.Common.Main_Trace" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Object type</dt>
+<dd class="field-odd"><p>GNATCOLL.Traces.Trace_Handle</p>
+</dd>
+<dt class="field-even">Default value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">GNATCOLL.Traces.Create</span> <span class="pre">(&quot;LIBADALANG.MAIN_TRACE&quot;,</span> <span class="pre">GNATCOLL.Traces.From_Config)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada object">
+<dt id="Libadalang.Common.Default_Charset">
+<code class="sig-name descname">Default_Charset</code><em class="property"> : constant String</em><a class="headerlink" href="#Libadalang.Common.Default_Charset" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Object type</dt>
+<dd class="field-odd"><p>Standard.String</p>
+</dd>
+<dt class="field-even">Default value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;iso-8859-1&quot;</span></code></p>
+</dd>
+</dl>
+<p>Default charset to use when creating analysis contexts</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Big_Integer">
+<em class="property">type </em><code class="sig-name descname">Big_Integer</code><a class="headerlink" href="#Libadalang.Common.Big_Integer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut for <code class="docutils literal notranslate"><span class="pre">GNATCOLL.GMP.Integers.Big_Integer</span></code></p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Precomputed_Symbol_Index">
+<em class="property">type </em><code class="sig-name descname">Precomputed_Symbol_Index</code><a class="headerlink" href="#Libadalang.Common.Precomputed_Symbol_Index" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="ada function">
+<dt id="Libadalang.Common.Precomputed_Symbol">
+<em class="property">function </em><code class="sig-name descname">Precomputed_Symbol</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Index</span><span class="p"> : </span><span class="n">Precomputed_Symbol_Index</span></em><span class="sig-paren">)</span> &#x2192; Text_Type<a class="headerlink" href="#Libadalang.Common.Precomputed_Symbol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Common.Symbols">
+<em class="property">package </em><code class="sig-name descname">Symbols</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Langkit_Support.Symbols</code><a class="headerlink" href="#Libadalang.Common.Symbols" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Symbols</span> <span class="kr">is new</span> <span class="nc">Langkit_Support.Symbols</span>
+     <span class="p">(</span>Precomputed_Symbol_Index<span class="p">,</span> Precomputed_Symbol<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>Langkit_Support.Symbols</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada generic-package-instantiation">
+<dt id="Libadalang.Common.Token_Data_Handlers">
+<em class="property">package </em><code class="sig-name descname">Token_Data_Handlers</code><code class="sig-name descname"> </code><em class="property"> is new </em><code class="sig-name descname">Langkit_Support.Token_Data_Handlers</code><a class="headerlink" href="#Libadalang.Common.Token_Data_Handlers" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Token_Data_Handlers</span> <span class="kr">is new</span> <span class="nc">Langkit_Support.Token_Data_Handlers</span>
+     <span class="p">(</span>Precomputed_Symbol_Index<span class="p">,</span> Precomputed_Symbol<span class="p">,</span> Symbols<span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Instantiated generic package</dt>
+<dd class="field-odd"><p>Langkit_Support.Token_Data_Handlers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Ada_Node_Kind_Type">
+<em class="property">type </em><code class="sig-name descname">Ada_Node_Kind_Type</code><a class="headerlink" href="#Libadalang.Common.Ada_Node_Kind_Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type for concrete nodes</p>
+<dl class="ada function">
+<dt id="Libadalang.Common.Is_Token_Node">
+<em class="property">function </em><code class="sig-name descname">Is_Token_Node</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Common.Is_Token_Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether Kind corresponds to a token node</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Is_List_Node">
+<em class="property">function </em><code class="sig-name descname">Is_List_Node</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Ada_Node_Kind_Type</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Common.Is_List_Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether Kind corresponds to a list node</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Synthetic_Nodes">
+<em class="property">type </em><code class="sig-name descname">Synthetic_Nodes</code><a class="headerlink" href="#Libadalang.Common.Synthetic_Nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set of nodes that are synthetic.</p>
+<p>Parsers cannot create synthetic nodes, so these correspond to no
+source text. These nodes are created dynamically for convenience
+during semantic analysis.</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Analysis_Unit_Kind">
+<em class="property">type </em><code class="sig-name descname">Analysis_Unit_Kind</code><a class="headerlink" href="#Libadalang.Common.Analysis_Unit_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a kind of analysis unit. Specification units provide an
+interface to the outer world while body units provide an
+implementation for the corresponding interface.</p>
+<dl class="ada function">
+<dt id="Libadalang.Common.Trace_Image">
+<em class="property">function </em><code class="sig-name descname">Trace_Image</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Analysis_Unit_Kind</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Common.Trace_Image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Lookup_Kind">
+<em class="property">type </em><code class="sig-name descname">Lookup_Kind</code><a class="headerlink" href="#Libadalang.Common.Lookup_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="ada function">
+<dt id="id0">
+<em class="property">function </em><code class="sig-name descname">Trace_Image</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Lookup_Kind</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Find_All_Mode">
+<em class="property">type </em><code class="sig-name descname">Find_All_Mode</code><a class="headerlink" href="#Libadalang.Common.Find_All_Mode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="ada function">
+<dt id="id1">
+<em class="property">function </em><code class="sig-name descname">Trace_Image</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Find_All_Mode</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Ref_Result_Kind">
+<em class="property">type </em><code class="sig-name descname">Ref_Result_Kind</code><a class="headerlink" href="#Libadalang.Common.Ref_Result_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kind for the result of a cross reference operation.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NoRef</span></code> is for no reference, it is the null value for this enum.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Precise</span></code> is when the reference result is precise.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Imprecise</span></code> is when there was an error computing the precise</p></li>
+</ul>
+<p>result, and a result was gotten in an imprecise fashion.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Error</span></code> is for unrecoverable errors (either there is no imprecise</p></li>
+</ul>
+<p>path for the request you made, or the imprecise path errored out too.</p>
+<dl class="ada function">
+<dt id="id2">
+<em class="property">function </em><code class="sig-name descname">Trace_Image</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Ref_Result_Kind</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Grammar_Rule">
+<em class="property">type </em><code class="sig-name descname">Grammar_Rule</code><a class="headerlink" href="#Libadalang.Common.Grammar_Rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gramar rule to use for parsing.</p>
+<dl class="ada function">
+<dt id="id3">
+<em class="property">function </em><code class="sig-name descname">Trace_Image</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Self</span><span class="p"> : </span><span class="n">Grammar_Rule</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada object">
+<dt id="Libadalang.Common.Default_Grammar_Rule">
+<code class="sig-name descname">Default_Grammar_Rule</code><em class="property"> : constant Grammar_Rule</em><a class="headerlink" href="#Libadalang.Common.Default_Grammar_Rule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Object type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#Libadalang.Common.Grammar_Rule" title="Libadalang.Common.Grammar_Rule">Libadalang.Common.Grammar_Rule</a></p>
+</dd>
+<dt class="field-even">Default value</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Compilation_Rule</span></code></p>
+</dd>
+</dl>
+<p>Default grammar rule to use when parsing analysis units</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Lexer_Input_Kind">
+<em class="property">type </em><code class="sig-name descname">Lexer_Input_Kind</code><a class="headerlink" href="#Libadalang.Common.Lexer_Input_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kind of lexer input</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Undecoded_Lexer_Input">
+<em class="property">type </em><code class="sig-name descname">Undecoded_Lexer_Input</code><a class="headerlink" href="#Libadalang.Common.Undecoded_Lexer_Input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Token_Kind">
+<em class="property">type </em><code class="sig-name descname">Token_Kind</code><a class="headerlink" href="#Libadalang.Common.Token_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kind of token: identifier, string literal, …</p>
+<dl class="ada function">
+<dt id="Libadalang.Common.Token_Kind_Name">
+<em class="property">function </em><code class="sig-name descname">Token_Kind_Name</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token_Id</span><span class="p"> : </span><span class="n">Token_Kind</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Common.Token_Kind_Name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a human-readable name for a token kind.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Token_Kind_Literal">
+<em class="property">function </em><code class="sig-name descname">Token_Kind_Literal</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token_Id</span><span class="p"> : </span><span class="n">Token_Kind</span></em><span class="sig-paren">)</span> &#x2192; Text_Type<a class="headerlink" href="#Libadalang.Common.Token_Kind_Literal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the canonical literal corresponding to this token kind, or an
+empty string if this token has no literal.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Token_Error_Image">
+<em class="property">function </em><code class="sig-name descname">Token_Error_Image</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token_Id</span><span class="p"> : </span><span class="n">Token_Kind</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Common.Token_Error_Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string representation of <code class="docutils literal notranslate"><span class="pre">Token_Id</span></code> that is suitable in error
+messages.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.To_Token_Kind">
+<em class="property">function </em><code class="sig-name descname">To_Token_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Raw</span><span class="p"> : </span><span class="n">Raw_Token_Kind</span></em><span class="sig-paren">)</span> &#x2192; Token_Kind<a class="headerlink" href="#Libadalang.Common.To_Token_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.From_Token_Kind">
+<em class="property">function </em><code class="sig-name descname">From_Token_Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Kind</span><span class="p"> : </span><span class="n">Token_Kind</span></em><span class="sig-paren">)</span> &#x2192; Raw_Token_Kind<a class="headerlink" href="#Libadalang.Common.From_Token_Kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Token_Family">
+<em class="property">type </em><code class="sig-name descname">Token_Family</code><a class="headerlink" href="#Libadalang.Common.Token_Family" title="Permalink to this definition">¶</a></dt>
+<dd><p>Groups of token kinds, to make the processing of some groups of token
+uniform.</p>
+</dd></dl>
+
+<dl class="ada object">
+<dt id="Libadalang.Common.Token_Kind_To_Family">
+<code class="sig-name descname">Token_Kind_To_Family</code><em class="property"> : array (Token_Kind) of Token_Family</em><a class="headerlink" href="#Libadalang.Common.Token_Kind_To_Family" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Object type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">(Token_Kind)</span> <span class="pre">of</span> <span class="pre">Token_Family</span></code></p>
+</dd>
+</dl>
+<p>Associate a token family to all token kinds</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Visit_Status">
+<em class="property">type </em><code class="sig-name descname">Visit_Status</code><a class="headerlink" href="#Libadalang.Common.Visit_Status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper type to control the node traversal process. See the
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Traverse</span></code> function.</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Token_Reference">
+<em class="property">type </em><code class="sig-name descname">Token_Reference</code><a class="headerlink" href="#Libadalang.Common.Token_Reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to a token in an analysis unit.</p>
+<dl class="ada object">
+<dt id="Libadalang.Common.No_Token">
+<code class="sig-name descname">No_Token</code><em class="property"> : constant Token_Reference</em><a class="headerlink" href="#Libadalang.Common.No_Token" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Object type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#Libadalang.Common.Token_Reference" title="Libadalang.Common.Token_Reference">Libadalang.Common.Token_Reference</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.">
+<span id="Libadalang.Common."<""></span><em class="property">function </em><code class="sig-name descname">&quot;&lt;&quot;</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Left</span><span class="p">, </span><span class="n">Right</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Common." title="Permalink to this definition">¶</a></dt>
+<dd><p>Assuming <code class="docutils literal notranslate"><span class="pre">Left</span></code> and <code class="docutils literal notranslate"><span class="pre">Right</span></code> belong to the same analysis unit, return
+whether <code class="docutils literal notranslate"><span class="pre">Left</span></code> came before <code class="docutils literal notranslate"><span class="pre">Right</span></code> in the source file.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Next">
+<em class="property">function </em><code class="sig-name descname">Next</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em>; <em class="sig-param"><span class="n">Exclude_Trivia</span><span class="p"> : </span><span class="n">Boolean</span></em><span class="sig-paren">)</span> &#x2192; Token_Reference<a class="headerlink" href="#Libadalang.Common.Next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a reference to the next token in the corresponding analysis unit.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Previous">
+<em class="property">function </em><code class="sig-name descname">Previous</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em>; <em class="sig-param"><span class="n">Exclude_Trivia</span><span class="p"> : </span><span class="n">Boolean</span></em><span class="sig-paren">)</span> &#x2192; Token_Reference<a class="headerlink" href="#Libadalang.Common.Previous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a reference to the previous token in the corresponding analysis
+unit.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Data">
+<em class="property">function </em><code class="sig-name descname">Data</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Token_Data_Type<a class="headerlink" href="#Libadalang.Common.Data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data associated to <code class="docutils literal notranslate"><span class="pre">Token</span></code></p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Is_Equivalent">
+<em class="property">function </em><code class="sig-name descname">Is_Equivalent</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">L</span><span class="p">, </span><span class="n">R</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Common.Is_Equivalent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether <code class="docutils literal notranslate"><span class="pre">L</span></code> and <code class="docutils literal notranslate"><span class="pre">R</span></code> are structurally equivalent tokens. This
+means that their position in the stream won’t be taken into account,
+only the kind and text of the token.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Image">
+<em class="property">function </em><code class="sig-name descname">Image</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Common.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debug helper: return a human-readable text to represent a token</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Text">
+<em class="property">function </em><code class="sig-name descname">Text</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Text_Type<a class="headerlink" href="#Libadalang.Common.Text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the text of the token as <code class="docutils literal notranslate"><span class="pre">Text_Type</span></code></p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="id4">
+<em class="property">function </em><code class="sig-name descname">Text</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">First</span><span class="p">, </span><span class="n">Last</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Text_Type<a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the source buffer slice corresponding to the text that spans
+between the <code class="docutils literal notranslate"><span class="pre">First</span></code> and <code class="docutils literal notranslate"><span class="pre">Last</span></code> tokens (both included). This yields
+an empty slice if <code class="docutils literal notranslate"><span class="pre">Last</span></code> actually appears before <code class="docutils literal notranslate"><span class="pre">First</span></code>.</p>
+<p>This raises a <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code> if <code class="docutils literal notranslate"><span class="pre">First</span></code> and <code class="docutils literal notranslate"><span class="pre">Last</span></code> don’t
+belong to the same analysis unit.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Get_Symbol">
+<em class="property">function </em><code class="sig-name descname">Get_Symbol</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Symbol_Type<a class="headerlink" href="#Libadalang.Common.Get_Symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assuming that <code class="docutils literal notranslate"><span class="pre">Token</span></code> refers to a token that contains a symbol, return
+the corresponding symbol.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Is_Trivia">
+<em class="property">function </em><code class="sig-name descname">Is_Trivia</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#Libadalang.Common.Is_Trivia" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether this token is a trivia. If it’s not, it’s a regular
+token.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Index">
+<em class="property">function </em><code class="sig-name descname">Index</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Token_Index<a class="headerlink" href="#Libadalang.Common.Index" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-based index for this token/trivia. Tokens and trivias get their own
+index space.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Origin_Filename">
+<em class="property">function </em><code class="sig-name descname">Origin_Filename</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Common.Origin_Filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the file whose content was scanned to create Token.
+Return an empty string if the source comes from a memory buffer instead
+of a file.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Origin_Charset">
+<em class="property">function </em><code class="sig-name descname">Origin_Charset</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; String<a class="headerlink" href="#Libadalang.Common.Origin_Charset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the charset used to decode the source that was scanned to create
+Token. Return an empty string if the source was already decoded during
+the scan.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Convert">
+<em class="property">function </em><code class="sig-name descname">Convert</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">TDH</span><span class="p"> : </span><span class="n">Token_Data_Handler</span></em>; <em class="sig-param"><span class="n">Token</span><span class="p"> : </span><span class="n">Token_Reference</span></em>; <em class="sig-param"><span class="n">Raw_Data</span><span class="p"> : </span><span class="n">Stored_Token_Data</span></em><span class="sig-paren">)</span> &#x2192; Token_Data_Type<a class="headerlink" href="#Libadalang.Common.Convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn data from <code class="docutils literal notranslate"><span class="pre">TDH</span></code> and <code class="docutils literal notranslate"><span class="pre">Raw_Data</span></code> into a user-ready token data
+record.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Raw_Data">
+<em class="property">function </em><code class="sig-name descname">Raw_Data</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">T</span><span class="p"> : </span><span class="n">Token_Reference</span></em><span class="sig-paren">)</span> &#x2192; Stored_Token_Data<a class="headerlink" href="#Libadalang.Common.Raw_Data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the raw token data for <code class="docutils literal notranslate"><span class="pre">T</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Token_Data_Type">
+<em class="property">type </em><code class="sig-name descname">Token_Data_Type</code><a class="headerlink" href="#Libadalang.Common.Token_Data_Type" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="ada function">
+<dt id="Libadalang.Common.Kind">
+<em class="property">function </em><code class="sig-name descname">Kind</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token_Data</span><span class="p"> : </span><span class="n">Token_Data_Type</span></em><span class="sig-paren">)</span> &#x2192; Token_Kind<a class="headerlink" href="#Libadalang.Common.Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kind for this token.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="id5">
+<em class="property">function </em><code class="sig-name descname">Is_Trivia</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token_Data</span><span class="p"> : </span><span class="n">Token_Data_Type</span></em><span class="sig-paren">)</span> &#x2192; Boolean<a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether this token is a trivia. If it’s not, it’s a regular
+token.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="id6">
+<em class="property">function </em><code class="sig-name descname">Index</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token_Data</span><span class="p"> : </span><span class="n">Token_Data_Type</span></em><span class="sig-paren">)</span> &#x2192; Token_Index<a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-based index for this token/trivia. Tokens and trivias get their own
+index space.</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Sloc_Range">
+<em class="property">function </em><code class="sig-name descname">Sloc_Range</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Token_Data</span><span class="p"> : </span><span class="n">Token_Data_Type</span></em><span class="sig-paren">)</span> &#x2192; Source_Location_Range<a class="headerlink" href="#Libadalang.Common.Sloc_Range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Source location range for this token. Note that the end bound is
+exclusive.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Child_Or_Trivia">
+<em class="property">type </em><code class="sig-name descname">Child_Or_Trivia</code><a class="headerlink" href="#Libadalang.Common.Child_Or_Trivia" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discriminator for the <code class="docutils literal notranslate"><span class="pre">Child_Record</span></code> type</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Symbolization_Result">
+<em class="property">type </em><code class="sig-name descname">Symbolization_Result</code><a class="headerlink" href="#Libadalang.Common.Symbolization_Result" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Discriminants</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Success</strong> (<em>Standard.Boolean</em>) – </p></li>
+<li><p><strong>Size</strong> (<em>Standard.Natural</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Components</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Symbol</strong> (<em>Langkit_Support.Text.Text_Type</em>) – Text for successfully symbolized identifiers</p></li>
+<li><p><strong>Error_Message</strong> (<em>Langkit_Support.Text.Text_Type</em>) – Message describing why symbolization failed</p></li>
+</ul>
+</dd>
+</dl>
+<p>Message describing why symbolization failed</p>
+<dl class="ada function">
+<dt id="Libadalang.Common.Create_Symbol">
+<em class="property">function </em><code class="sig-name descname">Create_Symbol</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Name</span><span class="p"> : </span><span class="n">Text_Type</span></em><span class="sig-paren">)</span> &#x2192; Symbolization_Result<a class="headerlink" href="#Libadalang.Common.Create_Symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create successful symbolization results</p>
+</dd></dl>
+
+<dl class="ada function">
+<dt id="Libadalang.Common.Create_Error">
+<em class="property">function </em><code class="sig-name descname">Create_Error</code> <span class="sig-paren">(</span><em class="sig-param"><span class="n">Message</span><span class="p"> : </span><span class="n">Text_Type</span></em><span class="sig-paren">)</span> &#x2192; Symbolization_Result<a class="headerlink" href="#Libadalang.Common.Create_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create failed symbolization results</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Invalid_Input">
+<code class="sig-name descname">Invalid_Input</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Invalid_Input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised by lexing functions (<code class="docutils literal notranslate"><span class="pre">Libadalang.Lexer</span></code>) when the input
+contains an invalid byte sequence.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Invalid_Symbol_Error">
+<code class="sig-name descname">Invalid_Symbol_Error</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Invalid_Symbol_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raise when an invalid symbol is passed to a subprogram.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Invalid_Unit_Name_Error">
+<code class="sig-name descname">Invalid_Unit_Name_Error</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Invalid_Unit_Name_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when an invalid unit name is provided.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Native_Exception">
+<code class="sig-name descname">Native_Exception</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Native_Exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised in language bindings when the underlying C API reports
+an unexpected error that occurred in the library.</p>
+<p>This kind of exception is raised for internal errors: they should never
+happen in normal situations and if they are raised at some point, it
+means the library state is potentially corrupted.</p>
+<p>Nevertheless, the library does its best not to crash the program,
+materializing internal errors using this kind of exception.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Precondition_Failure">
+<code class="sig-name descname">Precondition_Failure</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Precondition_Failure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when an API is called while its preconditions are not
+satisfied.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Property_Error">
+<code class="sig-name descname">Property_Error</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Property_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception that is raised when an error occurs while evaluating any
+function whose name starts with <code class="docutils literal notranslate"><span class="pre">P_</span></code>. This is the only exceptions that
+such functions can raise.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Stale_Reference_Error">
+<code class="sig-name descname">Stale_Reference_Error</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Stale_Reference_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised while trying to access data that was deallocated. This
+happens when one tries to use a node whose unit has been reparsed, for
+instance.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Unknown_Charset">
+<code class="sig-name descname">Unknown_Charset</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Unknown_Charset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised by lexing functions (<code class="docutils literal notranslate"><span class="pre">Libadalang.Lexer</span></code>) when the input charset
+is not supported.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Invalid_Field">
+<code class="sig-name descname">Invalid_Field</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Invalid_Field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when introspection functions (<code class="docutils literal notranslate"><span class="pre">Libadalang.Introspection</span></code>) are
+requested an invalid field.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Node_Data_Evaluation_Error">
+<code class="sig-name descname">Node_Data_Evaluation_Error</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Node_Data_Evaluation_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when introspection functions (<code class="docutils literal notranslate"><span class="pre">Libadalang.Introspection</span></code>) are
+improperly used to evaluate a node data (field or property).</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Template_Args_Error">
+<code class="sig-name descname">Template_Args_Error</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Template_Args_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when the provided arguments for a template don’t match
+what the template expects.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Template_Format_Error">
+<code class="sig-name descname">Template_Format_Error</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Template_Format_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when a template has an invalid syntax, such as badly
+formatted placeholders.</p>
+</dd></dl>
+
+<dl class="ada exception">
+<dt id="Libadalang.Common.Template_Instantiation_Error">
+<code class="sig-name descname">Template_Instantiation_Error</code><em class="property">: exception</em><a class="headerlink" href="#Libadalang.Common.Template_Instantiation_Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised when the instantiation of a template cannot be parsed.</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Any_Node_Type_Id">
+<em class="property">type </em><code class="sig-name descname">Any_Node_Type_Id</code><a class="headerlink" href="#Libadalang.Common.Any_Node_Type_Id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumeration type used to specify &amp; query the type of fields &amp;
+properties. Unlike Ada_Node_Kind_Type, the following enumeration contains
+entries for abstract nodes.</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Node_Type_Id">
+<em class="property">type </em><code class="sig-name descname">Node_Type_Id</code><a class="headerlink" href="#Libadalang.Common.Node_Type_Id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subtype for <a class="reference internal" href="#Libadalang.Common.Any_Node_Type_Id" title="Libadalang.Common.Any_Node_Type_Id"><code class="xref ada ada-ref docutils literal notranslate"><span class="pre">Any_Node_Type_Id</span></code></a> excluding the <code class="docutils literal notranslate"><span class="pre">None</span></code> value</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Node_Type_Id_Array">
+<em class="property">type </em><code class="sig-name descname">Node_Type_Id_Array</code><a class="headerlink" href="#Libadalang.Common.Node_Type_Id_Array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array of <a class="reference internal" href="#Libadalang.Common.Node_Type_Id" title="Libadalang.Common.Node_Type_Id"><code class="xref ada ada-ref docutils literal notranslate"><span class="pre">Node_Type_Id</span></code></a>, used to represent a collection of types</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Any_Value_Kind">
+<em class="property">type </em><code class="sig-name descname">Any_Value_Kind</code><a class="headerlink" href="#Libadalang.Common.Any_Value_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumeration for all types used to interact with properties</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Value_Kind">
+<em class="property">type </em><code class="sig-name descname">Value_Kind</code><a class="headerlink" href="#Libadalang.Common.Value_Kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subtype for <a class="reference internal" href="#Libadalang.Common.Any_Value_Kind" title="Libadalang.Common.Any_Value_Kind"><code class="xref ada ada-ref docutils literal notranslate"><span class="pre">Any_Value_Kind</span></code></a> excluding the <code class="docutils literal notranslate"><span class="pre">None</span></code> value</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Value_Constraint">
+<em class="property">type </em><code class="sig-name descname">Value_Constraint</code><a class="headerlink" href="#Libadalang.Common.Value_Constraint" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Discriminants</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Kind</strong> (<a class="reference internal" href="#Libadalang.Common.Value_Kind" title="Libadalang.Common.Value_Kind"><em>Libadalang.Common.Value_Kind</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Components</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Node_Type</strong> (<a class="reference internal" href="#Libadalang.Common.Node_Type_Id" title="Libadalang.Common.Node_Type_Id"><em>Libadalang.Common.Node_Type_Id</em></a>) – Base type for nodes that satisfy this constraint</p></li>
+</ul>
+</dd>
+</dl>
+<p>Base type for nodes that satisfy this constraint</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Value_Constraint_Array">
+<em class="property">type </em><code class="sig-name descname">Value_Constraint_Array</code><a class="headerlink" href="#Libadalang.Common.Value_Constraint_Array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array of <a class="reference internal" href="#Libadalang.Common.Value_Constraint" title="Libadalang.Common.Value_Constraint"><code class="xref ada ada-ref docutils literal notranslate"><span class="pre">Value_Constraint</span></code></a>, used to represent a collection of type
+constraints on values (for example, for properties arguments).</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Any_Node_Data_Reference">
+<em class="property">type </em><code class="sig-name descname">Any_Node_Data_Reference</code><a class="headerlink" href="#Libadalang.Common.Any_Node_Data_Reference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Node_Data_Reference">
+<em class="property">type </em><code class="sig-name descname">Node_Data_Reference</code><a class="headerlink" href="#Libadalang.Common.Node_Data_Reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumeration of all data attached to nodes (syntax fields and properties)</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Node_Data_Reference_Array">
+<em class="property">type </em><code class="sig-name descname">Node_Data_Reference_Array</code><a class="headerlink" href="#Libadalang.Common.Node_Data_Reference_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Field_Reference">
+<em class="property">type </em><code class="sig-name descname">Field_Reference</code><a class="headerlink" href="#Libadalang.Common.Field_Reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumeration of all syntax fields for regular nodes</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Field_Reference_Array">
+<em class="property">type </em><code class="sig-name descname">Field_Reference_Array</code><a class="headerlink" href="#Libadalang.Common.Field_Reference_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Property_Reference">
+<em class="property">type </em><code class="sig-name descname">Property_Reference</code><a class="headerlink" href="#Libadalang.Common.Property_Reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumeration of all available node properties</p>
+</dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Property_Reference_Array">
+<em class="property">type </em><code class="sig-name descname">Property_Reference_Array</code><a class="headerlink" href="#Libadalang.Common.Property_Reference_Array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="ada type">
+<dt id="Libadalang.Common.Language_Version">
+<em class="property">type </em><code class="sig-name descname">Language_Version</code><a class="headerlink" href="#Libadalang.Common.Language_Version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum representing a version of the Ada language</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

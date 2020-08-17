@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>13.1. Proper handling of function attributes &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="13.2. Name Resolution of Char Literals" href="nameres_char_literals.html" />
+    <link rel="prev" title="13. Development design documents" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">13. Development design documents</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.1. Proper handling of function attributes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#current-problem">13.1.1. Current problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proposed-solution">13.1.2. Proposed Solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nameres_char_literals.html">13.2. Name Resolution of Char Literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solver_rewrite.html">13.3. Adalog solver rewrite</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">13. </span>Development design documents</a> &raquo;</li>
+        
+      <li><span class="section-number">13.1. </span>Proper handling of function attributes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/design_documents/function_attributes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="proper-handling-of-function-attributes">
+<h1><span class="section-number">13.1. </span>Proper handling of function attributes<a class="headerlink" href="#proper-handling-of-function-attributes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="current-problem">
+<h2><span class="section-number">13.1.1. </span>Current problem<a class="headerlink" href="#current-problem" title="Permalink to this headline">¶</a></h2>
+<p>In Ada, a lot of attributes are defined as refering to built-in functions
+(every attribute that “takes arguments”, is actually a function).</p>
+<p>Libadalang’s parser is wrong in that regard. Historically,  it parses
+<code class="docutils literal notranslate"><span class="pre">AttributeRef</span></code> with arguments as part of the AttributeRef node, rather than
+as a <code class="docutils literal notranslate"><span class="pre">CallExpr</span></code> where the callee is the <code class="docutils literal notranslate"><span class="pre">AttributeRef</span></code> node.</p>
+<p>Recently, we made it so that it will do that only for the cases that we already
+implemented using the old tree. Attributes will be parsed correctly in the
+general case:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>%  parse -r expr <span class="s2">&quot;A&#39;B(12, 15)&quot;</span>
+CallExpr<span class="o">[</span><span class="m">1</span>:1-1:12<span class="o">]</span>
+<span class="p">|</span>name:
+<span class="p">|</span>  AttributeRef<span class="o">[</span><span class="m">1</span>:1-1:4<span class="o">]</span>
+<span class="p">|</span>  <span class="p">|</span>prefix:
+<span class="p">|</span>  <span class="p">|</span>  Id<span class="o">[</span><span class="m">1</span>:1-1:2<span class="o">]</span>: A
+<span class="p">|</span>  <span class="p">|</span>attribute:
+<span class="p">|</span>  <span class="p">|</span>  Id<span class="o">[</span><span class="m">1</span>:3-1:4<span class="o">]</span>: B
+<span class="p">|</span>  <span class="p">|</span>args: &lt;null&gt;
+<span class="p">|</span>suffix:
+<span class="p">|</span>  AssocList<span class="o">[</span><span class="m">1</span>:5-1:11<span class="o">]</span>
+<span class="p">|</span>  <span class="p">|</span>  ParamAssoc<span class="o">[</span><span class="m">1</span>:5-1:7<span class="o">]</span>
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>designator: &lt;null&gt;
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>r_expr:
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>  Int<span class="o">[</span><span class="m">1</span>:5-1:7<span class="o">]</span>: <span class="m">12</span>
+<span class="p">|</span>  <span class="p">|</span>  ParamAssoc<span class="o">[</span><span class="m">1</span>:9-1:11<span class="o">]</span>
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>designator: &lt;null&gt;
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>r_expr:
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>  Int<span class="o">[</span><span class="m">1</span>:9-1:11<span class="o">]</span>: <span class="m">15</span>
+</pre></div>
+</div>
+<p>But will be parsed incorrectly (legacy) for all attributes that should be
+functions but are not handled as such by LAL:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>% parse -r expr <span class="s2">&quot;A&#39;First(12)&quot;</span>
+AttributeRef<span class="o">[</span><span class="m">1</span>:1-1:12<span class="o">]</span>
+<span class="p">|</span>prefix:
+<span class="p">|</span>  Id<span class="o">[</span><span class="m">1</span>:1-1:2<span class="o">]</span>: A
+<span class="p">|</span>attribute:
+<span class="p">|</span>  Id<span class="o">[</span><span class="m">1</span>:3-1:8<span class="o">]</span>: First
+<span class="p">|</span>args:
+<span class="p">|</span>  AssocList<span class="o">[</span><span class="m">1</span>:9-1:11<span class="o">]</span>
+<span class="p">|</span>  <span class="p">|</span>  ParamAssoc<span class="o">[</span><span class="m">1</span>:9-1:11<span class="o">]</span>
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>designator: &lt;null&gt;
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>r_expr:
+<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>  Int<span class="o">[</span><span class="m">1</span>:9-1:11<span class="o">]</span>: <span class="m">12</span>
+</pre></div>
+</div>
+<p>Those legacy attributes are handled, but the way they’re handled is incorrect
+and will fail when the fact that the attribute denotes functions is inevitable,
+such as in the following example:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">procedure</span> <span class="nf">Foo</span> <span class="kr">is</span>
+    <span class="kd">function</span> <span class="nf">Image</span> <span class="p">(</span><span class="nv">A</span> <span class="p">: </span><span class="nv">Integer</span><span class="p">)</span> <span class="kr">return</span> <span class="kt">String</span> <span class="kr">renames</span> <span class="kt">Integer</span><span class="p">&#39;</span><span class="na">Image</span><span class="p">;</span>
+<span class="kr">begin</span>
+    <span class="kc">null</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Foo</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="proposed-solution">
+<h2><span class="section-number">13.1.2. </span>Proposed Solution<a class="headerlink" href="#proposed-solution" title="Permalink to this headline">¶</a></h2>
+<p>To solve this, we need to synthetize the subprogram nodes corresponding to each
+attribute. If we have a unified mechanism to easily synthetise subprograms with
+given profiles, we can potentially also dramatically simplify the name
+resolution of said attributes, because for the moment resolution of those is
+hard-coded.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nameres_char_literals.html" class="btn btn-neutral float-right" title="13.2. Name Resolution of Char Literals" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="13. Development design documents" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

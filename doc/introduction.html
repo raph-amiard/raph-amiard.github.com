@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Introduction &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Building Libadalang" href="building.html" />
+    <link rel="prev" title="Welcome to the Libadalang User Manual!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#need">1.1. Need</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enter-libadalang">1.2. Enter Libadalang</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parsing-a-file">1.2.1. Parsing a file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exploring-the-tree">1.2.2. Exploring the tree</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1><span class="section-number">1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Libadalang is a library for parsing and semantic analysis of Ada code. It is
+meant as a building block for integration into other tools. (IDE, static
+analyzers, etc.)</p>
+<p>Libadalang provides mainly the following services to users:</p>
+<ul class="simple">
+<li><p>Complete syntactic analysis with error recovery, producing a precise syntax
+tree when the source is correct, and a best effort tree when the source is
+incorrect.</p></li>
+<li><p>Semantic queries on top of the syntactic tree, such as, but not limited to:</p>
+<ul>
+<li><p>Resolution of references (what a reference corresponds to)</p></li>
+<li><p>Resolution of types (what is the type of an expression)</p></li>
+<li><p>General cross references queries (find all references to this entity)</p></li>
+</ul>
+</li>
+</ul>
+<p>Libadalang does not (at the moment) provide full legality checks for the Ada
+language.  If you want such a functionality, you’ll need to use a full Ada
+compiler, such as GNAT.</p>
+<div class="section" id="need">
+<h2><span class="section-number">1.1. </span>Need<a class="headerlink" href="#need" title="Permalink to this headline">¶</a></h2>
+<p>The need for Libadalang arises from the conflation of different goals that we
+have while designing Ada tooling at AdaCore. Here are those goals:</p>
+<ul class="simple">
+<li><p>We need to make tooling that is Ada aware, both at the syntactic and the
+semantic level.</p></li>
+<li><p>We need to avoid repeating ourselves, that is to avoid duplicating the same
+code in dozens of places in our codebase, so we want to have a unified
+approach to this problem.</p></li>
+<li><p>We need in some cases (such as IDEs) to make tooling that can work with
+incorrect and/or evolving Ada code.</p></li>
+<li><p>We need a tool that can work incrementally, e.g. doesn’t have to start from
+scratch if you change a variable name in the dependency of a file you want to
+analyze.</p></li>
+</ul>
+</div>
+<div class="section" id="enter-libadalang">
+<h2><span class="section-number">1.2. </span>Enter Libadalang<a class="headerlink" href="#enter-libadalang" title="Permalink to this headline">¶</a></h2>
+<p>We are going to base our examples on this simple snippet of Ada code:</p>
+<div class="highlight-ada notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">procedure</span> <span class="nf">Test</span> <span class="p">(</span><span class="nv">A</span> <span class="p">: </span><span class="nv">Foo</span><span class="p">;</span> <span class="nv">B</span> <span class="p">: </span><span class="nv">Bar</span><span class="p">)</span> <span class="kr">is</span>
+<span class="kr">begin</span>
+    <span class="kr">for</span> <span class="n">El</span> <span class="p">:</span> <span class="n">Foo_Elem</span> <span class="kr">of</span> <span class="n">A</span> <span class="kr">loop</span>
+        <span class="kr">if</span> <span class="ow">not</span> <span class="n">El</span><span class="p">.</span><span class="n">Is_Empty</span> <span class="kr">then</span>
+            <span class="kr">return</span> <span class="n">B</span><span class="p">.</span><span class="n">RealBar</span> <span class="p">(</span><span class="n">El</span><span class="p">);</span>
+        <span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
+    <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Test</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+<p>In the following examples, we will show how to accomplish the same thing with
+Libadalang, with the Ada API, and with the Python API.</p>
+<p>The Ada API is great for integration in existing Ada programs, and for
+situations where you need some speed and static safety guaranties.</p>
+<p>The Python API is a good fit for rapid prototyping of programs using
+Libadalang. We greatly encourage even Ada die-hard to try out the Python API
+for exploring the API, the tree structures and available accessors. They map
+directly to the Ada API, so the knowledge is shared.</p>
+<div class="section" id="parsing-a-file">
+<h3><span class="section-number">1.2.1. </span>Parsing a file<a class="headerlink" href="#parsing-a-file" title="Permalink to this headline">¶</a></h3>
+<p>Let’s say we did put the content of the above Ada snippet in the <code class="docutils literal notranslate"><span class="pre">test.adb</span></code>
+file. Here is how you can parse the resulting file with Libadalang.</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span>          <span class="kn">use</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>  <span class="kn">use</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>
+
+<span class="kd">procedure</span> <span class="nf">Main</span> <span class="kr">is</span>
+   <span class="n">Ctx</span>  <span class="p">:</span> <span class="n">Analysis_Context</span> <span class="p">:=</span> <span class="n">Create_Context</span><span class="p">;</span>
+   <span class="n">Unit</span> <span class="p">:</span> <span class="n">Analysis_Unit</span> <span class="p">:=</span> <span class="n">Ctx</span><span class="p">.</span><span class="n">Get_From_File</span> <span class="p">(</span><span class="s">&quot;test.adb&quot;</span><span class="p">);</span>
+<span class="kr">begin</span>
+   <span class="n">Unit</span><span class="p">.</span><span class="n">Print</span><span class="p">;</span>
+   <span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;Done.&quot;</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Main</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This snippet will create an analysis context, which usually corresponds to the
+context of your whole analysis - be it just one file, a whole project, or
+several projects - and parse our Ada file and return the resulting analysis
+unit instance. Calling the <code class="docutils literal notranslate"><span class="pre">Print</span></code> primitive on the instance will dump the
+resulting tree.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CompilationUnit</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span>
+<span class="o">|</span> <span class="n">body</span><span class="p">:</span>
+<span class="o">|</span> <span class="o">|</span> <span class="n">LibraryItem</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">is_private</span><span class="p">:</span> <span class="kc">False</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">item</span><span class="p">:</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">SubprogramBody</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">overriding</span><span class="p">:</span> <span class="n">unspecified</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">subp_spec</span><span class="p">:</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">SubprogramSpec</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">35</span><span class="p">]</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">name</span><span class="p">:</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">Id</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">12</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">tok</span><span class="p">:</span> <span class="n">Test</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">params</span><span class="p">:</span>
+<span class="o">...</span> <span class="n">continued</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exploring-the-tree">
+<h3><span class="section-number">1.2.2. </span>Exploring the tree<a class="headerlink" href="#exploring-the-tree" title="Permalink to this headline">¶</a></h3>
+<p>The first thing you can do with this is explore the syntax tree through simple
+accessors.</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span>          <span class="kn">use</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>  <span class="kn">use</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>
+
+<span class="kd">procedure</span> <span class="nf">Main</span> <span class="kr">is</span>
+   <span class="n">Ctx</span>  <span class="p">:</span> <span class="n">Analysis_Context</span> <span class="p">:=</span> <span class="n">Create_Context</span><span class="p">;</span>
+   <span class="n">Unit</span> <span class="p">:</span> <span class="n">Analysis_Unit</span>    <span class="p">:=</span> <span class="n">Ctx</span><span class="p">.</span><span class="n">Get_From_File</span> <span class="p">(</span><span class="s">&quot;test.adb&quot;</span><span class="p">);</span>
+   <span class="n">CU</span>   <span class="p">:</span> <span class="n">Compilation_Unit</span> <span class="p">:=</span> <span class="n">Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">As_Compilation_Unit</span><span class="p">;</span>
+   <span class="n">Bod</span>  <span class="p">:</span> <span class="n">Library_Item</span>     <span class="p">:=</span> <span class="n">CU</span><span class="p">.</span><span class="n">F_Body</span><span class="p">.</span><span class="n">As_Library_Item</span><span class="p">;</span>
+   <span class="n">Subp</span> <span class="p">:</span> <span class="n">Subp_Body</span>        <span class="p">:=</span> <span class="n">Bod</span><span class="p">.</span><span class="n">F_Item</span><span class="p">.</span><span class="n">As_Subp_Body</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="n">Subp</span><span class="p">.</span><span class="n">Print</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Main</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This code will access the <code class="docutils literal notranslate"><span class="pre">Subp_Body</span></code> node of the Test subprogram that
+constitutes the main element of our file. But as you can see, even if it is
+precise, this is not a very practical way of exploring the tree.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="building.html" class="btn btn-neutral float-right" title="2. Building Libadalang" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the Libadalang User Manual!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

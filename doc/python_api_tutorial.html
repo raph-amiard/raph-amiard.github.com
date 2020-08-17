@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>6. Python API Tutorial &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. Ada API reference" href="ada_api_ref.html" />
+    <link rel="prev" title="5. Ada API Tutorial" href="ada_api_tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Python API Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preliminary-setup">6.1. Preliminary setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#browse-the-tree">6.2. Browse the tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#follow-references">6.3. Follow references</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resolving-files">6.3.1. Resolving files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">6. </span>Python API Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/python_api_tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-api-tutorial">
+<h1><span class="section-number">6. </span>Python API Tutorial<a class="headerlink" href="#python-api-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Now that you are familiar with Libadalang’s <a class="reference internal" href="core_concepts.html#core-concepts"><span class="std std-ref">Core concepts</span></a>, let’s
+actually do some practice with the Python API.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Libadalang’s Python API supports Python 2.7+ and Python 3.7+.</p>
+</div>
+<div class="section" id="preliminary-setup">
+<h2><span class="section-number">6.1. </span>Preliminary setup<a class="headerlink" href="#preliminary-setup" title="Permalink to this headline">¶</a></h2>
+<p>As seen in the section on core concepts, the first thing to do in order to use
+Libadalang is to create an analysis context. We’ll create a simple <code class="docutils literal notranslate"><span class="pre">test.py</span></code>
+file with the following content:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libadalang</span> <span class="k">as</span> <span class="nn">lal</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">AnalysisContext</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This very simple program will allow us to make sure the Python environment is
+properly setup to use Libadalang. Running the above file should yield no error
+and no result.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Empty program output</span>
+$ python test.py
+$
+</pre></div>
+</div>
+</div>
+<div class="section" id="browse-the-tree">
+<h2><span class="section-number">6.2. </span>Browse the tree<a class="headerlink" href="#browse-the-tree" title="Permalink to this headline">¶</a></h2>
+<p>Ok, so now let’s do something useful with Libadalang. Let’s create a program
+that will read all the source files given in argument and then output all the
+object declarations they contain.</p>
+<p>Once you have an analysis context at hand, parsing an existing source file into
+an analysis unit is very simple:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libadalang</span> <span class="k">as</span> <span class="nn">lal</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">AnalysisContext</span><span class="p">()</span>
+<span class="n">unit</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get_from_file</span><span class="p">(</span><span class="s2">&quot;my_ada_file.adb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Assuming that parsing went well enough for the parsers to create a tree,
+<a class="reference internal" href="python_api_ref.html#libadalang.AnalysisUnit.root" title="libadalang.AnalysisUnit.root"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AnalysisUnit.root()</span></code></a> will return the root node associated to
+<code class="docutils literal notranslate"><span class="pre">unit</span></code>. You can then use <a class="reference internal" href="python_api_ref.html#libadalang.AdaNode.finditer" title="libadalang.AdaNode.finditer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AdaNode.finditer()</span></code></a> on the root node
+to iterate on every node in the tree via a generator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libadalang</span> <span class="k">as</span> <span class="nn">lal</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">AnalysisContext</span><span class="p">()</span>
+<span class="n">unit</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get_from_file</span><span class="p">(</span><span class="s2">&quot;my_ada_file.adb&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>If there are fatal parsing errors, or if the file cannot be read, the unit
+root will be null, but the unit will have diagnostics that you can access via
+the <a class="reference internal" href="python_api_ref.html#libadalang.AnalysisUnit.diagnostics" title="libadalang.AnalysisUnit.diagnostics"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AnalysisUnit.diagnostics()</span></code></a> property on the analysis unit.
+The property will return a list of <a class="reference internal" href="python_api_ref.html#libadalang.Diagnostic" title="libadalang.Diagnostic"><code class="xref py py-class docutils literal notranslate"><span class="pre">libadalang.Diagnostic</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">diagnostics</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">diagnostics</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">sloc_range</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Now what can we do with a node? One of the first things to do is to check its
+type: is it a subprogram specification? a call expression? an object
+declaration? The way to do that in Python is by calling the
+<a class="reference internal" href="python_api_ref.html#libadalang.AdaNode.is_a" title="libadalang.AdaNode.is_a"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AdaNode.is_a()</span></code></a> method on a node, giving a type object as a
+parameter (it’s just a shortcut for <code class="docutils literal notranslate"><span class="pre">isinstance</span></code>). Here, we want to
+specifically process the nodes whose type is <a class="reference internal" href="python_api_ref.html#libadalang.ObjectDecl" title="libadalang.ObjectDecl"><code class="xref py py-class docutils literal notranslate"><span class="pre">libadalang.ObjectDecl</span></code></a>.</p>
+<p>Another useful thing to do with nodes is to relate them to the original source
+code. The first obvious way to do this is to get the source code excerpts that
+were parsed to create them: <a class="reference internal" href="python_api_ref.html#libadalang.AdaNode.text" title="libadalang.AdaNode.text"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AdaNode.text()</span></code></a> does this. Another
+way is to get the source location corresponding to the first/last tokens that
+belong to this node: <a class="reference internal" href="python_api_ref.html#libadalang.AdaNode.sloc_range" title="libadalang.AdaNode.sloc_range"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AdaNode.sloc_range()</span></code></a> will do this,
+returning a <a class="reference internal" href="python_api_ref.html#libadalang.SlocRange" title="libadalang.SlocRange"><code class="xref py py-class docutils literal notranslate"><span class="pre">libadalang.SlocRange</span></code></a>. This provides the expected start/end
+line/column numbers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Line </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">sloc_range</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Put all these bit in the right order, and you should get something similar to
+the following program:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">libadalang</span> <span class="k">as</span> <span class="nn">lal</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">AnalysisContext</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get_from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;== </span><span class="si">{}</span><span class="s2"> ==&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">diagnostics</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">root</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="n">lal</span><span class="o">.</span><span class="n">ObjectDecl</span><span class="p">)):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Line </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">sloc_range</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>If you run this program on the <a class="reference internal" href="ada_api_tutorial.html#ada-example-program"><span class="std std-ref">ada example program</span></a>, you should get:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>== main.adb ==
+Line 33: u&#39;Context : constant LAL.Analysis_Context := LAL.Create_Context;&#39;
+Line 38: u&#39;Filename : constant String := Ada.Command_Line.Argument (I);&#39;
+Line 39: u&#39;Unit     : constant LAL.Analysis_Unit :=\n            Context.Get_From_File (Filename);&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="follow-references">
+<h2><span class="section-number">6.3. </span>Follow references<a class="headerlink" href="#follow-references" title="Permalink to this headline">¶</a></h2>
+<p>While the previous section only showed Libadalang’s syntactic capabilities, we
+can go further with semantic analysis. The most used feature in this domain is
+the computation of cross references (“xrefs”): the ability to reach the
+definition a particular identifier references.</p>
+<div class="section" id="resolving-files">
+<h3><span class="section-number">6.3.1. </span>Resolving files<a class="headerlink" href="#resolving-files" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned in the <a class="reference internal" href="core_concepts.html#core-concepts"><span class="std std-ref">Core concepts</span></a> section, the nature of semantic
+analysis requires to know how to fetch compilation units: which source file and
+where? Teaching Libadalang how to do this is done through the use of <a class="reference internal" href="core_concepts.html#unit-providers"><span class="std std-ref">unit
+providers</span></a>.</p>
+<p>The default unit provider, i.e. the one that is used if you don’t pass anything
+specific to <a class="reference internal" href="python_api_ref.html#libadalang.AnalysisContext" title="libadalang.AnalysisContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">libadalang.AnalysisContext</span></code></a>, assumes that all
+compilation units follow the <a class="reference external" href="http://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/the_gnat_compilation_model.html#file-naming-rules">GNAT naming convention</a>
+and that all source files are in the current directory.</p>
+<p>If the organization of your project is not so simple, you have two options
+currently in Python:</p>
+<ul class="simple">
+<li><p>You can use features from the auto-provider, provided by
+<a class="reference internal" href="python_api_ref.html#libadalang.UnitProvider.auto" title="libadalang.UnitProvider.auto"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.UnitProvider.auto()</span></code></a> to let Libadalang automatically discover
+your source files.</p></li>
+<li><p>You can use features from the project provider, provided by
+<a class="reference internal" href="python_api_ref.html#libadalang.UnitProvider.for_project" title="libadalang.UnitProvider.for_project"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.UnitProvider.for_project()</span></code></a> to use a GNAT project file.</p></li>
+</ul>
+<p>Be aware though, that because of lack of access to proper Python API to process
+GNAT project files, the corresponding facilities in Python are limited for the
+moment. If the above options are not sufficient for you, we recommend using the
+<a class="reference internal" href="ada_api_tutorial.html#ada-api-tutorial"><span class="std std-ref">Ada API</span></a>.</p>
+<p>In our program, we’ll create a simple project unit provider if a project file
+is provided. If not, we’ll use the default settings.</p>
+<p>Finally, let’s update our code to use Libadalang’s name resolution
+capabilities: when we find an object declaration, we’ll print the entity
+representing the type of the object declaration.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libadalang</span> <span class="k">as</span> <span class="nn">lal</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--project&#39;</span><span class="p">,</span> <span class="s1">&#39;-P&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;files&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Files to analyze&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="n">provider</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">project</span><span class="p">:</span>
+    <span class="n">provider</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">UnitProvider</span><span class="o">.</span><span class="n">for_project</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">project</span><span class="p">)</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">AnalysisContext</span><span class="p">(</span><span class="n">unit_provider</span><span class="o">=</span><span class="n">provider</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get_from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;== </span><span class="si">{}</span><span class="s2"> ==&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">diagnostics</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">root</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="n">lal</span><span class="o">.</span><span class="n">ObjectDecl</span><span class="p">)):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Line </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">sloc_range</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">line</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="p">))</span>
+<span class="hll">            <span class="n">type_decl</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">f_type_expr</span><span class="o">.</span><span class="n">p_designated_type_decl</span>
+</span>            <span class="k">if</span> <span class="n">type_decl</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   type is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">type_decl</span><span class="o">.</span><span class="n">text</span><span class="p">)))</span>
+</pre></div>
+</td></tr></table></div>
+<p>The most interesting line is emphasized above and does the following:</p>
+<ul class="simple">
+<li><p>The access to the field <a class="reference internal" href="python_api_ref.html#libadalang.ObjectDecl.f_type_expr" title="libadalang.ObjectDecl.f_type_expr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.ObjectDecl.f_type_expr()</span></code></a> will get
+the node representing the type expression, which is the type reference for
+the declared object. The result is a node of type <a class="reference internal" href="python_api_ref.html#libadalang.TypeExpr" title="libadalang.TypeExpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">libadalang.TypeExpr</span></code></a>.</p></li>
+<li><p>Then, we call <a class="reference internal" href="python_api_ref.html#libadalang.TypeExpr.p_designated_type_decl" title="libadalang.TypeExpr.p_designated_type_decl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.TypeExpr.p_designated_type_decl()</span></code></a>, which will
+fetch the type declaration corresponding to this type expression, of type
+<a class="reference internal" href="python_api_ref.html#libadalang.BaseTypeDecl" title="libadalang.BaseTypeDecl"><code class="xref py py-class docutils literal notranslate"><span class="pre">libadalang.BaseTypeDecl</span></code></a>.</p></li>
+</ul>
+<p>This time, running this updated program on the
+<a class="reference internal" href="ada_api_tutorial.html#resolving-types"><span class="std std-ref">equivalent Ada version</span></a> will yield something like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>== main.adb ==
+Line 33: u&#39;Context : constant LAL.Analysis_Context := LAL.Create_Context;&#39;
+   type is: u&#39;type Analysis_Context is tagged private;&#39;
+Line 38: u&#39;Filename : constant String := Ada.Command_Line.Argument (I);&#39;
+   type is: u&#39;type String is array (Positive range &lt;&gt;) of Character;&#39;
+Line 39: u&#39;Unit     : constant LAL.Analysis_Unit :=\n            Context.Get_From_File (Filename);&#39;
+   type is: u&#39;type Analysis_Unit is tagged private;&#39;
+</pre></div>
+</div>
+<p>We have seen here <a class="reference internal" href="python_api_ref.html#libadalang.TypeExpr.p_designated_type_decl" title="libadalang.TypeExpr.p_designated_type_decl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.TypeExpr.p_designated_type_decl()</span></code></a>, which
+resolves references to types, but Libadalang offers many more properties to
+deal with name resolution in Ada:</p>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AdaNode.p_xref()</span></code> will try to resolve from any node to the
+corresponding declaration, much like an IDE would do when you Control-click
+on an identifier, for instance.</p></li>
+<li><p>All the <code class="docutils literal notranslate"><span class="pre">p_body_part*</span></code> and <code class="docutils literal notranslate"><span class="pre">p_decl_part*</span></code> properties will let you
+navigate between the specification and body that correspond to each other for
+various nodes: subprograms, packages, etc.</p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AdaNode.p_expression_type()</span></code> returns the type of an expression.</p></li>
+<li><p><a class="reference internal" href="python_api_ref.html#libadalang.AdaNode.p_generic_instantiations" title="libadalang.AdaNode.p_generic_instantiations"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libadalang.AdaNode.p_generic_instantiations()</span></code></a> returns the list of
+package/subprogram generic instantiations that led to the creation of this
+node.</p></li>
+</ul>
+<p>You can find these and all the other properties documented in your favorite
+language’s API reference.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ada_api_ref.html" class="btn btn-neutral float-right" title="7. Ada API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ada_api_tutorial.html" class="btn btn-neutral float-left" title="5. Ada API Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

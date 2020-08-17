@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>9.2. Dealing with aggregate projects &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9.3. Accessing actuals of generic instantiations" href="generic_instantiation.html" />
+    <link rel="prev" title="9.1. Using advanced iterators" href="advanced_iterators.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">9. Examples repository</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="advanced_iterators.html">9.1. Using advanced iterators</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.2. Dealing with aggregate projects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general-examples">9.2.1. General examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#input-sources">9.2.1.1. Input sources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sample-code">9.2.1.2. Sample code</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-one-provide-context-for-each-aggregated-project">9.2.2. Creating one provide/context for each aggregated project</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">9.2.2.1. Input sources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">9.2.2.2. Sample code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#expected-output">9.2.2.3. Expected output</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="generic_instantiation.html">9.3. Accessing actuals of generic instantiations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">9. </span>Examples repository</a> &raquo;</li>
+        
+      <li><span class="section-number">9.2. </span>Dealing with aggregate projects</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/examples/aggregate_projects.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dealing-with-aggregate-projects">
+<span id="examples-aggregate-projects"></span><h1><span class="section-number">9.2. </span>Dealing with aggregate projects<a class="headerlink" href="#dealing-with-aggregate-projects" title="Permalink to this headline">¶</a></h1>
+<p>Processing aggregate projects with Libadalang is peculiar. Please get familiar
+with the <a class="reference internal" href="../core_concepts.html#unit-providers-aggregate"><span class="std std-ref">Aggregate projects</span></a> section before reading this.</p>
+<div class="section" id="general-examples">
+<h2><span class="section-number">9.2.1. </span>General examples<a class="headerlink" href="#general-examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="input-sources">
+<h3><span class="section-number">9.2.1.1. </span>Input sources<a class="headerlink" href="#input-sources" title="Permalink to this headline">¶</a></h3>
+<p>Get the projects files and sources from the <a class="reference internal" href="../core_concepts.html#unit-providers-aggregate"><span class="std std-ref">Aggregate projects</span></a>
+section.</p>
+</div>
+<div class="section" id="sample-code">
+<h3><span class="section-number">9.2.1.2. </span>Sample code<a class="headerlink" href="#sample-code" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ada">
+<h4><span class="section-number">9.2.1.2.1. </span>Ada<a class="headerlink" href="#ada" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">GNATCOLL.Projects</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">GNATCOLL.VFS</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Project_Provider</span><span class="p">;</span>
+
+<span class="c1">--  Create a unit provider for the &quot;arch32/arch.gpr&quot; project, loaded through</span>
+<span class="c1">--  the &quot;agg.gpr&quot; project.</span>
+<span class="kr">declare</span>
+   <span class="kd">package</span> <span class="nc">Prj</span> <span class="kr">renames</span> <span class="nc">GNATCOLL.Projects</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">VFS</span> <span class="kr">renames</span> <span class="nc">GNATCOLL.VFS</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">LAL</span> <span class="kr">renames</span> <span class="nc">Libadalang.Analysis</span><span class="p">;</span>
+
+   <span class="n">PT</span>  <span class="p">:</span> <span class="n">Prj</span><span class="p">.</span><span class="n">Project_Tree_Access</span><span class="p">;</span>
+   <span class="n">Env</span> <span class="p">:</span> <span class="n">Prj</span><span class="p">.</span><span class="n">Project_Environment_Access</span><span class="p">;</span>
+   <span class="n">P</span>   <span class="p">:</span> <span class="n">Prj</span><span class="p">.</span><span class="n">Project_Type</span><span class="p">;</span>
+
+   <span class="n">UP</span>  <span class="p">:</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Unit_Provider_Reference</span><span class="p">;</span>
+   <span class="n">Ctx</span> <span class="p">:</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Context</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="c1">--  Load the &quot;agg.gpr&quot; project</span>
+   <span class="n">PT</span> <span class="p">:=</span> <span class="kr">new</span> <span class="n">Prj</span><span class="p">.</span><span class="n">Project_Tree</span><span class="p">;</span>
+   <span class="n">Prj</span><span class="p">.</span><span class="n">Initialize</span> <span class="p">(</span><span class="n">Env</span><span class="p">);</span>
+   <span class="n">PT</span><span class="p">.</span><span class="n">Load</span> <span class="p">(</span><span class="n">Root_Project_Path</span> <span class="p">=&gt;</span> <span class="n">VFS</span><span class="p">.</span><span class="n">Create</span> <span class="p">(</span><span class="s">&quot;agg.gpr&quot;</span><span class="p">),</span>
+            <span class="n">Env</span>               <span class="p">=&gt;</span> <span class="n">Env</span><span class="p">);</span>
+
+   <span class="c1">--  Fetch the &quot;arch/arch32.gpr&quot; project</span>
+   <span class="n">P</span> <span class="p">:=</span> <span class="n">PT</span><span class="p">.</span><span class="n">Project_From_Path</span> <span class="p">(</span><span class="n">VFS</span><span class="p">.</span><span class="n">Create</span> <span class="p">(</span><span class="s">&quot;arch/arch32.gpr&quot;</span><span class="p">));</span>
+
+   <span class="c1">--  Create the unit provider, then the analysis context</span>
+   <span class="n">UP</span> <span class="p">:=</span> <span class="n">Libadalang</span><span class="p">.</span><span class="n">Project_Provider</span><span class="p">.</span><span class="n">Create_Project_Unit_Provider</span>
+     <span class="p">(</span><span class="n">PT</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Env</span><span class="p">);</span>
+   <span class="n">Ctx</span> <span class="p">:=</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Create_Context</span> <span class="p">(</span><span class="n">Unit_Provider</span> <span class="p">=&gt;</span> <span class="n">UP</span><span class="p">);</span>
+<span class="kr">end</span><span class="p">;</span>
+
+<span class="c1">--  Create several project providers so that one provider has at most one</span>
+<span class="c1">--  source file per unit name/unit kind.</span>
+<span class="kr">declare</span>
+   <span class="kd">package</span> <span class="nc">Prj</span> <span class="kr">renames</span> <span class="nc">GNATCOLL.Projects</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">VFS</span> <span class="kr">renames</span> <span class="nc">GNATCOLL.VFS</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">LAL</span> <span class="kr">renames</span> <span class="nc">Libadalang.Analysis</span><span class="p">;</span>
+
+   <span class="n">PT</span>   <span class="p">:</span> <span class="n">Prj</span><span class="p">.</span><span class="n">Project_Tree_Access</span><span class="p">;</span>
+   <span class="n">Env</span>  <span class="p">:</span> <span class="n">Prj</span><span class="p">.</span><span class="n">Project_Environment_Access</span><span class="p">;</span>
+   <span class="n">PAPs</span> <span class="p">:</span> <span class="n">Libadalang</span><span class="p">.</span><span class="n">Project_Provider</span><span class="p">.</span><span class="n">Provider_And_Projects_Array_Access</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="c1">--  Load the &quot;agg.gpr&quot; project</span>
+   <span class="n">PT</span> <span class="p">:=</span> <span class="kr">new</span> <span class="n">Prj</span><span class="p">.</span><span class="n">Project_Tree</span><span class="p">;</span>
+   <span class="n">Prj</span><span class="p">.</span><span class="n">Initialize</span> <span class="p">(</span><span class="n">Env</span><span class="p">);</span>
+   <span class="n">PT</span><span class="p">.</span><span class="n">Load</span> <span class="p">(</span><span class="n">Root_Project_Path</span> <span class="p">=&gt;</span> <span class="n">VFS</span><span class="p">.</span><span class="n">Create</span> <span class="p">(</span><span class="s">&quot;agg.gpr&quot;</span><span class="p">),</span>
+            <span class="n">Env</span>               <span class="p">=&gt;</span> <span class="n">Env</span><span class="p">);</span>
+
+   <span class="c1">--  Create one analysis context per unit provider</span>
+   <span class="n">PAPs</span> <span class="p">:=</span> <span class="n">Libadalang</span><span class="p">.</span><span class="n">Project_Provider</span><span class="p">.</span><span class="n">Create_Project_Unit_Providers</span> <span class="p">(</span><span class="n">PT</span><span class="p">);</span>
+   <span class="kr">for</span> <span class="n">PAP</span> <span class="kr">of</span> <span class="n">PAPs</span><span class="p">.</span><span class="kr">all</span> <span class="kr">loop</span>
+      <span class="kr">declare</span>
+         <span class="no">Ctx</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">LAL</span><span class="p">.</span><span class="n">Analysis_Context</span> <span class="p">:=</span>
+            <span class="n">LAL</span><span class="p">.</span><span class="n">Create_Context</span> <span class="p">(</span><span class="n">Unit_Provider</span> <span class="p">=&gt;</span> <span class="n">PAP</span><span class="p">.</span><span class="n">Provider</span><span class="p">);</span>
+      <span class="kr">begin</span>
+         <span class="c1">--  Do your processings...</span>
+         <span class="kc">null</span><span class="p">;</span>
+      <span class="kr">end</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+   <span class="n">Libadalang</span><span class="p">.</span><span class="n">Project_Provider</span><span class="p">.</span><span class="n">Free</span> <span class="p">(</span><span class="n">PAPs</span><span class="p">);</span>
+
+   <span class="c1">--  Free allocated resources</span>
+   <span class="n">Prj</span><span class="p">.</span><span class="n">Free</span> <span class="p">(</span><span class="n">PT</span><span class="p">);</span>
+   <span class="n">Prj</span><span class="p">.</span><span class="n">Free</span> <span class="p">(</span><span class="n">Env</span><span class="p">);</span>
+<span class="kr">end</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python">
+<h4><span class="section-number">9.2.1.2.2. </span>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a unit provider for the &quot;arch32/arch.gpr&quot; project, loaded through</span>
+<span class="c1"># the &quot;agg.gpr&quot; project. Then create an analysis context using it.</span>
+<span class="n">up</span> <span class="o">=</span> <span class="n">libadalang</span><span class="o">.</span><span class="n">UnitProvider</span><span class="o">.</span><span class="n">for_project</span><span class="p">(</span>
+   <span class="s1">&#39;agg.gpr&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;arch32/arch.gpr&#39;</span>
+<span class="p">)</span>
+
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">libadalang</span><span class="o">.</span><span class="n">AnalysisContext</span><span class="p">(</span><span class="n">unit_provider</span><span class="o">=</span><span class="n">up</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-one-provide-context-for-each-aggregated-project">
+<h2><span class="section-number">9.2.2. </span>Creating one provide/context for each aggregated project<a class="headerlink" href="#creating-one-provide-context-for-each-aggregated-project" title="Permalink to this headline">¶</a></h2>
+<p>This complete example demonstrates how to use the <code class="docutils literal notranslate"><span class="pre">GNATCOLL.Projects</span></code> API in
+order to analyze each aggregated project separately with Libadalang.</p>
+<p>Note that there is no equivalent in Python as the GNATCOLL project does not
+provide a Python API to analyze projects files.</p>
+<div class="section" id="id1">
+<h3><span class="section-number">9.2.2.1. </span>Input sources<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="c1">--  arch32/arch.gpr</span>
+<span class="n">project</span> <span class="n">Arch</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Object_Dir</span> <span class="kn">use</span> <span class="s">&quot;obj&quot;</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Arch</span><span class="p">;</span>
+
+<span class="c1">--  arch32/arch.ads</span>
+<span class="kd">package</span> <span class="nc">Arch</span> <span class="kr">is</span>
+   <span class="kd">type</span> <span class="kt">Target_Address</span> <span class="kr">is</span> <span class="ow">mod</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">32</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Arch</span><span class="p">;</span>
+
+<span class="c1">--  arch64/arch.gpr</span>
+<span class="kd">package</span> <span class="nc">Arch</span> <span class="kr">is</span>
+   <span class="kd">type</span> <span class="kt">Target_Address</span> <span class="kr">is</span> <span class="ow">mod</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">64</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Arch</span><span class="p">;</span>
+
+<span class="c1">--  arch64/arch.ads</span>
+<span class="n">project</span> <span class="n">Arch</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Object_Dir</span> <span class="kn">use</span> <span class="s">&quot;obj&quot;</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Arch</span><span class="p">;</span>
+
+<span class="c1">--  main/main32.gpr</span>
+<span class="kn">with</span> <span class="s">&quot;../arch32/arch&quot;</span><span class="p">;</span>
+<span class="n">project</span> <span class="n">Main32</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Object_Dir</span> <span class="kn">use</span> <span class="s">&quot;obj-32&quot;</span><span class="p">;</span>
+   <span class="kr">for</span> <span class="n">Main</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Main32</span><span class="p">;</span>
+
+<span class="c1">--  main/main64.gpr</span>
+<span class="kn">with</span> <span class="s">&quot;../arch64/arch&quot;</span><span class="p">;</span>
+<span class="n">project</span> <span class="n">Main64</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Object_Dir</span> <span class="kn">use</span> <span class="s">&quot;obj-64&quot;</span><span class="p">;</span>
+   <span class="kr">for</span> <span class="n">Main</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Main64</span><span class="p">;</span>
+
+<span class="c1">--  main/main.adb</span>
+<span class="kn">with</span> <span class="nn">Ada.Text_IO</span><span class="p">,</span> <span class="n">Arch</span><span class="p">;</span>
+<span class="kd">procedure</span> <span class="nf">Main</span> <span class="kr">is</span>
+   <span class="no">Last</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Arch</span><span class="p">.</span><span class="n">Target_Address</span> <span class="p">:=</span> <span class="n">Arch</span><span class="p">.</span><span class="n">Target_Address</span><span class="p">&#39;</span><span class="na">Last</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="n">Ada</span><span class="p">.</span><span class="n">Text_IO</span><span class="p">.</span><span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;Arch.Target_Address&#39;Last =&quot;</span> <span class="o">&amp;</span> <span class="n">Last</span><span class="p">&#39;</span><span class="na">Image</span><span class="p">);</span>
+<span class="kr">end</span><span class="p">;</span>
+
+<span class="c1">--  agg32.gpr</span>
+<span class="n">aggregate</span> <span class="n">project</span> <span class="n">Agg32</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Project_Files</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;main/main32.gpr&quot;</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Agg32</span><span class="p">;</span>
+
+<span class="c1">--  agg64.gpr</span>
+<span class="n">aggregate</span> <span class="n">project</span> <span class="n">Agg64</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Project_Files</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;main/main64.gpr&quot;</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Agg64</span><span class="p">;</span>
+
+<span class="c1">--  agg.gpr</span>
+<span class="n">aggregate</span> <span class="n">project</span> <span class="n">Agg</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Project_Files</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;agg32.gpr&quot;</span><span class="p">,</span> <span class="s">&quot;agg64.gpr&quot;</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Agg</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3><span class="section-number">9.2.2.2. </span>Sample code<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">Ada.Containers.Generic_Array_Sort</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Ada.Text_IO</span><span class="p">;</span>
+
+<span class="kn">with</span> <span class="nn">GNATCOLL.Projects</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">GNATCOLL.Projects</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">GNATCOLL.VFS</span><span class="p">;</span>      <span class="kn">use</span> <span class="nn">GNATCOLL.VFS</span><span class="p">;</span>
+
+<span class="kn">with</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>         <span class="kn">use</span> <span class="nn">Libadalang.Analysis</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Common</span><span class="p">;</span>           <span class="kn">use</span> <span class="nn">Libadalang.Common</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Project_Provider</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Libadalang.Project_Provider</span><span class="p">;</span>
+
+<span class="kd">procedure</span> <span class="nf">Run</span> <span class="kr">is</span>
+
+   <span class="c1">--  Sort lists of projects and source files so that execution is</span>
+   <span class="c1">--  deterministic.</span>
+
+   <span class="kd">function</span> <span class="nf">&quot;&lt;&quot;</span> <span class="p">(</span><span class="nv">Left</span><span class="p">,</span> <span class="nv">Right</span> <span class="p">: </span><span class="nv">Project_Type</span><span class="p">)</span> <span class="kr">return</span> <span class="kt">Boolean</span> <span class="kr">is</span>
+     <span class="p">(</span><span class="n">Left</span><span class="p">.</span><span class="n">Project_Path</span> <span class="o">&lt;</span> <span class="n">Right</span><span class="p">.</span><span class="n">Project_Path</span><span class="p">);</span>
+
+   <span class="kd">procedure</span> <span class="nf">Sort</span> <span class="kr">is</span> <span class="kr">new</span> <span class="n">Ada</span><span class="p">.</span><span class="n">Containers</span><span class="p">.</span><span class="kd">Generic</span><span class="mi">_</span><span class="n">Array_Sort</span>
+     <span class="p">(</span><span class="n">Index_Type</span>   <span class="p">=&gt;</span> <span class="kt">Positive</span><span class="p">,</span>
+      <span class="n">Element_Type</span> <span class="p">=&gt;</span> <span class="n">Virtual_File</span><span class="p">,</span>
+      <span class="n">Array_Type</span>   <span class="p">=&gt;</span> <span class="n">File_Array</span><span class="p">);</span>
+   <span class="kd">procedure</span> <span class="nf">Sort</span> <span class="kr">is</span> <span class="kr">new</span> <span class="n">Ada</span><span class="p">.</span><span class="n">Containers</span><span class="p">.</span><span class="kd">Generic</span><span class="mi">_</span><span class="n">Array_Sort</span>
+     <span class="p">(</span><span class="n">Index_Type</span>   <span class="p">=&gt;</span> <span class="kt">Positive</span><span class="p">,</span>
+      <span class="n">Element_Type</span> <span class="p">=&gt;</span> <span class="n">Project_Type</span><span class="p">,</span>
+      <span class="n">Array_Type</span>   <span class="p">=&gt;</span> <span class="n">Project_Array</span><span class="p">);</span>
+
+   <span class="kd">procedure</span> <span class="nf">Iterate_Aggregated</span>
+     <span class="p">(</span><span class="nv">Project</span>  <span class="p">: </span><span class="nv">Project_Type</span><span class="p">;</span>
+      <span class="nv">Callback</span> <span class="p">: </span><span class="nv">access</span> <span class="nv">procedure</span> <span class="p">(</span><span class="nv">Project</span> <span class="p">: </span><span class="nv">Project_Type</span><span class="p">));</span>
+   <span class="c1">--  If Project is not an aggregate project, just call Callback on it.</span>
+   <span class="c1">--  Otherwise, recurse on Project&#39;s aggregated projects.</span>
+
+   <span class="kd">procedure</span> <span class="nf">Process_Aggregated</span> <span class="p">(</span><span class="nv">Project</span> <span class="p">: </span><span class="nv">Project_Type</span><span class="p">);</span>
+   <span class="c1">--  Analyze all sources in Project</span>
+
+   <span class="kd">function</span> <span class="nf">Process_Node</span> <span class="p">(</span><span class="nv">Node</span> <span class="p">: </span><span class="nv">Ada_Node</span><span class="p">&#39;</span><span class="na">Class</span><span class="p">)</span> <span class="kr">return</span> <span class="n">Visit_Status</span><span class="p">;</span>
+   <span class="c1">--  If Node is an object declaration, show the corresponding type</span>
+   <span class="c1">--  declaration node.</span>
+
+   <span class="n">Env</span>  <span class="p">:</span> <span class="n">Project_Environment_Access</span><span class="p">;</span>
+   <span class="n">Tree</span> <span class="p">:</span> <span class="n">Project_Tree_Access</span> <span class="p">:=</span> <span class="kr">new</span> <span class="n">Project_Tree</span><span class="p">;</span>
+
+   <span class="c1">------------------------</span>
+   <span class="c1">-- Iterate_Aggregated --</span>
+   <span class="c1">------------------------</span>
+
+   <span class="kd">procedure</span> <span class="nf">Iterate_Aggregated</span>
+     <span class="p">(</span><span class="nv">Project</span>  <span class="p">: </span><span class="nv">Project_Type</span><span class="p">;</span>
+      <span class="nv">Callback</span> <span class="p">: </span><span class="nv">access</span> <span class="nv">procedure</span> <span class="p">(</span><span class="nv">Project</span> <span class="p">: </span><span class="nv">Project_Type</span><span class="p">))</span>
+   <span class="kr">is</span>
+   <span class="kr">begin</span>
+      <span class="kr">if</span> <span class="n">Project</span><span class="p">.</span><span class="n">Is_Aggregate_Project</span> <span class="kr">then</span>
+         <span class="kr">declare</span>
+            <span class="n">Aggregated</span> <span class="p">:</span> <span class="n">Project_Array_Access</span> <span class="p">:=</span> <span class="n">Project</span><span class="p">.</span><span class="n">Aggregated_Projects</span><span class="p">;</span>
+         <span class="kr">begin</span>
+            <span class="n">Sort</span> <span class="p">(</span><span class="n">Aggregated</span><span class="p">.</span><span class="kr">all</span><span class="p">);</span>
+            <span class="kr">for</span> <span class="n">A</span> <span class="kr">of</span> <span class="n">Aggregated</span><span class="p">.</span><span class="kr">all</span> <span class="kr">loop</span>
+               <span class="n">Iterate_Aggregated</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Callback</span><span class="p">);</span>
+            <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+            <span class="n">Unchecked_Free</span> <span class="p">(</span><span class="n">Aggregated</span><span class="p">);</span>
+         <span class="kr">end</span><span class="p">;</span>
+
+      <span class="kr">else</span>
+         <span class="n">Callback</span> <span class="p">(</span><span class="n">Project</span><span class="p">);</span>
+      <span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="nf">Iterate_Aggregated</span><span class="p">;</span>
+
+   <span class="c1">------------------------</span>
+   <span class="c1">-- Process_Aggregated --</span>
+   <span class="c1">------------------------</span>
+
+   <span class="kd">procedure</span> <span class="nf">Process_Aggregated</span> <span class="p">(</span><span class="nv">Project</span> <span class="p">: </span><span class="nv">Project_Type</span><span class="p">)</span> <span class="kr">is</span>
+      <span class="c1">--  Create an analysis context that has a view on all sources in Project</span>
+
+      <span class="no">UP</span>   <span class="p">:</span> <span class="kr">constant</span> <span class="n">Unit_Provider_Reference</span> <span class="p">:=</span> <span class="n">Create_Project_Unit_Provider</span>
+        <span class="p">(</span><span class="n">Tree</span><span class="p">,</span> <span class="n">Project</span><span class="p">,</span> <span class="n">Env</span><span class="p">,</span>
+
+         <span class="c1">--  We handle the lifetime of Tree and Env manually (see the Free</span>
+         <span class="c1">--  calls at the end of this source file), so consider that UP won&#39;t</span>
+         <span class="c1">--  own them.</span>
+         <span class="n">Is_Project_Owner</span> <span class="p">=&gt;</span> <span class="kc">False</span><span class="p">);</span>
+
+      <span class="no">Context</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Analysis_Context</span> <span class="p">:=</span>
+         <span class="n">Create_Context</span> <span class="p">(</span><span class="n">Unit_Provider</span> <span class="p">=&gt;</span> <span class="n">UP</span><span class="p">);</span>
+      <span class="n">Sources</span> <span class="p">:</span> <span class="n">File_Array_Access</span> <span class="p">:=</span> <span class="n">Project</span><span class="p">.</span><span class="n">Source_Files</span> <span class="p">(</span><span class="n">Recursive</span> <span class="p">=&gt;</span> <span class="kc">True</span><span class="p">);</span>
+   <span class="kr">begin</span>
+      <span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;== Processing project: &quot;</span> <span class="o">&amp;</span> <span class="n">Project</span><span class="p">.</span><span class="n">Name</span> <span class="o">&amp;</span> <span class="s">&quot; ==&quot;</span><span class="p">);</span>
+
+      <span class="n">Sort</span> <span class="p">(</span><span class="n">Sources</span><span class="p">.</span><span class="kr">all</span><span class="p">);</span>
+
+      <span class="kr">for</span> <span class="n">Filename</span> <span class="kr">of</span> <span class="n">Sources</span><span class="p">.</span><span class="kr">all</span> <span class="kr">loop</span>
+         <span class="kr">declare</span>
+            <span class="no">Unit</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Analysis_Unit</span> <span class="p">:=</span>
+               <span class="n">Context</span><span class="p">.</span><span class="n">Get_From_File</span> <span class="p">(</span><span class="o">+</span><span class="n">Filename</span><span class="p">.</span><span class="n">Full_Name</span><span class="p">);</span>
+         <span class="kr">begin</span>
+            <span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;In &quot;</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">+</span><span class="n">Filename</span><span class="p">.</span><span class="n">Base_Name</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;:&quot;</span><span class="p">);</span>
+            <span class="n">Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="n">Traverse</span> <span class="p">(</span><span class="n">Process_Node</span><span class="p">&#39;</span><span class="na">Access</span><span class="p">);</span>
+         <span class="kr">end</span><span class="p">;</span>
+      <span class="kr">end</span> <span class="kr">loop</span><span class="p">;</span>
+
+      <span class="n">Unchecked_Free</span> <span class="p">(</span><span class="n">Sources</span><span class="p">);</span>
+      <span class="n">New_Line</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="nf">Process_Aggregated</span><span class="p">;</span>
+
+   <span class="c1">------------------</span>
+   <span class="c1">-- Process_Node --</span>
+   <span class="c1">------------------</span>
+
+   <span class="kd">function</span> <span class="nf">Process_Node</span> <span class="p">(</span><span class="nv">Node</span> <span class="p">: </span><span class="nv">Ada_Node</span><span class="p">&#39;</span><span class="na">Class</span><span class="p">)</span> <span class="kr">return</span> <span class="n">Visit_Status</span> <span class="kr">is</span>
+   <span class="kr">begin</span>
+      <span class="kr">if</span> <span class="n">Node</span><span class="p">.</span><span class="n">Kind</span> <span class="o">=</span> <span class="n">Ada_Object_Decl</span> <span class="kr">then</span>
+         <span class="kr">declare</span>
+            <span class="no">Type_Decl</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Base_Type_Decl</span> <span class="p">:=</span>
+               <span class="n">Node</span><span class="p">.</span><span class="n">As_Object_Decl</span><span class="p">.</span><span class="n">F_Type_Expr</span><span class="p">.</span><span class="n">P_Designated_Type_Decl</span><span class="p">;</span>
+         <span class="kr">begin</span>
+            <span class="n">Put_Line</span> <span class="p">(</span><span class="s">&quot;  Type for &quot;</span> <span class="o">&amp;</span> <span class="n">Node</span><span class="p">.</span><span class="n">Short_Image</span>
+                      <span class="o">&amp;</span> <span class="s">&quot;: &quot;</span> <span class="o">&amp;</span> <span class="n">Type_Decl</span><span class="p">.</span><span class="n">Debug_Text</span><span class="p">);</span>
+         <span class="kr">end</span><span class="p">;</span>
+      <span class="kr">end</span> <span class="kr">if</span><span class="p">;</span>
+
+      <span class="kr">return</span> <span class="n">Into</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="nf">Process_Node</span><span class="p">;</span>
+
+<span class="kr">begin</span>
+   <span class="c1">--  Load the input project</span>
+   <span class="n">Initialize</span> <span class="p">(</span><span class="n">Env</span><span class="p">);</span>
+   <span class="n">Tree</span><span class="p">.</span><span class="n">Load</span> <span class="p">(</span><span class="n">Create</span> <span class="p">(</span><span class="o">+</span><span class="s">&quot;agg.gpr&quot;</span><span class="p">),</span> <span class="n">Env</span><span class="p">);</span>
+
+   <span class="c1">--  Process every aggregated project independently</span>
+   <span class="n">Iterate_Aggregated</span> <span class="p">(</span><span class="n">Tree</span><span class="p">.</span><span class="n">Root_Project</span><span class="p">,</span> <span class="n">Process_Aggregated</span><span class="p">&#39;</span><span class="na">Access</span><span class="p">);</span>
+
+   <span class="c1">--  Do not leak project resources</span>
+   <span class="n">Free</span> <span class="p">(</span><span class="n">Tree</span><span class="p">);</span>
+   <span class="n">Free</span> <span class="p">(</span><span class="n">Env</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Run</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="expected-output">
+<h3><span class="section-number">9.2.2.3. </span>Expected output<a class="headerlink" href="#expected-output" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>== Processing project: Main32 ==
+In arch.ads:
+In main.adb:
+  Type for &lt;ObjectDecl [&quot;Last&quot;] main.adb:3:4-3:68&gt;: type Target_Address is mod 2 ** 32;
+
+== Processing project: Main64 ==
+In arch.ads:
+In main.adb:
+  Type for &lt;ObjectDecl [&quot;Last&quot;] main.adb:3:4-3:68&gt;: type Target_Address is mod 2 ** 64;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="generic_instantiation.html" class="btn btn-neutral float-right" title="9.3. Accessing actuals of generic instantiations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="advanced_iterators.html" class="btn btn-neutral float-left" title="9.1. Using advanced iterators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

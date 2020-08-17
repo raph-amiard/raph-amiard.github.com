@@ -1,0 +1,553 @@
+.. ada:package:: Libadalang.Common
+
+Libadalang.Common
+-----------------
+
+This package provides types and functions used in the whole Libadalang
+package tree.
+
+.. ada:object:: Main_Trace : constant GNATCOLL.Traces.Trace_Handle
+    :package: Libadalang.Common
+    
+    :objtype: GNATCOLL.Traces.Trace_Handle
+    :defval: ``GNATCOLL.Traces.Create ("LIBADALANG.MAIN_TRACE", GNATCOLL.Traces.From_Config)``
+    
+    
+.. ada:object:: Default_Charset : constant String
+    :package: Libadalang.Common
+    
+    :objtype: Standard.String
+    :defval: ``"iso-8859-1"``
+    
+    Default charset to use when creating analysis contexts
+    
+.. ada:type:: type Big_Integer
+    :package: Libadalang.Common
+    
+    
+    Shortcut for ``GNATCOLL.GMP.Integers.Big_Integer``
+    
+.. ada:type:: type Precomputed_Symbol_Index
+    :package: Libadalang.Common
+    
+    
+    
+    .. ada:function:: function Precomputed_Symbol (Index : Precomputed_Symbol_Index) return Text_Type
+        :package: Libadalang.Common
+        
+        
+.. ada:generic-package-instantiation:: package Symbols is new Langkit_Support.Symbols
+    :package: Libadalang.Common
+    
+    .. code-block:: ada
+        
+        package Symbols is new Langkit_Support.Symbols
+             (Precomputed_Symbol_Index, Precomputed_Symbol);
+    
+    :instpkg: Langkit_Support.Symbols
+    
+    
+.. ada:generic-package-instantiation:: package Token_Data_Handlers is new Langkit_Support.Token_Data_Handlers
+    :package: Libadalang.Common
+    
+    .. code-block:: ada
+        
+        package Token_Data_Handlers is new Langkit_Support.Token_Data_Handlers
+             (Precomputed_Symbol_Index, Precomputed_Symbol, Symbols);
+    
+    :instpkg: Langkit_Support.Token_Data_Handlers
+    
+    
+.. ada:type:: type Ada_Node_Kind_Type
+    :package: Libadalang.Common
+    
+    
+    Type for concrete nodes
+    
+    .. ada:function:: function Is_Token_Node (Kind : Ada_Node_Kind_Type) return Boolean
+        :package: Libadalang.Common
+        
+        Return whether Kind corresponds to a token node
+        
+    .. ada:function:: function Is_List_Node (Kind : Ada_Node_Kind_Type) return Boolean
+        :package: Libadalang.Common
+        
+        Return whether Kind corresponds to a list node
+        
+.. ada:type:: type Synthetic_Nodes
+    :package: Libadalang.Common
+    
+    
+    Set of nodes that are synthetic.
+    
+    Parsers cannot create synthetic nodes, so these correspond to no
+    source text. These nodes are created dynamically for convenience
+    during semantic analysis.
+    
+.. ada:type:: type Analysis_Unit_Kind
+    :package: Libadalang.Common
+    
+    
+    Specify a kind of analysis unit. Specification units provide an
+    interface to the outer world while body units provide an
+    implementation for the corresponding interface.
+    
+    .. ada:function:: function Trace_Image (Self : Analysis_Unit_Kind) return String
+        :package: Libadalang.Common
+        
+        
+.. ada:type:: type Lookup_Kind
+    :package: Libadalang.Common
+    
+    
+    
+    .. ada:function:: function Trace_Image (Self : Lookup_Kind) return String
+        :package: Libadalang.Common
+        
+        
+.. ada:type:: type Find_All_Mode
+    :package: Libadalang.Common
+    
+    
+    
+    .. ada:function:: function Trace_Image (Self : Find_All_Mode) return String
+        :package: Libadalang.Common
+        
+        
+.. ada:type:: type Ref_Result_Kind
+    :package: Libadalang.Common
+    
+    
+    Kind for the result of a cross reference operation.
+    
+    - ``NoRef`` is for no reference, it is the null value for this enum.
+    
+    - ``Precise`` is when the reference result is precise.
+    
+    - ``Imprecise`` is when there was an error computing the precise
+    result, and a result was gotten in an imprecise fashion.
+    
+    - ``Error`` is for unrecoverable errors (either there is no imprecise
+    path for the request you made, or the imprecise path errored out too.
+    
+    .. ada:function:: function Trace_Image (Self : Ref_Result_Kind) return String
+        :package: Libadalang.Common
+        
+        
+.. ada:type:: type Grammar_Rule
+    :package: Libadalang.Common
+    
+    
+    Gramar rule to use for parsing.
+    
+    .. ada:function:: function Trace_Image (Self : Grammar_Rule) return String
+        :package: Libadalang.Common
+        
+        
+    .. ada:object:: Default_Grammar_Rule : constant Grammar_Rule
+        :package: Libadalang.Common
+        
+        :objtype: Libadalang.Common.Grammar_Rule
+        :defval: ``Compilation_Rule``
+        
+        Default grammar rule to use when parsing analysis units
+        
+.. ada:type:: type Lexer_Input_Kind
+    :package: Libadalang.Common
+    
+    
+    Kind of lexer input
+    
+.. ada:type:: type Undecoded_Lexer_Input
+    :package: Libadalang.Common
+    
+    
+    
+.. ada:type:: type Token_Kind
+    :package: Libadalang.Common
+    
+    
+    Kind of token: identifier, string literal, ...
+    
+    .. ada:function:: function Token_Kind_Name (Token_Id : Token_Kind) return String
+        :package: Libadalang.Common
+        
+        Return a human-readable name for a token kind.
+        
+    .. ada:function:: function Token_Kind_Literal (Token_Id : Token_Kind) return Text_Type
+        :package: Libadalang.Common
+        
+        Return the canonical literal corresponding to this token kind, or an
+        empty string if this token has no literal.
+        
+    .. ada:function:: function Token_Error_Image (Token_Id : Token_Kind) return String
+        :package: Libadalang.Common
+        
+        Return a string representation of ``Token_Id`` that is suitable in error
+        messages.
+        
+    .. ada:function:: function To_Token_Kind (Raw : Raw_Token_Kind) return Token_Kind
+        :package: Libadalang.Common
+        
+        
+    .. ada:function:: function From_Token_Kind (Kind : Token_Kind) return Raw_Token_Kind
+        :package: Libadalang.Common
+        
+        
+.. ada:type:: type Token_Family
+    :package: Libadalang.Common
+    
+    
+    Groups of token kinds, to make the processing of some groups of token
+    uniform.
+    
+.. ada:object:: Token_Kind_To_Family : array (Token_Kind) of Token_Family
+    :package: Libadalang.Common
+    
+    :objtype: ``array (Token_Kind) of Token_Family``
+    
+    Associate a token family to all token kinds
+    
+.. ada:type:: type Visit_Status
+    :package: Libadalang.Common
+    
+    
+    Helper type to control the node traversal process. See the
+    ``Libadalang.Analysis.Traverse`` function.
+    
+.. ada:type:: type Token_Reference
+    :package: Libadalang.Common
+    
+    
+    Reference to a token in an analysis unit.
+    
+    .. ada:object:: No_Token : constant Token_Reference
+        :package: Libadalang.Common
+        
+        :objtype: Libadalang.Common.Token_Reference
+        
+        
+    .. ada:function:: function "<" (Left, Right : Token_Reference) return Boolean
+        :package: Libadalang.Common
+        
+        Assuming ``Left`` and ``Right`` belong to the same analysis unit, return
+        whether ``Left`` came before ``Right`` in the source file.
+        
+    .. ada:function:: function Next (Token : Token_Reference; Exclude_Trivia : Boolean := False) return Token_Reference
+        :package: Libadalang.Common
+        
+        Return a reference to the next token in the corresponding analysis unit.
+        
+    .. ada:function:: function Previous (Token : Token_Reference; Exclude_Trivia : Boolean := False) return Token_Reference
+        :package: Libadalang.Common
+        
+        Return a reference to the previous token in the corresponding analysis
+        unit.
+        
+    .. ada:function:: function Data (Token : Token_Reference) return Token_Data_Type
+        :package: Libadalang.Common
+        
+        Return the data associated to ``Token``
+        
+    .. ada:function:: function Is_Equivalent (L, R : Token_Reference) return Boolean
+        :package: Libadalang.Common
+        
+        Return whether ``L`` and ``R`` are structurally equivalent tokens. This
+        means that their position in the stream won't be taken into account,
+        only the kind and text of the token.
+        
+    .. ada:function:: function Image (Token : Token_Reference) return String
+        :package: Libadalang.Common
+        
+        Debug helper: return a human-readable text to represent a token
+        
+    .. ada:function:: function Text (Token : Token_Reference) return Text_Type
+        :package: Libadalang.Common
+        
+        Return the text of the token as ``Text_Type``
+        
+    .. ada:function:: function Text (First, Last : Token_Reference) return Text_Type
+        :package: Libadalang.Common
+        
+        Compute the source buffer slice corresponding to the text that spans
+        between the ``First`` and ``Last`` tokens (both included). This yields
+        an empty slice if ``Last`` actually appears before ``First``.
+        
+        This raises a ``Constraint_Error`` if ``First`` and ``Last`` don't
+        belong to the same analysis unit.
+        
+    .. ada:function:: function Get_Symbol (Token : Token_Reference) return Symbol_Type
+        :package: Libadalang.Common
+        
+        Assuming that ``Token`` refers to a token that contains a symbol, return
+        the corresponding symbol.
+        
+    .. ada:function:: function Is_Trivia (Token : Token_Reference) return Boolean
+        :package: Libadalang.Common
+        
+        Return whether this token is a trivia. If it's not, it's a regular
+        token.
+        
+    .. ada:function:: function Index (Token : Token_Reference) return Token_Index
+        :package: Libadalang.Common
+        
+        One-based index for this token/trivia. Tokens and trivias get their own
+        index space.
+        
+    .. ada:function:: function Origin_Filename (Token : Token_Reference) return String
+        :package: Libadalang.Common
+        
+        Return the name of the file whose content was scanned to create Token.
+        Return an empty string if the source comes from a memory buffer instead
+        of a file.
+        
+    .. ada:function:: function Origin_Charset (Token : Token_Reference) return String
+        :package: Libadalang.Common
+        
+        Return the charset used to decode the source that was scanned to create
+        Token. Return an empty string if the source was already decoded during
+        the scan.
+        
+    .. ada:function:: function Convert (TDH : Token_Data_Handler; Token : Token_Reference; Raw_Data : Stored_Token_Data) return Token_Data_Type
+        :package: Libadalang.Common
+        
+        Turn data from ``TDH`` and ``Raw_Data`` into a user-ready token data
+        record.
+        
+    .. ada:function:: function Raw_Data (T : Token_Reference) return Stored_Token_Data
+        :package: Libadalang.Common
+        
+        Return the raw token data for ``T``
+        
+.. ada:type:: type Token_Data_Type
+    :package: Libadalang.Common
+    
+    
+    
+    .. ada:function:: function Kind (Token_Data : Token_Data_Type) return Token_Kind
+        :package: Libadalang.Common
+        
+        Kind for this token.
+        
+    .. ada:function:: function Is_Trivia (Token_Data : Token_Data_Type) return Boolean
+        :package: Libadalang.Common
+        
+        Return whether this token is a trivia. If it's not, it's a regular
+        token.
+        
+    .. ada:function:: function Index (Token_Data : Token_Data_Type) return Token_Index
+        :package: Libadalang.Common
+        
+        One-based index for this token/trivia. Tokens and trivias get their own
+        index space.
+        
+    .. ada:function:: function Sloc_Range (Token_Data : Token_Data_Type) return Source_Location_Range
+        :package: Libadalang.Common
+        
+        Source location range for this token. Note that the end bound is
+        exclusive.
+        
+.. ada:type:: type Child_Or_Trivia
+    :package: Libadalang.Common
+    
+    
+    Discriminator for the ``Child_Record`` type
+    
+.. ada:type:: type Symbolization_Result
+    :package: Libadalang.Common
+    
+    :discriminant Standard.Boolean Success:
+    :discriminant Standard.Natural Size:
+    :component Langkit_Support.Text.Text_Type Symbol:
+        Text for successfully symbolized identifiers
+    :component Langkit_Support.Text.Text_Type Error_Message:
+        Message describing why symbolization failed
+    
+    Message describing why symbolization failed
+    
+    .. ada:function:: function Create_Symbol (Name : Text_Type) return Symbolization_Result
+        :package: Libadalang.Common
+        
+        Shortcut to create successful symbolization results
+        
+    .. ada:function:: function Create_Error (Message : Text_Type) return Symbolization_Result
+        :package: Libadalang.Common
+        
+        Shortcut to create failed symbolization results
+        
+.. ada:exception:: Invalid_Input
+    :package: Libadalang.Common
+    
+    Raised by lexing functions (``Libadalang.Lexer``) when the input
+    contains an invalid byte sequence.
+    
+.. ada:exception:: Invalid_Symbol_Error
+    :package: Libadalang.Common
+    
+    Exception raise when an invalid symbol is passed to a subprogram.
+    
+.. ada:exception:: Invalid_Unit_Name_Error
+    :package: Libadalang.Common
+    
+    Raised when an invalid unit name is provided.
+    
+.. ada:exception:: Native_Exception
+    :package: Libadalang.Common
+    
+    Exception raised in language bindings when the underlying C API reports
+    an unexpected error that occurred in the library.
+    
+    This kind of exception is raised for internal errors: they should never
+    happen in normal situations and if they are raised at some point, it
+    means the library state is potentially corrupted.
+    
+    Nevertheless, the library does its best not to crash the program,
+    materializing internal errors using this kind of exception.
+    
+.. ada:exception:: Precondition_Failure
+    :package: Libadalang.Common
+    
+    Exception raised when an API is called while its preconditions are not
+    satisfied.
+    
+.. ada:exception:: Property_Error
+    :package: Libadalang.Common
+    
+    Exception that is raised when an error occurs while evaluating any
+    function whose name starts with ``P_``. This is the only exceptions that
+    such functions can raise.
+    
+.. ada:exception:: Stale_Reference_Error
+    :package: Libadalang.Common
+    
+    Exception raised while trying to access data that was deallocated. This
+    happens when one tries to use a node whose unit has been reparsed, for
+    instance.
+    
+.. ada:exception:: Unknown_Charset
+    :package: Libadalang.Common
+    
+    Raised by lexing functions (``Libadalang.Lexer``) when the input charset
+    is not supported.
+    
+.. ada:exception:: Invalid_Field
+    :package: Libadalang.Common
+    
+    Raised when introspection functions (``Libadalang.Introspection``) are
+    requested an invalid field.
+    
+.. ada:exception:: Node_Data_Evaluation_Error
+    :package: Libadalang.Common
+    
+    Raised when introspection functions (``Libadalang.Introspection``) are
+    improperly used to evaluate a node data (field or property).
+    
+.. ada:exception:: Template_Args_Error
+    :package: Libadalang.Common
+    
+    Exception raised when the provided arguments for a template don't match
+    what the template expects.
+    
+.. ada:exception:: Template_Format_Error
+    :package: Libadalang.Common
+    
+    Exception raised when a template has an invalid syntax, such as badly
+    formatted placeholders.
+    
+.. ada:exception:: Template_Instantiation_Error
+    :package: Libadalang.Common
+    
+    Exception raised when the instantiation of a template cannot be parsed.
+    
+.. ada:type:: type Any_Node_Type_Id
+    :package: Libadalang.Common
+    
+    
+    Enumeration type used to specify & query the type of fields &
+    properties. Unlike Ada_Node_Kind_Type, the following enumeration contains
+    entries for abstract nodes.
+    
+.. ada:type:: type Node_Type_Id
+    :package: Libadalang.Common
+    
+    
+    Subtype for :ada:ref:`Any_Node_Type_Id` excluding the ``None`` value
+    
+.. ada:type:: type Node_Type_Id_Array
+    :package: Libadalang.Common
+    
+    
+    Array of :ada:ref:`Node_Type_Id`, used to represent a collection of types
+    
+.. ada:type:: type Any_Value_Kind
+    :package: Libadalang.Common
+    
+    
+    Enumeration for all types used to interact with properties
+    
+.. ada:type:: type Value_Kind
+    :package: Libadalang.Common
+    
+    
+    Subtype for :ada:ref:`Any_Value_Kind` excluding the ``None`` value
+    
+.. ada:type:: type Value_Constraint
+    :package: Libadalang.Common
+    
+    :discriminant Libadalang.Common.Value_Kind Kind:
+    :component Libadalang.Common.Node_Type_Id Node_Type:
+        Base type for nodes that satisfy this constraint
+    
+    Base type for nodes that satisfy this constraint
+    
+.. ada:type:: type Value_Constraint_Array
+    :package: Libadalang.Common
+    
+    
+    Array of :ada:ref:`Value_Constraint`, used to represent a collection of type
+    constraints on values (for example, for properties arguments).
+    
+.. ada:type:: type Any_Node_Data_Reference
+    :package: Libadalang.Common
+    
+    
+    
+.. ada:type:: type Node_Data_Reference
+    :package: Libadalang.Common
+    
+    
+    Enumeration of all data attached to nodes (syntax fields and properties)
+    
+.. ada:type:: type Node_Data_Reference_Array
+    :package: Libadalang.Common
+    
+    
+    
+.. ada:type:: type Field_Reference
+    :package: Libadalang.Common
+    
+    
+    Enumeration of all syntax fields for regular nodes
+    
+.. ada:type:: type Field_Reference_Array
+    :package: Libadalang.Common
+    
+    
+    
+.. ada:type:: type Property_Reference
+    :package: Libadalang.Common
+    
+    
+    Enumeration of all available node properties
+    
+.. ada:type:: type Property_Reference_Array
+    :package: Libadalang.Common
+    
+    
+    
+.. ada:type:: type Language_Version
+    :package: Libadalang.Common
+    
+    
+    Enum representing a version of the Ada language
+    

@@ -1,0 +1,2420 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>10. Libadalang API breaking changes &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="13. Development design documents" href="design_documents/index.html" />
+    <link rel="prev" title="9.3. Accessing actuals of generic instantiations" href="examples/generic_instantiation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">10. Libadalang API breaking changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#remove-debug-text-apis">10.1. Remove <code class="docutils literal notranslate"><span class="pre">Debug_Text</span></code> APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#remove-short-image-apis">10.2. Remove <code class="docutils literal notranslate"><span class="pre">Short_Image</span></code> APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rename-children-with-trivia-and-make-it-return-ghost-nodes">10.3. Rename <code class="docutils literal notranslate"><span class="pre">Children_With_Trivia</span></code> and make it return ghost nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#definingname-find-all-refs-calls-returns-refresult-array">10.4. <code class="docutils literal notranslate"><span class="pre">DefiningName.find_all_refs/calls</span></code> returns <code class="docutils literal notranslate"><span class="pre">RefResult</span></code> array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enhance-support-for-aggregate-projects">10.5. Enhance support for aggregate projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unify-naming-of-primitive-subp-properties">10.6. Unify naming of <code class="docutils literal notranslate"><span class="pre">*primitive_subp*</span></code> properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#change-the-grammar-of-acceptstmt-and-entrybody">10.7. Change the grammar of <code class="docutils literal notranslate"><span class="pre">AcceptStmt</span></code> and <code class="docutils literal notranslate"><span class="pre">EntryBody</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-rid-of-name-p-xref">10.8. Get rid of <code class="docutils literal notranslate"><span class="pre">Name.p_xref</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#replace-name-p-referenced-id-by-name-p-referenced-defining-name">10.9. Replace <code class="docutils literal notranslate"><span class="pre">Name.p_referenced_id</span></code> by <code class="docutils literal notranslate"><span class="pre">Name.p_referenced_defining_name</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rename-basicdecl-p-is-unit-root-into-p-is-compilation-unit-root">10.10. Rename <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_unit_root</span></code> into <code class="docutils literal notranslate"><span class="pre">p_is_compilation_unit_root</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#libadalang-api-new-features">11. Libadalang API new features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#static-evaluation-of-string-expressions">11.1. Static evaluation of string expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-expr-p-is-dynamically-tagged-property">11.2. Add <code class="docutils literal notranslate"><span class="pre">Expr.P_Is_Dynamically_Tagged</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#new-abstract-class-condexpr">11.3. New abstract class <code class="docutils literal notranslate"><span class="pre">CondExpr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-p-private-part-decl-property">11.4. Add <code class="docutils literal notranslate"><span class="pre">p_private_part_decl</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implement-navigation-on-entries">11.5. Implement navigation on entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implement-name-resolution-for-test-case-aspect">11.6. Implement name resolution for Test_Case aspect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-xref-for-stream-attributes-references">11.7. Add xref for stream attributes references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-resolution-for-task-and-entry-attributes">11.8. Name resolution for task and entry attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#new-origin-filename-and-origin-charset-functions">11.9. New Origin_Filename and Origin_Charset functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#expose-p-discriminants-list-property">11.10. Expose <code class="docutils literal notranslate"><span class="pre">p_discriminants_list</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-j0-in-the-app-framework">11.11. Handle <code class="docutils literal notranslate"><span class="pre">-j0</span></code> in the App framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-p-shapes-property">11.12. Add <code class="docutils literal notranslate"><span class="pre">P_Shapes</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-frequent-precise-element-type-in-field-docs">11.13. More frequent precise element type in field docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-others-designator-in-zip-with-params">11.14. Handle <code class="docutils literal notranslate"><span class="pre">others</span></code> designator in zip_with_params</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-failsafe-referenced-decl-name-properties">11.15. Add failsafe <code class="docutils literal notranslate"><span class="pre">referenced_decl/name</span></code> properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolve-generic-formal-objects">11.16. Resolve generic formal objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-p-valid-keywords-property">11.17. Add <code class="docutils literal notranslate"><span class="pre">p_valid_keywords</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-p-is-visible-property">11.18. Add <code class="docutils literal notranslate"><span class="pre">p_is_visible</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preserve-casing-in-fully-qualified-name-output">11.19. Preserve casing in fully_qualified_name output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-type-s-static-predicates-in-nameres">11.20. Handle type’s static predicates in nameres</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-membership-expr-in-static-evaluator">11.21. Handle membership expr in static evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-root-type-property">11.22. Add a <code class="docutils literal notranslate"><span class="pre">root_type</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-p-is-interface-type-property">11.23. Add <code class="docutils literal notranslate"><span class="pre">p_is_interface_type</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-properties-for-computing-unit-dependencies">11.24. Add properties for computing unit dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-built-in-adanode-full-sloc-image">11.25. Add built-in <code class="docutils literal notranslate"><span class="pre">AdaNode.full_sloc_image</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-node-iterator-predicate-kind-in">11.26. Add node iterator predicate <code class="docutils literal notranslate"><span class="pre">Kind_In</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-property-p-get-enum-representation-clause">11.27. Add property <code class="docutils literal notranslate"><span class="pre">p_get_enum_representation_clause</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-base-subp-declarations-property">11.28. Add a <code class="docutils literal notranslate"><span class="pre">base_subp_declarations</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-python3-compatibility">11.29. Add Python3 compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implement-singletoknode-canonical-text">11.30. Implement <code class="docutils literal notranslate"><span class="pre">SingleTokNode.canonical_text</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-helpful-error-message-for-as-node-converters">11.31. More helpful error message for <code class="docutils literal notranslate"><span class="pre">As_*</span></code> node converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduce-basicsubpdecl-primitive-subp-tagged-type">11.32. Introduce <code class="docutils literal notranslate"><span class="pre">BasicSubpDecl.primitive_subp_tagged_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-name-is-operator-name-property">11.33. Add a <code class="docutils literal notranslate"><span class="pre">Name.is_operator_name</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-command-line-app-framework-for-ada-api">11.34. Add a command line app framework for Ada API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-p-is-array-slice-property">11.35. Add a <code class="docutils literal notranslate"><span class="pre">p_is_array_slice</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-several-utility-properties-on-basetypedecl">11.36. Add several utility properties on <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improved-handling-of-aggregate-projects">11.37. Improved handling of aggregate projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-basicdecl-p-is-formal-property">11.38. Add a <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_formal</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-property-basetypedecl-p-discrete-range">11.39. Add property <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl.p_discrete_range</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-basicdecl-p-is-preelaborable-property">11.40. Add a <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_preelaborable</span></code> property</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#handle-library-level-use-all-type-clauses">12.1. Handle library-level <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">all</span> <span class="pre">type</span></code> clauses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-resolution-robustness-of-if-case-stmts">12.2. Name resolution robustness of if/case stmts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nameres-failure-on-generic-instantiations">12.3. Nameres failure on generic instantiations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nameres-crash-on-instantiations-of-modular-io">12.4. Nameres crash on instantiations of Modular_IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nameres-call-to-incomplete-types-primitives">12.5. Nameres call to incomplete types’ primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-name-resolution-crash-on-runtime-files">12.6. Fix name resolution crash on runtime files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-is-write-reference-for-dot-calls">12.7. Fix <code class="docutils literal notranslate"><span class="pre">Is_Write_Reference</span></code> for dot calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-name-resolution-in-type-contracts">12.8. Fix name resolution in type contracts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prevent-name-resolution-in-convention-aspect">12.9. Prevent name resolution in <code class="docutils literal notranslate"><span class="pre">Convention</span></code> aspect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implement-name-resolution-for-entry-barriers">12.10. Implement name resolution for entry barriers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-resolution-on-separate-x-clause">12.11. Name resolution on <code class="docutils literal notranslate"><span class="pre">separate</span> <span class="pre">(X)</span></code> clause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-p-get-aspect-unchecked-union">12.12. Fix <code class="docutils literal notranslate"><span class="pre">P_Get_Aspect</span> <span class="pre">(&quot;unchecked_union&quot;)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#do-not-consider-subp-address-a-call">12.13. Do not consider <code class="docutils literal notranslate"><span class="pre">Subp'Address</span></code> a call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-resolution-of-use-at-clauses">12.14. Name resolution of <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">at</span></code> clauses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-resolution-for-generic-renaming-decls">12.15. Name resolution for generic renaming decls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-zip-with-params-on-incomplete-type-decls">12.16. Fix <code class="docutils literal notranslate"><span class="pre">zip_with_params</span></code> on incomplete type decls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-exception-message-for-invalid-conversions-in-as-functions">12.17. Fix exception message for invalid conversions in <code class="docutils literal notranslate"><span class="pre">As_*</span></code> functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libadalang-analysis-text-raise-a-constraint-error">12.18. <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.*_Text</span></code> raise a <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-resolution-bug-with-custom-string-literals">12.19. Name resolution bug with custom string literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inconsistent-results-of-navigation-properties">12.20. Inconsistent results of navigation properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bug-in-the-resolution-of-if-expressions">12.21. Bug in the resolution of if-expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-name-resolution-for-access-attribute">12.22. Fix name resolution for <code class="docutils literal notranslate"><span class="pre">Access</span></code> attribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-resolution-for-storage-size-attribute">12.23. Name resolution for <code class="docutils literal notranslate"><span class="pre">Storage_Size</span></code> attribute.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-name-resolution-for-some-attributes">12.24. Fix name resolution for some attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-type-conversion-of-explicit-dereference">12.25. Fix type conversion of explicit dereference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#missed-child-units-during-find-all-references">12.26. Missed child units during <code class="docutils literal notranslate"><span class="pre">find_all_references</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-defining-name-s-navigation-queries-crash">12.27. Fix defining name’s navigation queries crash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-is-static-decl-for-array-types">12.28. Fix <code class="docutils literal notranslate"><span class="pre">is_static_decl</span></code> for array types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nameres-bug-for-subp-defined-in-a-declare-block">12.29. Nameres bug for subp defined in a declare block</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-navigation-for-subps-inside-of-separate-pkg">12.30. Fix navigation for subps inside of separate pkg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolve-truncation-attribute">12.31. Resolve <code class="docutils literal notranslate"><span class="pre">Truncation</span></code> attribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-nameres-of-quantifier-expressions">12.32. Fix nameres of quantifier expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolve-formal-in-discriminant-constraint">12.33. Resolve formal in discriminant constraint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zip-with-params-bug-on-variant-record-access">12.34. Zip_with_params bug on variant record access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-static-object-renamings">12.35. Handle static object renamings.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#various-bug-fixes-in-name-resolution">12.36. Various bug fixes in name resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">12.37. Various bug fixes in name resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolve-range-constraints-in-case-constructs">12.38. Resolve range constraints in case constructs.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-the-p-primitive-subp-properties-for-subp-body-specs">12.39. Fix the <code class="docutils literal notranslate"><span class="pre">p_primitive_subp_*</span></code> properties for subp body specs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-name-resolution-of-index-constraints">12.40. Fix name resolution of index constraints.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-name-resolution-on-attributedefclause-nodes">12.41. Fix name resolution on <code class="docutils literal notranslate"><span class="pre">AttributeDefClause</span></code> nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-name-resolution-of-binary-operations-when-at-least-one-operand-has-a-universal-type">12.42. Fix name resolution of binary operations when at least one operand has a universal type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crash-in-the-p-doc-property">12.43. Crash in the <code class="docutils literal notranslate"><span class="pre">P_Doc</span></code> property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-static-evaluator-on-character-literals">12.44. Fix static evaluator on character literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crash-when-resolving-exception-renaming-clause">12.45. Crash when resolving exception renaming clause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-crash-on-top-level-subprogram-renamings">12.46. Fix crash on top-level subprogram renamings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-fully-qualified-name-for-generic-decls">12.47. Fix fully_qualified_name for generic decls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exception-when-calling-property-via-introspection">12.48. Exception when calling property via introspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#memory-leak-in-properties-to-find-all-references">12.49. Memory leak in properties to find-all-references</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolve-defaults-for-generic-formal-subprograms">12.50. Resolve defaults for generic formal subprograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-nameres-involving-generic-instantiations-with-formal-objects">12.51. Fix nameres involving generic instantiations with formal objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-static-evaluation-of-range-attributes">12.52. Fix static evaluation of range attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolution-of-calls-to-primitives">12.53. Resolution of calls to primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#package-navigation-in-presence-of-homonyms">12.54. Package navigation in presence of homonyms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#navigation-of-subprograms-with-anonymous-access-parameters">12.55. Navigation of subprograms with anonymous access parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-behavior-of-basicdecl-has-aspect">12.56. Fix behavior of <code class="docutils literal notranslate"><span class="pre">BasicDecl.has_aspect</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#p-syntactic-fully-qualified-name-can-crash-in-presence-of-parsing-errors">12.57. P_syntactic_fully_qualified_name can crash in presence of parsing errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crash-when-resolving-ambiguous-case-stmts">12.58. Crash when resolving ambiguous case stmts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#find-all-references-crash-with-empty-files">12.59. Find_all_references crash with empty files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nameres-crash-with-calls-on-shadowed-types">12.60. Nameres crash with calls on shadowed types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-basicdecl-doc-not-working-on-generic-packages">12.61. Fix <code class="docutils literal notranslate"><span class="pre">BasicDecl.doc</span></code> not working on generic packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolution-of-array-slices">12.62. Resolution of array slices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-doc-s-leading-whitespace-stripping">12.63. Fix <code class="docutils literal notranslate"><span class="pre">doc</span></code>’s leading whitespace stripping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolution-of-calls-to-entries-of-singletasktypedecl">12.64. Resolution of calls to entries of <code class="docutils literal notranslate"><span class="pre">SingleTaskTypeDecl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolution-of-top-level-child-generic-subp-bodies">12.65. Resolution of top-level child generic subp bodies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolution-of-separate-generic-subprograms">12.66. Resolution of separate generic subprograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#duplicates-in-the-output-of-p-find-all-overrides">12.67. Duplicates in the output of <code class="docutils literal notranslate"><span class="pre">p_find_all_overrides</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-parsing-errors-in-with-clauses">12.68. Handle parsing errors in <code class="docutils literal notranslate"><span class="pre">with</span></code> clauses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-missing-standard-implementation-defined-attributes">12.69. Handle missing standard &amp; implementation defined attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-pred-succ-attributes-in-static-evaluator">12.70. Handle <code class="docutils literal notranslate"><span class="pre">Pred</span></code>/<code class="docutils literal notranslate"><span class="pre">Succ</span></code> attributes in static evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-full-type-view-resolution-correctly-for-operators">12.71. Handle full type view resolution correctly for operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fix-association-of-pragma-volatile">12.72. Fix association of <code class="docutils literal notranslate"><span class="pre">pragma</span> <span class="pre">Volatile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-full-type-view-resolution-correctly-in-case-of-hiding">12.73. Handle full type view resolution correctly in case of hiding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolution-of-binop-for-private-types-with-scalar-completion">12.74. Resolution of binop for private types with scalar completion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolve-more-spark-specific-attributes-and-pragmas">12.75. Resolve more SPARK specific attributes and pragmas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">10. </span>Libadalang API breaking changes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api_changes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="libadalang-api-breaking-changes">
+<h1><span class="section-number">10. </span>Libadalang API breaking changes<a class="headerlink" href="#libadalang-api-breaking-changes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="remove-debug-text-apis">
+<h2><span class="section-number">10.1. </span>Remove <code class="docutils literal notranslate"><span class="pre">Debug_Text</span></code> APIs<a class="headerlink" href="#remove-debug-text-apis" title="Permalink to this headline">¶</a></h2>
+<p>The name of this function was misleading: it had the <code class="docutils literal notranslate"><span class="pre">Debug</span></code> prefix not
+because it was “safe for debug” to call it (just like <code class="docutils literal notranslate"><span class="pre">Text</span></code>, it would
+crash on a null node), but because it turned the node text into ASCII using
+escaping for non-ASCII parts of the source, which can be useful for debug
+or logging. Users should prefer the <code class="docutils literal notranslate"><span class="pre">Image</span></code> function for debug, which
+should be familiar to Ada users.</p>
+<p>Current uses of <code class="docutils literal notranslate"><span class="pre">Debug_Text</span></code> can just call <code class="docutils literal notranslate"><span class="pre">Text</span></code> and transform its
+<code class="docutils literal notranslate"><span class="pre">Text_Type</span></code> result into a <code class="docutils literal notranslate"><span class="pre">String</span></code> using
+<code class="docutils literal notranslate"><span class="pre">Langkit_Support.Text.Image</span></code>, which is exactly what <code class="docutils literal notranslate"><span class="pre">Debug_Text</span></code> did.
+Or they can of course switch to <code class="docutils literal notranslate"><span class="pre">Image</span></code>, which is much better for
+debug/logging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T702-025</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="remove-short-image-apis">
+<h2><span class="section-number">10.2. </span>Remove <code class="docutils literal notranslate"><span class="pre">Short_Image</span></code> APIs<a class="headerlink" href="#remove-short-image-apis" title="Permalink to this headline">¶</a></h2>
+<p>For consistency, the functions called <code class="docutils literal notranslate"><span class="pre">Short_Image</span></code> or <code class="docutils literal notranslate"><span class="pre">short_image</span></code>
+are now either renamed or merged with the equivalent <code class="docutils literal notranslate"><span class="pre">Image</span></code>/<code class="docutils literal notranslate"><span class="pre">image</span></code>
+functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T702-024</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="rename-children-with-trivia-and-make-it-return-ghost-nodes">
+<h2><span class="section-number">10.3. </span>Rename <code class="docutils literal notranslate"><span class="pre">Children_With_Trivia</span></code> and make it return ghost nodes<a class="headerlink" href="#rename-children-with-trivia-and-make-it-return-ghost-nodes" title="Permalink to this headline">¶</a></h2>
+<p>For extra clarity, the <code class="docutils literal notranslate"><span class="pre">Children_With_Trivia</span></code> function in
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis</span></code> has been renamed <code class="docutils literal notranslate"><span class="pre">Children_And_Trivia</span></code>. Moreover,
+its returned array now includes children ghost nodes, so that the result of
+the <code class="docutils literal notranslate"><span class="pre">Children</span></code> function is always a subset of the result of the
+<code class="docutils literal notranslate"><span class="pre">Children_And_Trivia</span></code> result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T622-015</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="definingname-find-all-refs-calls-returns-refresult-array">
+<h2><span class="section-number">10.4. </span><code class="docutils literal notranslate"><span class="pre">DefiningName.find_all_refs/calls</span></code> returns <code class="docutils literal notranslate"><span class="pre">RefResult</span></code> array<a class="headerlink" href="#definingname-find-all-refs-calls-returns-refresult-array" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">DefiningName.find_all_references/calls</span></code> returns <code class="docutils literal notranslate"><span class="pre">RefResult</span></code> array,
+which contains the information of whether the reference was obtained via
+precise or imprecise resolution.</p>
+<p>Additionally, exceptions shouldn’t be raised as part of the normal control
+flow of those properties, and a name resolution failure won’t make them
+stop searching.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T330-005</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="enhance-support-for-aggregate-projects">
+<h2><span class="section-number">10.5. </span>Enhance support for aggregate projects<a class="headerlink" href="#enhance-support-for-aggregate-projects" title="Permalink to this headline">¶</a></h2>
+<p>Unit providers based on projects have been enhanced to better support
+aggregate projects.</p>
+<p>First, the Ada API makes it possible to create multiple unit providers from
+a single aggregate project so that each unit providers has access to a
+consistent set of analysis units: see
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Project_Provider.Create_Project_Unit_Providers</span></code>. This is
+useful when you want to analyze an aggregate project that contains
+alternative implementations of the same unit.</p>
+<p>Second, the Ada API no longer provides a direct access to the
+<code class="docutils literal notranslate"><span class="pre">Project_Unit_Provider</span></code> type. Since
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Create_Context</span></code> takes a reference type
+(<code class="docutils literal notranslate"><span class="pre">Unit_Provider_Reference</span></code>), exposing the interface derivation is not
+necessary and just brings confusion.</p>
+<p>Third, the C, Python and OCaml APIs now provide the ability to create a
+project unit provider with a view narrowed to a sub-project (see the
+<code class="docutils literal notranslate"><span class="pre">project</span></code> project unit provider constructor argument). If no sub-project
+is specified, then the constructor fallbacks to the project partition
+strategy described above: when the loaded project tree contains
+inconsistent units (i.e. multiple unit providers would be required), an
+error is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA09-018</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="unify-naming-of-primitive-subp-properties">
+<h2><span class="section-number">10.6. </span>Unify naming of <code class="docutils literal notranslate"><span class="pre">*primitive_subp*</span></code> properties<a class="headerlink" href="#unify-naming-of-primitive-subp-properties" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">BasicSubpDecl.primitive_subp_of</span></code> is now named
+<code class="docutils literal notranslate"><span class="pre">BasicSubpDecl.primitive_subp_types</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">BasicSubpDecl.first_primitive_subp_of</span></code> is now named
+<code class="docutils literal notranslate"><span class="pre">BasicSubpDecl.primitive_subp_type</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB28-029</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="change-the-grammar-of-acceptstmt-and-entrybody">
+<h2><span class="section-number">10.7. </span>Change the grammar of <code class="docutils literal notranslate"><span class="pre">AcceptStmt</span></code> and <code class="docutils literal notranslate"><span class="pre">EntryBody</span></code><a class="headerlink" href="#change-the-grammar-of-acceptstmt-and-entrybody" title="Permalink to this headline">¶</a></h2>
+<p>To simplify the matching of those with an <code class="docutils literal notranslate"><span class="pre">EntryDecl</span></code>, a new intermediate
+node, <code class="docutils literal notranslate"><span class="pre">EntryCompletionFormalParams</span></code> has been added, and contains the spec
+of entry completion parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S918-035</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="get-rid-of-name-p-xref">
+<h2><span class="section-number">10.8. </span>Get rid of <code class="docutils literal notranslate"><span class="pre">Name.p_xref</span></code><a class="headerlink" href="#get-rid-of-name-p-xref" title="Permalink to this headline">¶</a></h2>
+<p>Its behavior is considered non intuitive, and is not properly
+documented, nor tested.</p>
+<p>The workaround is to replace calls to <code class="docutils literal notranslate"><span class="pre">p_xref</span></code> by the equivalent set of
+navigation property calls, such as <code class="docutils literal notranslate"><span class="pre">p_previous_part</span></code>/<code class="docutils literal notranslate"><span class="pre">p_next_part</span></code> for
+declarations and bodies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S821-025</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="replace-name-p-referenced-id-by-name-p-referenced-defining-name">
+<h2><span class="section-number">10.9. </span>Replace <code class="docutils literal notranslate"><span class="pre">Name.p_referenced_id</span></code> by <code class="docutils literal notranslate"><span class="pre">Name.p_referenced_defining_name</span></code><a class="headerlink" href="#replace-name-p-referenced-id-by-name-p-referenced-defining-name" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">referenced_defining_name</span></code> doesn’t take any argument, and uses
+the result of <code class="docutils literal notranslate"><span class="pre">referenced_decl</span></code> on <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<p>Existing calls to <code class="docutils literal notranslate"><span class="pre">self.referenced_id(self.referenced_decl)</span></code> can just be
+replaced by <code class="docutils literal notranslate"><span class="pre">self.referenced_defining_name</span></code>.</p>
+<p>Calls to <code class="docutils literal notranslate"><span class="pre">self.referenced_id(other_decl)</span></code> have no simple remplacement,
+but are considered non-important.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S828-005</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="rename-basicdecl-p-is-unit-root-into-p-is-compilation-unit-root">
+<h2><span class="section-number">10.10. </span>Rename <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_unit_root</span></code> into <code class="docutils literal notranslate"><span class="pre">p_is_compilation_unit_root</span></code><a class="headerlink" href="#rename-basicdecl-p-is-unit-root-into-p-is-compilation-unit-root" title="Permalink to this headline">¶</a></h2>
+<p>To be closer to common Ada terminology, and disambiguate between
+compilation and analysis units.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S821-027</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="libadalang-api-new-features">
+<h1><span class="section-number">11. </span>Libadalang API new features<a class="headerlink" href="#libadalang-api-new-features" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="static-evaluation-of-string-expressions">
+<h2><span class="section-number">11.1. </span>Static evaluation of string expressions<a class="headerlink" href="#static-evaluation-of-string-expressions" title="Permalink to this headline">¶</a></h2>
+<p>Add the possibility of evaluating static expressions
+as strings to the static evaluator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T720-014</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada, python, ocaml</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-expr-p-is-dynamically-tagged-property">
+<h2><span class="section-number">11.2. </span>Add <code class="docutils literal notranslate"><span class="pre">Expr.P_Is_Dynamically_Tagged</span></code> property<a class="headerlink" href="#add-expr-p-is-dynamically-tagged-property" title="Permalink to this headline">¶</a></h2>
+<p>We introduce a new property, <code class="docutils literal notranslate"><span class="pre">P_Is_Dynamically_Tagged</span></code>, which will return
+whether an expression is dynamically tagged or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T709-021</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="new-abstract-class-condexpr">
+<h2><span class="section-number">11.3. </span>New abstract class <code class="docutils literal notranslate"><span class="pre">CondExpr</span></code><a class="headerlink" href="#new-abstract-class-condexpr" title="Permalink to this headline">¶</a></h2>
+<p>We introduce a new abstract base class, <code class="docutils literal notranslate"><span class="pre">CondExpr</span></code>, from which <code class="docutils literal notranslate"><span class="pre">IfExpr</span></code>
+and <code class="docutils literal notranslate"><span class="pre">CaseExpr</span></code> derive, to map to the Ada Reference Manual notion of
+conditional expression. It exposes one property,
+<code class="docutils literal notranslate"><span class="pre">P_Dependent_Expressions</span></code>, which returns the list of dependent
+expressions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T803-022</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-p-private-part-decl-property">
+<h2><span class="section-number">11.4. </span>Add <code class="docutils literal notranslate"><span class="pre">p_private_part_decl</span></code> property<a class="headerlink" href="#add-p-private-part-decl-property" title="Permalink to this headline">¶</a></h2>
+<p>The current <code class="docutils literal notranslate"><span class="pre">p_public_part_decl</span></code> property allows one to retrieve the
+public declaration of a given constant object declaration from its
+private view. However, there was no equivalent property for the other
+way around. This adds the <code class="docutils literal notranslate"><span class="pre">p_private_part_decl</span></code> property, which can
+be called on the public declaration of a constant object in order to
+retrieve its completion in the private part.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T729-020</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="implement-navigation-on-entries">
+<h2><span class="section-number">11.5. </span>Implement navigation on entries<a class="headerlink" href="#implement-navigation-on-entries" title="Permalink to this headline">¶</a></h2>
+<p>It is now possible to call p_body_part on an entry declaration to
+retrieve its body, and likewise to call p_decl_part on an entry body
+to retrieve its declaration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T706-023</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="implement-name-resolution-for-test-case-aspect">
+<h2><span class="section-number">11.6. </span>Implement name resolution for Test_Case aspect<a class="headerlink" href="#implement-name-resolution-for-test-case-aspect" title="Permalink to this headline">¶</a></h2>
+<p>Names and types inside a Test_Case aspect, in particular in the right-hand
+side of the <code class="docutils literal notranslate"><span class="pre">Requires</span></code> and <code class="docutils literal notranslate"><span class="pre">Ensures</span></code> associations are now resolved as
+expected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T722-027</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-xref-for-stream-attributes-references">
+<h2><span class="section-number">11.7. </span>Add xref for stream attributes references<a class="headerlink" href="#add-xref-for-stream-attributes-references" title="Permalink to this headline">¶</a></h2>
+<p>From now on, stream attributes in stream attribute references such as in
+<code class="docutils literal notranslate"><span class="pre">R'Output</span> <span class="pre">(S,</span> <span class="pre">X)</span></code> resolve to the declaration of the subprogram used as
+override for the corresponding attribute, if it has been set with the
+appropriate attribute def clause. Otherwise, it still resolves to None,
+indicating that the attribute has not been overridden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T716-015</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="name-resolution-for-task-and-entry-attributes">
+<h2><span class="section-number">11.8. </span>Name resolution for task and entry attributes<a class="headerlink" href="#name-resolution-for-task-and-entry-attributes" title="Permalink to this headline">¶</a></h2>
+<p>This adds name resolution support for entry attribute <code class="docutils literal notranslate"><span class="pre">'Count</span></code> and task
+attributes <code class="docutils literal notranslate"><span class="pre">'Terminated</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T703-010</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="new-origin-filename-and-origin-charset-functions">
+<h2><span class="section-number">11.9. </span>New Origin_Filename and Origin_Charset functions<a class="headerlink" href="#new-origin-filename-and-origin-charset-functions" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Libadalang.Common</span></code> packages defines two new primitives for
+<code class="docutils literal notranslate"><span class="pre">Token_Reference</span></code>. The <code class="docutils literal notranslate"><span class="pre">Origin_Filename</span></code> function returns the name of
+the file from which the token was extracted, or an empty string if it comes
+from a memory buffer. The <code class="docutils literal notranslate"><span class="pre">Origin_Charset</span></code> function returns the name of
+the encoding used to decode the source buffer from which the token was
+extracted, or an empty string if the source buffer was already decoded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T622-003</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="expose-p-discriminants-list-property">
+<h2><span class="section-number">11.10. </span>Expose <code class="docutils literal notranslate"><span class="pre">p_discriminants_list</span></code> property<a class="headerlink" href="#expose-p-discriminants-list-property" title="Permalink to this headline">¶</a></h2>
+<p>This property can be called on any type and will return the list of its
+discriminants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T527-038</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-j0-in-the-app-framework">
+<h2><span class="section-number">11.11. </span>Handle <code class="docutils literal notranslate"><span class="pre">-j0</span></code> in the App framework<a class="headerlink" href="#handle-j0-in-the-app-framework" title="Permalink to this headline">¶</a></h2>
+<p>The App framework (in <code class="docutils literal notranslate"><span class="pre">Libadalang.Helpers</span></code>) defines a <code class="docutils literal notranslate"><span class="pre">--jobs/-j</span></code>
+command-line argument, taking a positive number of jobs to create. This
+argument nows also accepts zero, to create one job per CPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T217-005</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-p-shapes-property">
+<h2><span class="section-number">11.12. </span>Add <code class="docutils literal notranslate"><span class="pre">P_Shapes</span></code> property<a class="headerlink" href="#add-p-shapes-property" title="Permalink to this headline">¶</a></h2>
+<p>This property, when called on the ComponentList of a record definition,
+will return the list of all possible shapes that a record value of this
+type can take. Consider the following record definition:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="kt">R</span> <span class="p">(</span><span class="nv">A</span> <span class="p">: </span><span class="nv">Integer</span><span class="p">;</span> <span class="nv">B</span> <span class="p">: </span><span class="nv">Integer</span><span class="p">)</span> <span class="kr">is</span> <span class="kr">record</span>
+   <span class="n">X</span> <span class="p">:</span> <span class="kt">Integer</span><span class="p">;</span>
+   <span class="kr">case</span> <span class="n">A</span> <span class="kr">is</span>
+      <span class="kr">when</span> <span class="mi">1</span> <span class="p">..</span> <span class="mi">10</span> <span class="p">=&gt;</span>
+         <span class="n">Y_1</span> <span class="p">:</span> <span class="kt">Integer</span><span class="p">;</span>
+         <span class="kr">case</span> <span class="n">B</span> <span class="kr">is</span>
+            <span class="kr">when</span> <span class="mi">1</span> <span class="p">..</span> <span class="mi">10</span> <span class="p">=&gt;</span>
+               <span class="n">Z_1</span> <span class="p">:</span> <span class="kt">Integer</span><span class="p">;</span>
+            <span class="kr">when</span> <span class="kr">others</span> <span class="p">=&gt;</span> <span class="kc">null</span><span class="p">;</span>
+         <span class="kr">end</span> <span class="kr">case</span><span class="p">;</span>
+      <span class="kr">when</span> <span class="mi">11</span> <span class="p">..</span> <span class="mi">20</span> <span class="p">=&gt;</span>
+         <span class="n">Y_2</span> <span class="p">:</span> <span class="kt">Integer</span><span class="p">;</span>
+         <span class="kr">case</span> <span class="n">B</span> <span class="kr">is</span>
+            <span class="kr">when</span> <span class="mi">1</span> <span class="p">..</span> <span class="mi">10</span> <span class="p">=&gt;</span>
+               <span class="n">Z_2</span> <span class="p">:</span> <span class="kt">Integer</span><span class="p">;</span>
+            <span class="kr">when</span> <span class="kr">others</span> <span class="p">=&gt;</span> <span class="kc">null</span><span class="p">;</span>
+         <span class="kr">end</span> <span class="kr">case</span><span class="p">;</span>
+      <span class="kr">when</span> <span class="kr">others</span> <span class="p">=&gt;</span> <span class="kc">null</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="kr">case</span><span class="p">;</span>
+<span class="kr">end record</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>For this instance, this property will return the following results:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">Y_1</span><span class="p">,</span> <span class="n">Z_1</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">Y_1</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">Y_2</span><span class="p">,</span> <span class="n">Z_2</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">Y_2</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">X</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T406-026</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="more-frequent-precise-element-type-in-field-docs">
+<h2><span class="section-number">11.13. </span>More frequent precise element type in field docs<a class="headerlink" href="#more-frequent-precise-element-type-in-field-docs" title="Permalink to this headline">¶</a></h2>
+<p>Up to now, the documentation for node fields that contain list nodes
+could already include the list of precise types for list elements. For
+instance, the documentation of the <code class="docutils literal notranslate"><span class="pre">AbortStmt.f_names</span></code> field, which
+contains “a list of Names” was:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="n">field</span> <span class="n">contains</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">that</span> <span class="n">itself</span> <span class="n">contains</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span>
+<span class="n">nodes</span><span class="p">:</span>
+
+<span class="o">*</span> <span class="n">Attribute_Ref</span>
+
+<span class="o">*</span> <span class="n">Call_Expr</span>
+
+<span class="o">*</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>While this precise type information is useful, it was not always present.
+For instance, the <code class="docutils literal notranslate"><span class="pre">GenericSubpInstantiation.f_params</span></code> field, which
+contains <code class="docutils literal notranslate"><span class="pre">AssocList</span></code> nodes, i.e. lists of <code class="docutils literal notranslate"><span class="pre">BasicAssoc</span></code> nodes, was
+lacking a documentation that states that these <code class="docutils literal notranslate"><span class="pre">AssocList</span></code> nodes actually
+contain only <code class="docutils literal notranslate"><span class="pre">ParamAssoc</span></code> nodes. This oversight is now fixed, so this
+information is now in all documentations, where useful.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T116-038</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-others-designator-in-zip-with-params">
+<h2><span class="section-number">11.14. </span>Handle <code class="docutils literal notranslate"><span class="pre">others</span></code> designator in zip_with_params<a class="headerlink" href="#handle-others-designator-in-zip-with-params" title="Permalink to this headline">¶</a></h2>
+<p>So far, zip_with_params would completely leave out the <code class="docutils literal notranslate"><span class="pre">others</span></code>
+designator in an assoc list, not providing any binding for it in the
+resulting array. Now, it will return one additional binding per unmatched
+parameter, from that parameter to the expression associated to <code class="docutils literal notranslate"><span class="pre">others</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T331-026</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-failsafe-referenced-decl-name-properties">
+<h2><span class="section-number">11.15. </span>Add failsafe <code class="docutils literal notranslate"><span class="pre">referenced_decl/name</span></code> properties<a class="headerlink" href="#add-failsafe-referenced-decl-name-properties" title="Permalink to this headline">¶</a></h2>
+<p>Add <code class="docutils literal notranslate"><span class="pre">Name.failsafe_referenced_decl</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Name.failsafe_referenced_def_name</span></code> properties. Those properties act like
+their non failsafe counterpart, except that they’ll never raise an
+exception, and they will track in the result whether it was found through
+precise or imprecise resolution.</p>
+<p>Note that for most purposes, those are purely better version of
+<cite>referenced_decl`</cite> and <code class="docutils literal notranslate"><span class="pre">referenced_defining_name</span></code>, should be used in
+priority, and might replace those in a future version of LAL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T402-020</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolve-generic-formal-objects">
+<h2><span class="section-number">11.16. </span>Resolve generic formal objects<a class="headerlink" href="#resolve-generic-formal-objects" title="Permalink to this headline">¶</a></h2>
+<p>When analyzing generic code from an instantiation, libadalang’s name
+resolution mechanism now resolves references to generic formal objects to
+their actual wrapped in a synthetic object declaration, instead of
+resolving to the declaration of the formal. Take for example:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">generic</span>
+    <span class="n">X</span> <span class="p">:</span> <span class="kt">Integer</span><span class="p">;</span>
+<span class="kd">package</span> <span class="nc">Foo_G</span> <span class="kr">is</span>
+    <span class="kd">type</span> <span class="kt">T</span> <span class="kr">is</span> <span class="kr">range</span> <span class="mi">1</span> <span class="p">..</span> <span class="n">X</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Foo_G</span><span class="p">;</span>
+
+<span class="kd">package</span> <span class="nc">Foo_10</span> <span class="kr">is new</span> <span class="nc">Foo_G</span> <span class="p">(</span><span class="nv">X</span> <span class="p">=&gt;</span> 10<span class="p">);</span>
+<span class="kd">subtype</span> <span class="kt">U</span> <span class="kr">is</span> <span class="n">Foo_10</span><span class="p">.</span><span class="n">T</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>By calling <code class="docutils literal notranslate"><span class="pre">P_Designated_Type_Decl</span></code> on node <code class="docutils literal notranslate"><span class="pre">Foo_10.T</span></code>, you will reach
+<code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">T</span> <span class="pre">is</span> <span class="pre">range</span> <span class="pre">1</span> <span class="pre">..</span> <span class="pre">X</span></code>. Previously, calling <code class="docutils literal notranslate"><span class="pre">P_Referenced_Decl</span></code> on
+<code class="docutils literal notranslate"><span class="pre">X</span></code>, would return the declaration <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">:</span> <span class="pre">Integer</span></code> from the generic
+formal part.</p>
+<p>Now, it will instead generate a new object decl which contains the
+expression of the actual used for <code class="docutils literal notranslate"><span class="pre">X</span></code>, which would be <code class="docutils literal notranslate"><span class="pre">10</span></code> here,
+thus allowing users to reflect upon the value used in the instantiation.</p>
+<p>Thanks to this, the static expression evaluator can now correctly evaluate
+static expressions inside generic code that refer to static formal
+objects. As such, calling <code class="docutils literal notranslate"><span class="pre">P_Eval_As_Int</span></code> on <code class="docutils literal notranslate"><span class="pre">X</span></code> taken from above will
+now correctly yield <code class="docutils literal notranslate"><span class="pre">10</span></code> instead of an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T103-024</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-p-valid-keywords-property">
+<h2><span class="section-number">11.17. </span>Add <code class="docutils literal notranslate"><span class="pre">p_valid_keywords</span></code> property<a class="headerlink" href="#add-p-valid-keywords-property" title="Permalink to this headline">¶</a></h2>
+<p>When called on any node, This property will return the list of keywords
+that are admissible at the location of the node.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is work in progress. It will return all keywords for now,
+without looking at the context.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T318-063</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-p-is-visible-property">
+<h2><span class="section-number">11.18. </span>Add <code class="docutils literal notranslate"><span class="pre">p_is_visible</span></code> property<a class="headerlink" href="#add-p-is-visible-property" title="Permalink to this headline">¶</a></h2>
+<p>This property can be called on a <code class="docutils literal notranslate"><span class="pre">BasicDecl</span></code> to determine if this
+declaration is visible from the point of view of a given node.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Only package-level (public or private) declarations are supported
+for now.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T212-032</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="preserve-casing-in-fully-qualified-name-output">
+<h2><span class="section-number">11.19. </span>Preserve casing in fully_qualified_name output<a class="headerlink" href="#preserve-casing-in-fully-qualified-name-output" title="Permalink to this headline">¶</a></h2>
+<p>So far, the <code class="docutils literal notranslate"><span class="pre">p_fully_qualified_name</span></code> would always output the fully
+qualified name as a string in lower case. This fixes it by reusing
+the casing of the names that compose the fully qualified name as they
+appear in the source code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T303-005</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-type-s-static-predicates-in-nameres">
+<h2><span class="section-number">11.20. </span>Handle type’s static predicates in nameres<a class="headerlink" href="#handle-type-s-static-predicates-in-nameres" title="Permalink to this headline">¶</a></h2>
+<p>Until now, the name resolution mechanism would not take into account
+static predicates defined on a type when it should, for example to infer
+which variant of a record is being initialized by an aggregate, where
+the case conditions are types with static predicates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SC11-029</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-membership-expr-in-static-evaluator">
+<h2><span class="section-number">11.21. </span>Handle membership expr in static evaluator<a class="headerlink" href="#handle-membership-expr-in-static-evaluator" title="Permalink to this headline">¶</a></h2>
+<p>This adds support for Ada’s membership expression evaluation
+in libadalang’s static expression evaluator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T312-016</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-a-root-type-property">
+<h2><span class="section-number">11.22. </span>Add a <code class="docutils literal notranslate"><span class="pre">root_type</span></code> property<a class="headerlink" href="#add-a-root-type-property" title="Permalink to this headline">¶</a></h2>
+<p>When called on a base type declaration, this property returns the root
+of the derivation hierarchy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T205-043</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-p-is-interface-type-property">
+<h2><span class="section-number">11.23. </span>Add <code class="docutils literal notranslate"><span class="pre">p_is_interface_type</span></code> property<a class="headerlink" href="#add-p-is-interface-type-property" title="Permalink to this headline">¶</a></h2>
+<p>Add a <code class="docutils literal notranslate"><span class="pre">p_is_interface_type</span></code> property on <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl</span></code> nodes. It
+returns whether the given type corresponds to an interface type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB13-036</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-properties-for-computing-unit-dependencies">
+<h2><span class="section-number">11.24. </span>Add properties for computing unit dependencies<a class="headerlink" href="#add-properties-for-computing-unit-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>This change adds three new properties that are about computing the set
+of units upon with a given one depends.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">P_Withed_Units</span></code> returns the set of units that are “with”ed by the
+given unit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P_Imported_Units</span></code> returns the set of units that are directly imported
+by the given unit, which the set of “with”ed units along with the parent
+unit in case it’s a child unit, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P_Unit_Dependencies</span></code> is like <code class="docutils literal notranslate"><span class="pre">P_Imported_Units</span></code> but includes
+transitive dependencies, effectively returning the whole closure of units
+which the given one depends upon.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S912-013</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-built-in-adanode-full-sloc-image">
+<h2><span class="section-number">11.25. </span>Add built-in <code class="docutils literal notranslate"><span class="pre">AdaNode.full_sloc_image</span></code><a class="headerlink" href="#add-built-in-adanode-full-sloc-image" title="Permalink to this headline">¶</a></h2>
+<p>A new built-in method has been added on nodes, <code class="docutils literal notranslate"><span class="pre">full_sloc_image</span></code>. It will
+return a GNU conformant source location in the format
+<code class="docutils literal notranslate"><span class="pre">file:line:column:</span></code>, to make it easier to build diagnostics from nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T102-018</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-node-iterator-predicate-kind-in">
+<h2><span class="section-number">11.26. </span>Add node iterator predicate <code class="docutils literal notranslate"><span class="pre">Kind_In</span></code><a class="headerlink" href="#add-node-iterator-predicate-kind-in" title="Permalink to this headline">¶</a></h2>
+<p>The new <code class="docutils literal notranslate"><span class="pre">Kind_In</span></code> node predicate in the <code class="docutils literal notranslate"><span class="pre">Libadalang.Iterators</span></code> API
+allows one to filter nodes whose kind is in a given range. This makes it
+easy to look for nodes that derive from an abstract type.</p>
+<p>For instance, the following iterator will return all nodes that derive from
+<code class="docutils literal notranslate"><span class="pre">Basic_Decl</span></code>:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="n">Find</span> <span class="p">(</span><span class="n">Root</span><span class="p">,</span> <span class="n">Kind_In</span> <span class="p">(</span><span class="n">Ada_Basic_Decl</span><span class="p">&#39;</span><span class="na">First</span><span class="p">,</span> <span class="n">Ada_Basic_Decl</span><span class="p">&#39;</span><span class="na">Last</span><span class="p">));</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SC19-006</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-property-p-get-enum-representation-clause">
+<h2><span class="section-number">11.27. </span>Add property <code class="docutils literal notranslate"><span class="pre">p_get_enum_representation_clause</span></code><a class="headerlink" href="#add-property-p-get-enum-representation-clause" title="Permalink to this headline">¶</a></h2>
+<p>Add the <code class="docutils literal notranslate"><span class="pre">p_get_enum_representation_clause</span></code> property on <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl</span></code>,
+which will return the <code class="docutils literal notranslate"><span class="pre">EnumRepClause</span></code> associated to the given type if
+that type designates an enum declaration and such a representation clause
+exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SC16-020</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-a-base-subp-declarations-property">
+<h2><span class="section-number">11.28. </span>Add a <code class="docutils literal notranslate"><span class="pre">base_subp_declarations</span></code> property<a class="headerlink" href="#add-a-base-subp-declarations-property" title="Permalink to this headline">¶</a></h2>
+<p>When called on a given subprogram, this property returns a list of all
+subprograms which are overriden by the given subprogram.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SC05-029</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-python3-compatibility">
+<h2><span class="section-number">11.29. </span>Add Python3 compatibility<a class="headerlink" href="#add-python3-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>The Python binding is now compatible with Python3.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB13-026</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="implement-singletoknode-canonical-text">
+<h2><span class="section-number">11.30. </span>Implement <code class="docutils literal notranslate"><span class="pre">SingleTokNode.canonical_text</span></code><a class="headerlink" href="#implement-singletoknode-canonical-text" title="Permalink to this headline">¶</a></h2>
+<p>Return the text of a single token node, but canonicalized, e.g. case folded
+and with GNAT brackets encoding decoded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB28-013</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="more-helpful-error-message-for-as-node-converters">
+<h2><span class="section-number">11.31. </span>More helpful error message for <code class="docutils literal notranslate"><span class="pre">As_*</span></code> node converters<a class="headerlink" href="#more-helpful-error-message-for-as-node-converters" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">As_*</span></code> node conversion functions raise a <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code> when the
+input value does not fit in the output type. The message attached to this
+exception has been enhanced to contain input/output type information and
+mention Libadalang, so that it is easier to investigate complex code
+raising such <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code> exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB28-011</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="introduce-basicsubpdecl-primitive-subp-tagged-type">
+<h2><span class="section-number">11.32. </span>Introduce <code class="docutils literal notranslate"><span class="pre">BasicSubpDecl.primitive_subp_tagged_type</span></code><a class="headerlink" href="#introduce-basicsubpdecl-primitive-subp-tagged-type" title="Permalink to this headline">¶</a></h2>
+<p>Introduce a new property, <code class="docutils literal notranslate"><span class="pre">BasicSubpDecl.primitive_subp_tagged_type</span></code>,
+that returns the tagged type of which the subprogram is a primitive of, if
+applicable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB13-037</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-a-name-is-operator-name-property">
+<h2><span class="section-number">11.33. </span>Add a <code class="docutils literal notranslate"><span class="pre">Name.is_operator_name</span></code> property<a class="headerlink" href="#add-a-name-is-operator-name-property" title="Permalink to this headline">¶</a></h2>
+<p>The new <code class="docutils literal notranslate"><span class="pre">Name.is_operator_name</span></code> property returns whether a given name
+designates an operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB13-032</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-a-command-line-app-framework-for-ada-api">
+<h2><span class="section-number">11.34. </span>Add a command line app framework for Ada API<a class="headerlink" href="#add-a-command-line-app-framework-for-ada-api" title="Permalink to this headline">¶</a></h2>
+<p>Add a new package <code class="docutils literal notranslate"><span class="pre">Libadalang.Helpers</span></code>, with a generic package <code class="docutils literal notranslate"><span class="pre">App</span></code>,
+that allows users to easily create command line applications with default
+features such as automatic project handling/scenario variables handling.
+Learn more in Libadalang’s Ada tutorial, or Ada API doc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB06-030</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-a-p-is-array-slice-property">
+<h2><span class="section-number">11.35. </span>Add a <code class="docutils literal notranslate"><span class="pre">p_is_array_slice</span></code> property<a class="headerlink" href="#add-a-p-is-array-slice-property" title="Permalink to this headline">¶</a></h2>
+<p>Add a <code class="docutils literal notranslate"><span class="pre">p_is_array_slice</span></code> property, which tells whether the given
+<code class="docutils literal notranslate"><span class="pre">CallExpr</span></code> represents an array slice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA31-049</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-several-utility-properties-on-basetypedecl">
+<h2><span class="section-number">11.36. </span>Add several utility properties on <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl</span></code><a class="headerlink" href="#add-several-utility-properties-on-basetypedecl" title="Permalink to this headline">¶</a></h2>
+<p>Those properties include several predicates, allowing to transparently
+query aspects of a type, without caring about it’s syntactic/semantic
+aspects:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p_is_record_type</span></code> returns whether the type is a record type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p_is_char_type</span></code> returns whether the type is a Character type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p_is_tagged_type</span></code> returns whether the type is a tagged type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p_is_enum_type</span></code> returns whether the type is an enum type.</p></li>
+</ul>
+<p>Also included is <code class="docutils literal notranslate"><span class="pre">p_base_types</span></code> which will return all the base types of a
+tagged type.</p>
+<p>Note that all those properties take an <code class="docutils literal notranslate"><span class="pre">origin</span></code> optional parameter, which
+will be used to determine the view that is available to you on the type. By
+default, the view is from the node you query.</p>
+<p>Some existing properties (<code class="docutils literal notranslate"><span class="pre">p_is_float_type</span></code> and <code class="docutils literal notranslate"><span class="pre">p_is_fixed_point</span></code>) now
+take an origin parameter. That means that, in the Python API at least, you
+now need to put parentheses when you call them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Before:</span>
+<span class="n">typ</span><span class="o">.</span><span class="n">p_is_float_type</span>
+
+<span class="c1"># After:</span>
+<span class="n">typ</span><span class="o">.</span><span class="n">p_is_float_type</span>
+<span class="n">typ</span><span class="o">.</span><span class="n">p_is_float_type</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">typ</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S923-017</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="improved-handling-of-aggregate-projects">
+<h2><span class="section-number">11.37. </span>Improved handling of aggregate projects<a class="headerlink" href="#improved-handling-of-aggregate-projects" title="Permalink to this headline">¶</a></h2>
+<p>Until now, project unit providers used to reject all aggregate projects.
+This is impractical as it is not always possible to load directly aggregated
+projects. Hence, the goal of this enhancement is to enable Libadalang users
+to load aggregate projects as long as we can guarantee non-ambiguous
+resolution of dependencies.</p>
+<p>The project unit provider in all APIs now accepts aggregate projects as long
+as there is only one aggregated project.</p>
+<p>Additionally, the project unit provider in the Ada API
+(<code class="docutils literal notranslate"><span class="pre">Libadalang.Project_Provider</span></code>) provides two additional constructors
+(<code class="docutils literal notranslate"><span class="pre">Create_Project_Unit_Provider</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Create_Project_Unit_Provider_Reference</span></code>) which take any project tree
+(including all aggregate ones) plus one non-aggregate project in that tree.
+The project provider will then consider only this sub-project to resolve
+dependencies unambiguously.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S815-010</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-a-basicdecl-p-is-formal-property">
+<h2><span class="section-number">11.38. </span>Add a <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_formal</span></code> property<a class="headerlink" href="#add-a-basicdecl-p-is-formal-property" title="Permalink to this headline">¶</a></h2>
+<p>This new property retruns whether a declaration is the nested declaration
+inside a <code class="docutils literal notranslate"><span class="pre">GenericFormal</span></code> node.</p>
+<p>Given the following Ada code:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">generic</span>
+   <span class="kd">type</span> <span class="kt">T</span> <span class="kr">is</span> <span class="kd">private</span><span class="p">;</span>
+<span class="kd">package</span> <span class="nc">T</span> <span class="kr">is</span> <span class="kr">end</span> <span class="nf">T</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>You’ll get the following output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">lal</span><span class="o">.</span><span class="n">TypeDecl</span><span class="p">)</span><span class="o">.</span><span class="n">p_is_formal</span>
+<span class="go">True</span>
+
+<span class="go"># GenericFormals are not the nested declaration, so it will return false</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">lal</span><span class="o">.</span><span class="n">GenericFormal</span><span class="p">)</span><span class="o">.</span><span class="n">p_is_formal</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S905-012</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-property-basetypedecl-p-discrete-range">
+<h2><span class="section-number">11.39. </span>Add property <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl.p_discrete_range</span></code><a class="headerlink" href="#add-property-basetypedecl-p-discrete-range" title="Permalink to this headline">¶</a></h2>
+<p>Add a property, <code class="docutils literal notranslate"><span class="pre">BaseTypeDecl.p_discrete_range</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SC05-015</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="add-a-basicdecl-p-is-preelaborable-property">
+<h2><span class="section-number">11.40. </span>Add a <code class="docutils literal notranslate"><span class="pre">BasicDecl.p_is_preelaborable</span></code> property<a class="headerlink" href="#add-a-basicdecl-p-is-preelaborable-property" title="Permalink to this headline">¶</a></h2>
+<p>This new property returns whether a declaration is preelaborable. See ARM
+10.2.1 for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S128-004</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="libadalang-api-bug-fixes">
+<h1><span class="section-number">12. </span>Libadalang API bug fixes<a class="headerlink" href="#libadalang-api-bug-fixes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="handle-library-level-use-all-type-clauses">
+<h2><span class="section-number">12.1. </span>Handle library-level <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">all</span> <span class="pre">type</span></code> clauses<a class="headerlink" href="#handle-library-level-use-all-type-clauses" title="Permalink to this headline">¶</a></h2>
+<p>Previously, such clauses appearing at the library-level of a unit would
+be totally ignored, which could cause name resolution failures on nodes
+using this construct to gain visibility on a type’s operations,
+including the case where the clause is used to make direct references
+to the literals of an enum type. This is now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T730-018</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="name-resolution-robustness-of-if-case-stmts">
+<h2><span class="section-number">12.2. </span>Name resolution robustness of if/case stmts<a class="headerlink" href="#name-resolution-robustness-of-if-case-stmts" title="Permalink to this headline">¶</a></h2>
+<p>Previously, the entire name resolution of an if stmt or case stmt would
+fail whenever any of their alternatives’ resolution would fail. Each
+alternative is now resolved independently, so that a failing one does not
+impact the others. Note that this change does not impact resolution of
+if/case expressions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T729-016</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="nameres-failure-on-generic-instantiations">
+<h2><span class="section-number">12.3. </span>Nameres failure on generic instantiations<a class="headerlink" href="#nameres-failure-on-generic-instantiations" title="Permalink to this headline">¶</a></h2>
+<p>Some generic instantiations could previously cause name resolution to
+crash, in particular when another generic declaration having the same
+name as one intended to be instantiated would be available to the
+resolution mechanism. The fix was to specifically filter out those
+declarations by only keeping those that are visible in the Ada sense.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T429-037</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="nameres-crash-on-instantiations-of-modular-io">
+<h2><span class="section-number">12.4. </span>Nameres crash on instantiations of Modular_IO<a class="headerlink" href="#nameres-crash-on-instantiations-of-modular-io" title="Permalink to this headline">¶</a></h2>
+<p>Previously, name resolution would crash when trying to resolve names in
+a package instantiation whose designated generic package was Modular_IO
+from Ada.Text_IO. This was because the special handling of child units
+of Ada.Text_IO was missing a case for the Modular_IO package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T717-023</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="nameres-call-to-incomplete-types-primitives">
+<h2><span class="section-number">12.5. </span>Nameres call to incomplete types’ primitives<a class="headerlink" href="#nameres-call-to-incomplete-types-primitives" title="Permalink to this headline">¶</a></h2>
+<p>Name resolution could crash when trying to resolve a call to a primitive
+of a type when a primitive of the same name but defined on a different
+incomplete type is visible. In that case, the first visible primitive
+would always be chosen, which is erroneous if a call to the second one
+was intended.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T715-013</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-name-resolution-crash-on-runtime-files">
+<h2><span class="section-number">12.6. </span>Fix name resolution crash on runtime files<a class="headerlink" href="#fix-name-resolution-crash-on-runtime-files" title="Permalink to this headline">¶</a></h2>
+<p>Name resolution would crash when trying to analyze the following files
+from the runtime: a-stzfix.ads a-stzhas.ads a-szfzha.ads. The pattern
+leading to the crash was identified and was fixed altogether, thus name
+resolution will not be affected by new occurrences of it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T708-024</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-is-write-reference-for-dot-calls">
+<h2><span class="section-number">12.7. </span>Fix <code class="docutils literal notranslate"><span class="pre">Is_Write_Reference</span></code> for dot calls<a class="headerlink" href="#fix-is-write-reference-for-dot-calls" title="Permalink to this headline">¶</a></h2>
+<p>Previously, calling the <code class="docutils literal notranslate"><span class="pre">Is_Write_Reference</span></code> property on the prefix of a
+dot call would always yield <code class="docutils literal notranslate"><span class="pre">False</span></code>. This is now fixed, by correctly
+identifying dot calls and checking that the first paremeter is out/in out.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T713-013</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-name-resolution-in-type-contracts">
+<h2><span class="section-number">12.8. </span>Fix name resolution in type contracts<a class="headerlink" href="#fix-name-resolution-in-type-contracts" title="Permalink to this headline">¶</a></h2>
+<p>Previously, name resolution could fail in type contracts (inside
+aspect associations such as <code class="docutils literal notranslate"><span class="pre">Type_Invariant</span></code>, <code class="docutils literal notranslate"><span class="pre">Predicate</span></code>, etc.) when
+references were made to entities defined after the entity on which the
+contract applies. This now behaves as expected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T708-002</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="prevent-name-resolution-in-convention-aspect">
+<h2><span class="section-number">12.9. </span>Prevent name resolution in <code class="docutils literal notranslate"><span class="pre">Convention</span></code> aspect<a class="headerlink" href="#prevent-name-resolution-in-convention-aspect" title="Permalink to this headline">¶</a></h2>
+<p>The convention used for an entity, such as <code class="docutils literal notranslate"><span class="pre">C</span></code> in the <code class="docutils literal notranslate"><span class="pre">Convention</span> <span class="pre">=&gt;</span> <span class="pre">C</span></code>
+aspect association was incorrectly resolved to the first visible entity
+named <code class="docutils literal notranslate"><span class="pre">C</span></code>. This now behaves correctly, meaning the identifier used as the
+convention is never resolved to anything.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T708-003</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="implement-name-resolution-for-entry-barriers">
+<h2><span class="section-number">12.10. </span>Implement name resolution for entry barriers<a class="headerlink" href="#implement-name-resolution-for-entry-barriers" title="Permalink to this headline">¶</a></h2>
+<p>Previously, entry barriers were not resolved at all, meaning any xref
+or navigation inside the expression of the barrier would fail. It is now
+working as expected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T706-017</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="name-resolution-on-separate-x-clause">
+<h2><span class="section-number">12.11. </span>Name resolution on <code class="docutils literal notranslate"><span class="pre">separate</span> <span class="pre">(X)</span></code> clause<a class="headerlink" href="#name-resolution-on-separate-x-clause" title="Permalink to this headline">¶</a></h2>
+<p>Previously, libadalang would crash when calling <code class="docutils literal notranslate"><span class="pre">P_Referenced_Decl</span></code> on
+<code class="docutils literal notranslate"><span class="pre">X</span></code> of a <code class="docutils literal notranslate"><span class="pre">separate</span> <span class="pre">(X)</span> <span class="pre">...</span></code> clause. It will now correctly return the
+entity in which the subunit is rooted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T703-024</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-p-get-aspect-unchecked-union">
+<h2><span class="section-number">12.12. </span>Fix <code class="docutils literal notranslate"><span class="pre">P_Get_Aspect</span> <span class="pre">(&quot;unchecked_union&quot;)</span></code><a class="headerlink" href="#fix-p-get-aspect-unchecked-union" title="Permalink to this headline">¶</a></h2>
+<p>Previously, calling <code class="docutils literal notranslate"><span class="pre">P_Get_Aspect</span> <span class="pre">(&quot;unchecked_union&quot;)</span></code> on a type would
+always return an empty result, even when a <code class="docutils literal notranslate"><span class="pre">Pragma</span> <span class="pre">Unchecked_Union</span></code> was
+associated to it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T706-009</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="do-not-consider-subp-address-a-call">
+<h2><span class="section-number">12.13. </span>Do not consider <code class="docutils literal notranslate"><span class="pre">Subp'Address</span></code> a call<a class="headerlink" href="#do-not-consider-subp-address-a-call" title="Permalink to this headline">¶</a></h2>
+<p>Previously, the mentionned pattern would be resolved as a call to
+<code class="docutils literal notranslate"><span class="pre">Subp</span></code>, meaning that <code class="docutils literal notranslate"><span class="pre">P_Is_Call</span></code> would return <code class="docutils literal notranslate"><span class="pre">True</span></code> when invoked
+on <code class="docutils literal notranslate"><span class="pre">Subp</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T703-009</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="name-resolution-of-use-at-clauses">
+<h2><span class="section-number">12.14. </span>Name resolution of <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">at</span></code> clauses<a class="headerlink" href="#name-resolution-of-use-at-clauses" title="Permalink to this headline">¶</a></h2>
+<p>Implement name resolution of address clauses (<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">..</span> <span class="pre">use</span> <span class="pre">at</span> <span class="pre">..</span></code>),
+which were previously not resolved at all.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T702-057</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="name-resolution-for-generic-renaming-decls">
+<h2><span class="section-number">12.15. </span>Name resolution for generic renaming decls<a class="headerlink" href="#name-resolution-for-generic-renaming-decls" title="Permalink to this headline">¶</a></h2>
+<p>Implements name resolution for generic renaming declarations, which were
+previously not resolved at all. Properties such as <code class="docutils literal notranslate"><span class="pre">P_Referenced_Decl</span></code>
+will now work as expected on those.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T703-002</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-zip-with-params-on-incomplete-type-decls">
+<h2><span class="section-number">12.16. </span>Fix <code class="docutils literal notranslate"><span class="pre">zip_with_params</span></code> on incomplete type decls<a class="headerlink" href="#fix-zip-with-params-on-incomplete-type-decls" title="Permalink to this headline">¶</a></h2>
+<p>This fixes an issue with calling <code class="docutils literal notranslate"><span class="pre">P_Zip_With_Params</span></code> on an discriminant
+constraint that constrains the incomplete view of a discriminated type
+would yield an empty result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T701-019</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-exception-message-for-invalid-conversions-in-as-functions">
+<h2><span class="section-number">12.17. </span>Fix exception message for invalid conversions in <code class="docutils literal notranslate"><span class="pre">As_*</span></code> functions<a class="headerlink" href="#fix-exception-message-for-invalid-conversions-in-as-functions" title="Permalink to this headline">¶</a></h2>
+<p>On attempts to run invalid node conversions, such as:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="no">D</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Subp_Decl</span> <span class="p">:=</span> <span class="p">...;</span>
+<span class="no">P</span> <span class="p">:</span> <span class="kr">constant</span> <span class="kr">Pragma</span> <span class="p">:=</span> <span class="n">D</span><span class="p">.</span><span class="n">As_Pragma</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">As_*</span></code> functions used to raise <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code> exceptions with a
+wrong message:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>invalid type conversion from Pragma to SubpDecl
+</pre></div>
+</div>
+<p>This is now fixed and sends the correct message:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>invalid type conversion from SubpDecl to Pragma
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T622-019</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>ada</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="libadalang-analysis-text-raise-a-constraint-error">
+<h2><span class="section-number">12.18. </span><code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.*_Text</span></code> raise a <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code><a class="headerlink" href="#libadalang-analysis-text-raise-a-constraint-error" title="Permalink to this headline">¶</a></h2>
+<p>When called on null nodes, <code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Text</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Libadalang.Analysis.Debug_Text</span></code> raise a <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code> exception.
+These functions now raise <code class="docutils literal notranslate"><span class="pre">Property_Error</span></code> exception instead, clearly
+showing that calling them on null nodes is not valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T622-008</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="name-resolution-bug-with-custom-string-literals">
+<h2><span class="section-number">12.19. </span>Name resolution bug with custom string literals<a class="headerlink" href="#name-resolution-bug-with-custom-string-literals" title="Permalink to this headline">¶</a></h2>
+<p>String literals for custom string types were inaccurately typed and could
+make name resolution involving such literals imprecise as well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T610-034</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="inconsistent-results-of-navigation-properties">
+<h2><span class="section-number">12.20. </span>Inconsistent results of navigation properties<a class="headerlink" href="#inconsistent-results-of-navigation-properties" title="Permalink to this headline">¶</a></h2>
+<p>This fixes a bug where navigation properties such as <code class="docutils literal notranslate"><span class="pre">P_Previous_Part</span></code>,
+<code class="docutils literal notranslate"><span class="pre">P_Canonical_Part</span></code> and so on could yield different results across
+calls on a same <code class="docutils literal notranslate"><span class="pre">Body</span></code> node retrieved in different ways. This should not
+happen because the previous part of a node is predetermined and must not
+depend on the path taken to reach said node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T610-028</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="bug-in-the-resolution-of-if-expressions">
+<h2><span class="section-number">12.21. </span>Bug in the resolution of if-expressions<a class="headerlink" href="#bug-in-the-resolution-of-if-expressions" title="Permalink to this headline">¶</a></h2>
+<p>This fixes name resolution of if-expressions, in particular when the
+branches have different but compatible types. For example, type-checking
+would previously fail in some situations where the <code class="docutils literal notranslate"><span class="pre">then</span></code> branch has
+type <code class="docutils literal notranslate"><span class="pre">T'Class</span></code> and the else branch has type <code class="docutils literal notranslate"><span class="pre">U'Class</span></code> where <code class="docutils literal notranslate"><span class="pre">U</span></code>
+derives from <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T605-007</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-name-resolution-for-access-attribute">
+<h2><span class="section-number">12.22. </span>Fix name resolution for <code class="docutils literal notranslate"><span class="pre">Access</span></code> attribute<a class="headerlink" href="#fix-name-resolution-for-access-attribute" title="Permalink to this headline">¶</a></h2>
+<p>A bug in the resolution of the <code class="docutils literal notranslate"><span class="pre">Access</span></code> attribute would trigger
+resolution failures on valid expressions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T609-035</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="name-resolution-for-storage-size-attribute">
+<h2><span class="section-number">12.23. </span>Name resolution for <code class="docutils literal notranslate"><span class="pre">Storage_Size</span></code> attribute.<a class="headerlink" href="#name-resolution-for-storage-size-attribute" title="Permalink to this headline">¶</a></h2>
+<p>The attribute <code class="docutils literal notranslate"><span class="pre">Storage_Size</span></code> applied to an access type reference is now
+correctly recognized and does not trigger a <code class="docutils literal notranslate"><span class="pre">Property_Error</span></code> anymore.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T609-023</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-name-resolution-for-some-attributes">
+<h2><span class="section-number">12.24. </span>Fix name resolution for some attributes<a class="headerlink" href="#fix-name-resolution-for-some-attributes" title="Permalink to this headline">¶</a></h2>
+<p>Some expressions involving attributes such as <code class="docutils literal notranslate"><span class="pre">'First</span></code> would not be
+entirely resolved. In particular, when the expression is of the form
+<code class="docutils literal notranslate"><span class="pre">X.Y'First</span></code>, <code class="docutils literal notranslate"><span class="pre">X</span></code> would not be resolved at all.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T608-074</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-type-conversion-of-explicit-dereference">
+<h2><span class="section-number">12.25. </span>Fix type conversion of explicit dereference<a class="headerlink" href="#fix-type-conversion-of-explicit-dereference" title="Permalink to this headline">¶</a></h2>
+<p>This fixes a bug in libadalang’s name resolution mechanism, where we would
+not check in certain cases that a type was indeed dereferencable before
+assigning it to the prefix of an explicit dereference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T529-014</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="missed-child-units-during-find-all-references">
+<h2><span class="section-number">12.26. </span>Missed child units during <code class="docutils literal notranslate"><span class="pre">find_all_references</span></code><a class="headerlink" href="#missed-child-units-during-find-all-references" title="Permalink to this headline">¶</a></h2>
+<p>Until now, child units defining a subprogram body at the top-level without
+a corresponding specification unit would be “forgotten” in calls to
+find_all_references &amp; co. This is now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T510-001</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-defining-name-s-navigation-queries-crash">
+<h2><span class="section-number">12.27. </span>Fix defining name’s navigation queries crash<a class="headerlink" href="#fix-defining-name-s-navigation-queries-crash" title="Permalink to this headline">¶</a></h2>
+<p>Previously, any navigation property (next_part, previous_part, etc.)
+called on a defining name would crash whenever its associated basic
+decl would not have the requested part. As such, calling p_next_part
+on the defining name of an abstract subprogram would always crash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T410-017</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-is-static-decl-for-array-types">
+<h2><span class="section-number">12.28. </span>Fix <code class="docutils literal notranslate"><span class="pre">is_static_decl</span></code> for array types<a class="headerlink" href="#fix-is-static-decl-for-array-types" title="Permalink to this headline">¶</a></h2>
+<p>Previously, calling <code class="docutils literal notranslate"><span class="pre">is_static_decl</span></code> on the declaration of an array
+type would always yield <code class="docutils literal notranslate"><span class="pre">False</span></code>. This now returns True when all
+array indices are static.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T416-026</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="nameres-bug-for-subp-defined-in-a-declare-block">
+<h2><span class="section-number">12.29. </span>Nameres bug for subp defined in a declare block<a class="headerlink" href="#nameres-bug-for-subp-defined-in-a-declare-block" title="Permalink to this headline">¶</a></h2>
+<p>This fixes a bug where libadalang would fail to retrieve the body part of
+a subprogram declaration made in a declare block.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T327-046</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-navigation-for-subps-inside-of-separate-pkg">
+<h2><span class="section-number">12.30. </span>Fix navigation for subps inside of separate pkg<a class="headerlink" href="#fix-navigation-for-subps-inside-of-separate-pkg" title="Permalink to this headline">¶</a></h2>
+<p>Navigation would previously not work when trying to go to the body of a
+subprogram declared in a package whose body was separate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T108-060</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolve-truncation-attribute">
+<h2><span class="section-number">12.31. </span>Resolve <code class="docutils literal notranslate"><span class="pre">Truncation</span></code> attribute<a class="headerlink" href="#resolve-truncation-attribute" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Truncation</span></code> attribute was not resolved correctly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T110-038</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-nameres-of-quantifier-expressions">
+<h2><span class="section-number">12.32. </span>Fix nameres of quantifier expressions<a class="headerlink" href="#fix-nameres-of-quantifier-expressions" title="Permalink to this headline">¶</a></h2>
+<p>So far, resolving any name or type inside a quantifier expression
+could result in a <code class="docutils literal notranslate"><span class="pre">invalid</span> <span class="pre">equation</span> <span class="pre">for</span> <span class="pre">logic</span> <span class="pre">resolution</span></code> error.
+This is now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T407-009</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolve-formal-in-discriminant-constraint">
+<h2><span class="section-number">12.33. </span>Resolve formal in discriminant constraint<a class="headerlink" href="#resolve-formal-in-discriminant-constraint" title="Permalink to this headline">¶</a></h2>
+<p>Libadalang now correctly resolves references to the discriminant inside
+discriminant constraints, as in:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="kt">R</span> <span class="p">(</span><span class="nv">X</span> <span class="p">: </span><span class="nv">Integer</span><span class="p">)</span> <span class="kr">is</span> <span class="kr">null record</span><span class="p">;</span>
+<span class="kd">type</span> <span class="kt">R_Access</span> <span class="kr">is</span> <span class="kr">access</span> <span class="n">T</span><span class="p">;</span>
+
+<span class="kd">subtype</span> <span class="kt">T</span> <span class="kr">is</span> <span class="n">R_Access</span> <span class="p">(</span><span class="nv">X</span> <span class="p">=&gt;</span> <span class="nv">12</span><span class="p">);</span>
+<span class="c1">--                     ^ This reference is now resolved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T320-016</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="zip-with-params-bug-on-variant-record-access">
+<h2><span class="section-number">12.34. </span>Zip_with_params bug on variant record access<a class="headerlink" href="#zip-with-params-bug-on-variant-record-access" title="Permalink to this headline">¶</a></h2>
+<p>Until now, zip_with_params would not yield any result when trying
+to match an actual from a discriminant constraint with the discriminant
+when the constraint type was an access on the variant record. This is
+now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S625-016</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-static-object-renamings">
+<h2><span class="section-number">12.35. </span>Handle static object renamings.<a class="headerlink" href="#handle-static-object-renamings" title="Permalink to this headline">¶</a></h2>
+<p>Previously, LAL would never consider an object renaming a static
+declaration, even when its renamed entity was static. This fix changes
+the behavior of <code class="docutils literal notranslate"><span class="pre">p_is_static_decl</span></code> (and transitively that of
+<code class="docutils literal notranslate"><span class="pre">p_is_static_expr</span></code>) to take this case into account, and also updates
+the static expression evaluator accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T401-019</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="various-bug-fixes-in-name-resolution">
+<h2><span class="section-number">12.36. </span>Various bug fixes in name resolution<a class="headerlink" href="#various-bug-fixes-in-name-resolution" title="Permalink to this headline">¶</a></h2>
+<p>This fixes various bugs in libadalang’s name resolution mechanism,
+including:</p>
+<ul class="simple">
+<li><p>A bug related to the use of a package renaming as an actual for
+a generic formal package.</p></li>
+<li><p>A bug related to visibility on a generic package’s formals when
+using a qualified name to access it.</p></li>
+<li><p>A crash when trying to resolve a subprogram renaming a built-in
+attribute.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T304-008</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">12.37. </span>Various bug fixes in name resolution<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>This fixes various bugs in libadalang’s name resolution mechanism,
+including:</p>
+<ul class="simple">
+<li><p>A crash when trying to resolve a formal subprogram’s default value being a
+built-in attribute reference.</p></li>
+<li><p>A bug where library-level subprogram would not have visibility on the
+private part of their parent package.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T304-010</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolve-range-constraints-in-case-constructs">
+<h2><span class="section-number">12.38. </span>Resolve range constraints in case constructs.<a class="headerlink" href="#resolve-range-constraints-in-case-constructs" title="Permalink to this headline">¶</a></h2>
+<p>Until now, Libadalang would not even try to resolve names appearing
+in a range constraint of a subtype indication used in a case statement
+or expression. Such constraints should now be correctly resolved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T302-029</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-the-p-primitive-subp-properties-for-subp-body-specs">
+<h2><span class="section-number">12.39. </span>Fix the <code class="docutils literal notranslate"><span class="pre">p_primitive_subp_*</span></code> properties for subp body specs<a class="headerlink" href="#fix-the-p-primitive-subp-properties-for-subp-body-specs" title="Permalink to this headline">¶</a></h2>
+<p>Previously, calling one of the <code class="docutils literal notranslate"><span class="pre">p_primitive_subp_*</span></code> properties (e.g.
+<code class="docutils literal notranslate"><span class="pre">p_primitive_subp_tagged_type</span></code>) on the subprogram spec of the <em>body</em> of a
+subprogram would always yield a null node instead of the expected result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T214-020</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-name-resolution-of-index-constraints">
+<h2><span class="section-number">12.40. </span>Fix name resolution of index constraints.<a class="headerlink" href="#fix-name-resolution-of-index-constraints" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following subtype declaration:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="kt">Arr_Type</span> <span class="kr">is</span> <span class="p">(</span><span class="nv">Character</span> <span class="nv">range</span> <span class="p">&lt;&gt;)</span> <span class="kr">of</span> <span class="kt">Integer</span><span class="p">;</span>
+<span class="kd">subtype</span> <span class="kt">Arr_A_E</span> <span class="kr">of</span> <span class="n">Arr_Type</span> <span class="p">(&#39;</span><span class="na">A</span><span class="p">&#39;</span> <span class="p">..</span> <span class="p">&#39;</span><span class="na">E</span><span class="p">&#39;);</span>
+</pre></div>
+</div>
+<p>Previously, the literals <code class="docutils literal notranslate"><span class="pre">'A'</span></code> and <code class="docutils literal notranslate"><span class="pre">'E'</span></code> would be assigned incorrect
+types because we did not take into account the expected index type
+(here <code class="docutils literal notranslate"><span class="pre">Character</span></code>) of the constraint array type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T211-029</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-name-resolution-on-attributedefclause-nodes">
+<h2><span class="section-number">12.41. </span>Fix name resolution on <code class="docutils literal notranslate"><span class="pre">AttributeDefClause</span></code> nodes<a class="headerlink" href="#fix-name-resolution-on-attributedefclause-nodes" title="Permalink to this headline">¶</a></h2>
+<p>Libadalang would previously crash when resolving names on
+<code class="docutils literal notranslate"><span class="pre">AttributeDefClause</span></code> nodes of the form <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">X'Address</span> <span class="pre">use</span> <span class="pre">Y'Address</span></code>
+when the <code class="docutils literal notranslate"><span class="pre">System</span></code> package was not visible from the clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T214-014</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-name-resolution-of-binary-operations-when-at-least-one-operand-has-a-universal-type">
+<h2><span class="section-number">12.42. </span>Fix name resolution of binary operations when at least one operand has a universal type<a class="headerlink" href="#fix-name-resolution-of-binary-operations-when-at-least-one-operand-has-a-universal-type" title="Permalink to this headline">¶</a></h2>
+<p>Libadalang would often wrongly assume that both operands of a binary
+operation have the same type, overlooking the case where one of the
+operands has an universal type, in which case it can get implicitly
+converted to the type of the other operand.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T203-023</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="crash-in-the-p-doc-property">
+<h2><span class="section-number">12.43. </span>Crash in the <code class="docutils literal notranslate"><span class="pre">P_Doc</span></code> property<a class="headerlink" href="#crash-in-the-p-doc-property" title="Permalink to this headline">¶</a></h2>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">P_Doc</span></code> property on files that contain carriage return
+characters trigger assertion failures. This is now fixed, and carriage
+returns that are the last line characters are now discarded from
+<code class="docutils literal notranslate"><span class="pre">P_Doc</span></code>’s result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T205-050</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-static-evaluator-on-character-literals">
+<h2><span class="section-number">12.44. </span>Fix static evaluator on character literals<a class="headerlink" href="#fix-static-evaluator-on-character-literals" title="Permalink to this headline">¶</a></h2>
+<p>The static evaluator was wrongly evaluating a character literal whose
+type derives <code class="docutils literal notranslate"><span class="pre">Standard.Character</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB14-019</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="crash-when-resolving-exception-renaming-clause">
+<h2><span class="section-number">12.45. </span>Crash when resolving exception renaming clause<a class="headerlink" href="#crash-when-resolving-exception-renaming-clause" title="Permalink to this headline">¶</a></h2>
+<p>Until now, name resolution would crash when attempting to resolve any name
+appearing on the right-hand side of an exception renaming clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T124-016</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-crash-on-top-level-subprogram-renamings">
+<h2><span class="section-number">12.46. </span>Fix crash on top-level subprogram renamings<a class="headerlink" href="#fix-crash-on-top-level-subprogram-renamings" title="Permalink to this headline">¶</a></h2>
+<p>Libadalang used to crash when the nameres mechanism encountered an analysis
+unit containing a single subprogram renaming at the top-level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>T122-020</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-fully-qualified-name-for-generic-decls">
+<h2><span class="section-number">12.47. </span>Fix fully_qualified_name for generic decls<a class="headerlink" href="#fix-fully-qualified-name-for-generic-decls" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following snippet:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Foo</span> <span class="kr">is</span>
+    <span class="kd">generic</span>
+    <span class="kd">package</span> <span class="nc">Bar</span> <span class="kr">is</span>
+        <span class="n">X</span> <span class="p">:</span> <span class="kt">Integer</span><span class="p">;</span>
+    <span class="kr">end</span> <span class="nf">Bar</span><span class="p">;</span>
+
+    <span class="kd">package</span> <span class="nc">My_Bar</span> <span class="kr">is new</span> <span class="nc">Bar</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Foo</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Previously, calling <code class="docutils literal notranslate"><span class="pre">fully_qualified_name</span></code> on the declaration of <code class="docutils literal notranslate"><span class="pre">X</span></code>
+would return <code class="docutils literal notranslate"><span class="pre">Foo.Bar.X</span></code> no matter how <code class="docutils literal notranslate"><span class="pre">X</span></code> was retrieved.</p>
+<p>With this change, when the declaration of <code class="docutils literal notranslate"><span class="pre">X</span></code> is reached from an
+instantiation of <code class="docutils literal notranslate"><span class="pre">Bar</span></code> (e.g. through <code class="docutils literal notranslate"><span class="pre">My_Bar.X</span></code>),
+<code class="docutils literal notranslate"><span class="pre">fully_qualified_name</span></code> will return the qualified name to that particular
+instance of <code class="docutils literal notranslate"><span class="pre">X</span></code>, i.e. <code class="docutils literal notranslate"><span class="pre">Foo.My_Bar.X</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB29-001</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="exception-when-calling-property-via-introspection">
+<h2><span class="section-number">12.48. </span>Exception when calling property via introspection<a class="headerlink" href="#exception-when-calling-property-via-introspection" title="Permalink to this headline">¶</a></h2>
+<p>When calling a property via the <code class="docutils literal notranslate"><span class="pre">Libadalang.Introspection</span></code> API, if the
+<code class="docutils literal notranslate"><span class="pre">self</span></code> parameter was null, it would raise a <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code>
+exception.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB14-036</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="memory-leak-in-properties-to-find-all-references">
+<h2><span class="section-number">12.49. </span>Memory leak in properties to find-all-references<a class="headerlink" href="#memory-leak-in-properties-to-find-all-references" title="Permalink to this headline">¶</a></h2>
+<p>All calls to the find-all-references properties (<code class="docutils literal notranslate"><span class="pre">p_find_all_references</span></code>,
+<code class="docutils literal notranslate"><span class="pre">p_find_all_overrides</span></code>, <code class="docutils literal notranslate"><span class="pre">p_find_all_calls</span></code>,
+<code class="docutils literal notranslate"><span class="pre">p_find_all_derived_types</span></code>) used to trigger memory leaks. This is now
+fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SC13-001</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolve-defaults-for-generic-formal-subprograms">
+<h2><span class="section-number">12.50. </span>Resolve defaults for generic formal subprograms<a class="headerlink" href="#resolve-defaults-for-generic-formal-subprograms" title="Permalink to this headline">¶</a></h2>
+<p>Defaults for generic formal subprograms were not correctly resolved, and
+would cause crashes when trying to find the referenced declaration.</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">procedure</span> <span class="nf">Foo</span><span class="p">;</span>
+
+<span class="kd">generic</span>
+    <span class="kn">with</span> <span class="nn">procedure</span> <span class="n">Bar</span> <span class="kr">is</span> <span class="n">Foo</span><span class="p">;</span>
+    <span class="c1">--                    ^ Not resolved</span>
+<span class="kd">package</span> <span class="nc">Baz</span> <span class="kr">is</span>
+<span class="kr">end</span> <span class="nf">Baz</span><span class="p">;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB29-014</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-nameres-involving-generic-instantiations-with-formal-objects">
+<h2><span class="section-number">12.51. </span>Fix nameres involving generic instantiations with formal objects<a class="headerlink" href="#fix-nameres-involving-generic-instantiations-with-formal-objects" title="Permalink to this headline">¶</a></h2>
+<p>In some complex name resolution situations, we would try to resolve a
+formal object in an instance. That would cause a crash if the formal object
+was completed by a literal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB22-060</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-static-evaluation-of-range-attributes">
+<h2><span class="section-number">12.52. </span>Fix static evaluation of range attributes<a class="headerlink" href="#fix-static-evaluation-of-range-attributes" title="Permalink to this headline">¶</a></h2>
+<p>Before this fix, static evaluation of range attributes on derived type
+definitions would not evaluate the constraints on the base type, only the
+explicit constraints on the derived type, such evaluating the range of type
+<code class="docutils literal notranslate"><span class="pre">B</span></code> in the following code would crash:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="kt">A</span> <span class="kr">is</span> <span class="kr">range</span> <span class="mi">1</span> <span class="p">..</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kd">type</span> <span class="kt">B</span> <span class="kr">is</span> <span class="kr">new</span> <span class="n">A</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Similarly, subtypes would not be handled at all, so the evaluation of the
+range of any subtypes would crash.</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span> <span class="kt">A</span> <span class="kr">is</span> <span class="kr">range</span> <span class="mi">1</span> <span class="p">..</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kd">subtype</span> <span class="kt">B</span> <span class="kr">is</span> <span class="n">A</span><span class="p">;</span>  <span class="c1">--  CRASH</span>
+<span class="kd">subtype</span> <span class="kt">B</span> <span class="kr">is</span> <span class="n">A</span> <span class="kr">range</span> <span class="mi">1</span> <span class="p">..</span> <span class="mi">5</span><span class="p">;</span>  <span class="c1">--  CRASH</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SC04-024</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolution-of-calls-to-primitives">
+<h2><span class="section-number">12.53. </span>Resolution of calls to primitives<a class="headerlink" href="#resolution-of-calls-to-primitives" title="Permalink to this headline">¶</a></h2>
+<p>So far for calls of the form <code class="docutils literal notranslate"><span class="pre">X.Foo</span></code>, libadalang would always resolve
+<code class="docutils literal notranslate"><span class="pre">Foo</span></code> to the base-most declaration of the subprogram <cite>Foo</cite>. This is not
+accurate in case the type of <code class="docutils literal notranslate"><span class="pre">X</span></code> is statically known to be a child type
+which provides an override of <cite>Foo</cite>. After this change, <code class="docutils literal notranslate"><span class="pre">Foo</span></code> in
+<code class="docutils literal notranslate"><span class="pre">X.Foo</span></code> now correctly resolves to the most precise override available of
+<code class="docutils literal notranslate"><span class="pre">Foo</span></code> for <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SC04-030</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="package-navigation-in-presence-of-homonyms">
+<h2><span class="section-number">12.54. </span>Package navigation in presence of homonyms<a class="headerlink" href="#package-navigation-in-presence-of-homonyms" title="Permalink to this headline">¶</a></h2>
+<p>Before this change, the <code class="docutils literal notranslate"><span class="pre">p_package_previous_part</span></code> private property
+would return a wrong result when applied on given package if this package
+contained a entity with the same name as the package itself. These wrong
+results would then propagate to common navigation properties such as
+<code class="docutils literal notranslate"><span class="pre">p_decl_part</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S916-024</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="navigation-of-subprograms-with-anonymous-access-parameters">
+<h2><span class="section-number">12.55. </span>Navigation of subprograms with anonymous access parameters<a class="headerlink" href="#navigation-of-subprograms-with-anonymous-access-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Navigation, for example through <code class="docutils literal notranslate"><span class="pre">p_canonical_part</span></code>, was broken when
+used on subprograms that themselves take as parameter an anonymous
+access on another subprogram. This was fixed by handling anonymous
+access on subprograms in a piece of logic that previously would
+take them into account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB21-019</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-behavior-of-basicdecl-has-aspect">
+<h2><span class="section-number">12.56. </span>Fix behavior of <code class="docutils literal notranslate"><span class="pre">BasicDecl.has_aspect</span></code><a class="headerlink" href="#fix-behavior-of-basicdecl-has-aspect" title="Permalink to this headline">¶</a></h2>
+<p>The behavior of the <code class="docutils literal notranslate"><span class="pre">BasicDecl.has_aspect</span></code> property was invalid when the
+aspect was non boolean-valued. It is now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB14-045</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="p-syntactic-fully-qualified-name-can-crash-in-presence-of-parsing-errors">
+<h2><span class="section-number">12.57. </span>P_syntactic_fully_qualified_name can crash in presence of parsing errors<a class="headerlink" href="#p-syntactic-fully-qualified-name-can-crash-in-presence-of-parsing-errors" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">p_syntactic_fully_qualified_name</span></code> property could crash when called
+on a unit with parsing errors because we didn’t handle the case where its
+body would be an <code class="docutils literal notranslate"><span class="pre">ErrorDecl</span></code>. This is now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB04-032</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="crash-when-resolving-ambiguous-case-stmts">
+<h2><span class="section-number">12.58. </span>Crash when resolving ambiguous case stmts<a class="headerlink" href="#crash-when-resolving-ambiguous-case-stmts" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following code pattern:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nf">Foo</span> <span class="nf">return</span> <span class="nf">Integer</span><span class="p">;</span>
+<span class="kd">procedure</span> <span class="nf">Foo</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kr">case</span> <span class="n">Foo</span> <span class="kr">is</span>
+    <span class="kr">when</span> <span class="p">...</span> <span class="p">=&gt;</span> <span class="p">...</span>
+<span class="kr">end</span> <span class="kr">case</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Name resolution would crash here while attempting to construct
+the xref equation for the case statement due to the presence of
+procedure <code class="docutils literal notranslate"><span class="pre">Foo</span></code>, which by definition has no return type and
+therefore would provoke a null dereference. This is now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB13-013</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="find-all-references-crash-with-empty-files">
+<h2><span class="section-number">12.59. </span>Find_all_references crash with empty files<a class="headerlink" href="#find-all-references-crash-with-empty-files" title="Permalink to this headline">¶</a></h2>
+<p>Find_all_references could crash if one or several source files in
+the project was empty. This is because those are parsed as empty
+lists of compilation units which was unexpected. This is now correctly
+handled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB05-054</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="nameres-crash-with-calls-on-shadowed-types">
+<h2><span class="section-number">12.60. </span>Nameres crash with calls on shadowed types<a class="headerlink" href="#nameres-crash-with-calls-on-shadowed-types" title="Permalink to this headline">¶</a></h2>
+<p>In case a type was shadowed by an object, resolving a call on that
+object could crash because the construction of the xref equation
+would assume the type was a possible target for the call. This was
+fixed by early discarding types when resolving calls in which the
+context does not allow a type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA24-055</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-basicdecl-doc-not-working-on-generic-packages">
+<h2><span class="section-number">12.61. </span>Fix <code class="docutils literal notranslate"><span class="pre">BasicDecl.doc</span></code> not working on generic packages<a class="headerlink" href="#fix-basicdecl-doc-not-working-on-generic-packages" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">BasicDecl.doc</span></code> property was not working correctly on generic
+packages, returning wrong or no documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB08-016</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolution-of-array-slices">
+<h2><span class="section-number">12.62. </span>Resolution of array slices<a class="headerlink" href="#resolution-of-array-slices" title="Permalink to this headline">¶</a></h2>
+<p>So far name resolution would fail on complex array accesses involving
+slices. That was because those were not taken into account at all in our
+many parts of our name resolution mechanism. This patch adds support for
+them in the bottom-up name resolution mechanism.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA24-035</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-doc-s-leading-whitespace-stripping">
+<h2><span class="section-number">12.63. </span>Fix <code class="docutils literal notranslate"><span class="pre">doc</span></code>’s leading whitespace stripping<a class="headerlink" href="#fix-doc-s-leading-whitespace-stripping" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">p_doc</span></code> property previously stripped leading whitespace according to
+the leading whitespace of the first line, and raised a <code class="docutils literal notranslate"><span class="pre">Property_Error</span></code>
+if that caused stripping non whitespace characters on subsequent lines.
+Now, it takes the least indented line as a reference for stripping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA15-023</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolution-of-calls-to-entries-of-singletasktypedecl">
+<h2><span class="section-number">12.64. </span>Resolution of calls to entries of <code class="docutils literal notranslate"><span class="pre">SingleTaskTypeDecl</span></code><a class="headerlink" href="#resolution-of-calls-to-entries-of-singletasktypedecl" title="Permalink to this headline">¶</a></h2>
+<p>So far name resolution was failing on calls to an entry defined in a
+<code class="docutils literal notranslate"><span class="pre">Task</span></code> declaration (not a task type declaration). This was because
+<code class="docutils literal notranslate"><span class="pre">SingleTaskTypeDecl</span></code> would not reimplement the <code class="docutils literal notranslate"><span class="pre">defining_env</span></code> primitive
+which we use to retrieve names defined by this type. This change provides
+the implementation of this primitive for a <code class="docutils literal notranslate"><span class="pre">SingleTaskTypeDecl</span></code> node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA22-011</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolution-of-top-level-child-generic-subp-bodies">
+<h2><span class="section-number">12.65. </span>Resolution of top-level child generic subp bodies<a class="headerlink" href="#resolution-of-top-level-child-generic-subp-bodies" title="Permalink to this headline">¶</a></h2>
+<p>So far name resolution could fail in certain cases when trying to resolve
+references inside a top-level generic child subprogram body, in particular
+those that would refer to names declared in the private part of the parent
+unit, because the body would not have full visibility on the parent.
+This change fixes this by adjusting the env spec of generic subp decls to
+rectify the parent env.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA22-010</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolution-of-separate-generic-subprograms">
+<h2><span class="section-number">12.66. </span>Resolution of separate generic subprograms<a class="headerlink" href="#resolution-of-separate-generic-subprograms" title="Permalink to this headline">¶</a></h2>
+<p>So far name resolution would fail when trying to resolve references to
+generic parameters in the body of separate generic subprogram. That was
+because the lexical env containing the generic parameters was not
+accessible from within the separate. This change fixes this by weakening
+the condition necessary to add a <code class="docutils literal notranslate"><span class="pre">referenced_env</span></code> to the generic formal
+part, which separate bodies now satisfy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA08-022</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="duplicates-in-the-output-of-p-find-all-overrides">
+<h2><span class="section-number">12.67. </span>Duplicates in the output of <code class="docutils literal notranslate"><span class="pre">p_find_all_overrides</span></code><a class="headerlink" href="#duplicates-in-the-output-of-p-find-all-overrides" title="Permalink to this headline">¶</a></h2>
+<p>The output of the <code class="docutils literal notranslate"><span class="pre">p_find_all_overrides</span></code> property could in certain cases
+contain multiple instances of the same override. This change makes sure it
+does not anymore.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA22-009</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-parsing-errors-in-with-clauses">
+<h2><span class="section-number">12.68. </span>Handle parsing errors in <code class="docutils literal notranslate"><span class="pre">with</span></code> clauses<a class="headerlink" href="#handle-parsing-errors-in-with-clauses" title="Permalink to this headline">¶</a></h2>
+<p>When working on incomplete <code class="docutils literal notranslate"><span class="pre">with</span></code> clauses (for instance due to a parsing
+error), name resolution used to raise a <code class="docutils literal notranslate"><span class="pre">Constraint_Error</span></code>. This is now
+fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA08-038</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-missing-standard-implementation-defined-attributes">
+<h2><span class="section-number">12.69. </span>Handle missing standard &amp; implementation defined attributes<a class="headerlink" href="#handle-missing-standard-implementation-defined-attributes" title="Permalink to this headline">¶</a></h2>
+<p>We implemented name resolution for a lot of attributes that were missing,
+both standard and implementation defined. The common characteristic is
+being supported by GNAT.</p>
+<p>Here is the full list: <code class="docutils literal notranslate"><span class="pre">Ceiling</span></code>, <code class="docutils literal notranslate"><span class="pre">Floor</span></code>, <code class="docutils literal notranslate"><span class="pre">Rounding</span></code>, <code class="docutils literal notranslate"><span class="pre">Callable</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Type_Class</span></code>, <code class="docutils literal notranslate"><span class="pre">Storage_Pool</span></code>, <code class="docutils literal notranslate"><span class="pre">Width</span></code>, <code class="docutils literal notranslate"><span class="pre">Component_Size</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Position</span></code>, <code class="docutils literal notranslate"><span class="pre">Mantissa</span></code>, <code class="docutils literal notranslate"><span class="pre">Model_Mantissa</span></code>, <code class="docutils literal notranslate"><span class="pre">Machine_Mantissa</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Fore</span></code>, <code class="docutils literal notranslate"><span class="pre">Aft</span></code>, <code class="docutils literal notranslate"><span class="pre">Digits</span></code>, <code class="docutils literal notranslate"><span class="pre">Modulus</span></code>, <code class="docutils literal notranslate"><span class="pre">Epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">Model_Epsilon</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Safe_Large</span></code>, <code class="docutils literal notranslate"><span class="pre">Safe_Small</span></code>.</p>
+<p>In addition, resolution for unhandled attributes now fails explicitly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA04-043</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-pred-succ-attributes-in-static-evaluator">
+<h2><span class="section-number">12.70. </span>Handle <code class="docutils literal notranslate"><span class="pre">Pred</span></code>/<code class="docutils literal notranslate"><span class="pre">Succ</span></code> attributes in static evaluator<a class="headerlink" href="#handle-pred-succ-attributes-in-static-evaluator" title="Permalink to this headline">¶</a></h2>
+<p>So far, the static evaluator wouldn’t properly evaluate <code class="docutils literal notranslate"><span class="pre">Pred</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Succ</span></code> attributes, which could in turn cause failures in name resolution.
+This is now handled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA04-042</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-full-type-view-resolution-correctly-for-operators">
+<h2><span class="section-number">12.71. </span>Handle full type view resolution correctly for operators<a class="headerlink" href="#handle-full-type-view-resolution-correctly-for-operators" title="Permalink to this headline">¶</a></h2>
+<p>So far, when using user defined operators, the full view of the type might
+not be correctly resolved. This is now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA04-044</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fix-association-of-pragma-volatile">
+<h2><span class="section-number">12.72. </span>Fix association of <code class="docutils literal notranslate"><span class="pre">pragma</span> <span class="pre">Volatile</span></code><a class="headerlink" href="#fix-association-of-pragma-volatile" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pragma</span> <span class="pre">Volatile</span></code> is now correctly associated with the declaration
+referenced by the first argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SB25-043</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="handle-full-type-view-resolution-correctly-in-case-of-hiding">
+<h2><span class="section-number">12.73. </span>Handle full type view resolution correctly in case of hiding<a class="headerlink" href="#handle-full-type-view-resolution-correctly-in-case-of-hiding" title="Permalink to this headline">¶</a></h2>
+<p>In some complex situations where an entity similarly caused hiding, full
+view of a type might not be resolved correctly, causing name resolution
+failures.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA04-045</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolution-of-binop-for-private-types-with-scalar-completion">
+<h2><span class="section-number">12.74. </span>Resolution of binop for private types with scalar completion<a class="headerlink" href="#resolution-of-binop-for-private-types-with-scalar-completion" title="Permalink to this headline">¶</a></h2>
+<p>So far name resolution did fail on some very simple cases where a type is
+private but is a scalar type in the private view, such as:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">procedure</span> <span class="nf">Test_Binop_Res</span> <span class="kr">is</span>
+   <span class="kd">package</span> <span class="nc">P</span> <span class="kr">is</span>
+      <span class="kd">type</span> <span class="kt">A</span> <span class="kr">is</span> <span class="kd">private</span><span class="p">;</span>
+   <span class="kd">private</span>
+      <span class="kd">type</span> <span class="kt">A</span> <span class="kr">is</span> <span class="kr">range</span> <span class="mi">1</span> <span class="p">..</span> <span class="mi">20</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="nf">P</span><span class="p">;</span>
+
+   <span class="kd">package</span> <span class="kd">body</span> <span class="nc">P</span> <span class="kr">is</span>
+      <span class="n">C</span> <span class="p">:</span> <span class="n">A</span> <span class="p">:=</span> <span class="mi">12</span><span class="p">;</span>
+      <span class="n">B</span> <span class="p">:</span> <span class="n">A</span> <span class="p">:=</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">C</span><span class="p">;</span>
+      <span class="kr">pragma</span> <span class="cp">Test_Statement</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="nf">P</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="kc">null</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Test_Binop_Res</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This is because  the resolution of built-in operators resolved to the
+canonical type to get the base subtype, which is wrong. This is now fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>SA02-027</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="resolve-more-spark-specific-attributes-and-pragmas">
+<h2><span class="section-number">12.75. </span>Resolve more SPARK specific attributes and pragmas<a class="headerlink" href="#resolve-more-spark-specific-attributes-and-pragmas" title="Permalink to this headline">¶</a></h2>
+<p>Some SPARK specific pragmas and attributes were not yet resolved.
+The <code class="docutils literal notranslate"><span class="pre">Loop_Invariant</span></code> pragma and the <code class="docutils literal notranslate"><span class="pre">Loop_Entry</span></code> attribute were not
+resolved correctly. In addition, some bugs wrt. indexing the result of some
+attributes, such as <code class="docutils literal notranslate"><span class="pre">'Old/'Loop_Invariant</span></code> have been fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">tn</dt>
+<dd class="field-odd"><p>S906-013</p>
+</dd>
+<dt class="field-even">apis</dt>
+<dd class="field-even"><p>all</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="design_documents/index.html" class="btn btn-neutral float-right" title="13. Development design documents" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="examples/generic_instantiation.html" class="btn btn-neutral float-left" title="9.3. Accessing actuals of generic instantiations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

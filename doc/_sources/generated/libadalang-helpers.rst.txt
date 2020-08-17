@@ -1,0 +1,322 @@
+.. ada:package:: Libadalang.Helpers
+
+Libadalang.Helpers
+------------------
+
+This package provides various helpers to build applications based on
+Libadalang.
+
+.. ada:generic-package-instantiation:: package Unit_Vectors is new Ada.Containers.Vectors
+    :package: Libadalang.Helpers
+    
+    .. code-block:: ada
+        
+        package Unit_Vectors is new Ada.Containers.Vectors
+             (Positive, Analysis_Unit);
+    
+    :instpkg: Ada.Containers.Vectors
+    
+    
+.. ada:generic-package-instantiation:: package String_Vectors is new Ada.Containers.Vectors
+    :package: Libadalang.Helpers
+    
+    .. code-block:: ada
+        
+        package String_Vectors is new Ada.Containers.Vectors
+             (Positive, Unbounded_String);
+    
+    :instpkg: Ada.Containers.Vectors
+    
+    
+.. ada:procedure:: procedure Abort_App (Message : String := "")
+    :package: Libadalang.Helpers
+    
+    If provided, print Message to the standard error output and abort the
+    current App. This will set the process exit status to Failure (see
+    Ada.Command_Line).
+    
+.. ada:type:: type Source_Provider_Kind
+    :package: Libadalang.Helpers
+    
+    
+    
+.. ada:type:: type Source_Provider
+    :package: Libadalang.Helpers
+    
+    :discriminant Libadalang.Helpers.Source_Provider_Kind Kind:
+    :component GNATCOLL.Projects.Project_Tree_Access Project:
+    :component Libadalang.Helpers.String_Vectors.Vector Dirs:
+    :component Libadalang.Helpers.String_Vectors.Vector Found_Files:
+    
+    
+.. ada:type:: type App_Context
+    :package: Libadalang.Helpers
+    
+    :component Libadalang.Helpers.Source_Provider Provider:
+    
+    
+.. ada:type:: type Job_ID
+    :package: Libadalang.Helpers
+    
+    
+    Identifier for a job in App. Unless Enable_Parallelism is False, there
+    is only one job, whose ID is 1. If there are multiple jobs, their IDs go
+    from 1 up to the number of jobs.
+    
+.. ada:type:: type App_Job_Context
+    :package: Libadalang.Helpers
+    
+    :component Libadalang.Helpers.Job_ID ID:
+        Identifier for this job
+    :component Libadalang.Helpers.App_Job_Context App_Ctx:
+        Reference to the app-wide context
+    :component Libadalang.Analysis.Analysis_Context Analysis_Ctx:
+        Context to analyze source file (each job gets its own context)
+    :component Libadalang.Helpers.Unit_Vectors.Vector Units_Processed:
+        List of analysis units that this job processed so far
+    :component Standard.Boolean Aborted:
+        Whether this jobs was aborted (see the Abort_App_Exception/Abort_App
+        entities above).
+    
+    Whether this jobs was aborted (see the Abort_App_Exception/Abort_App
+    entities above).
+    
+.. ada:type:: type App_Job_Context_Array
+    :package: Libadalang.Helpers
+    
+    
+    
+.. ada:package:: App
+
+App
+---
+
+This package is a convenient and easy way to create an application based
+on Libadalang, with out of the box facilities such as:
+
+* Automatic handling of project files, including an option to process
+  all the files of the project, and handling of scenario variables.
+
+* Automatic command line option parser, with descriptive help.
+
+As an application author, all you have to do is to provide a
+``Process_Unit`` procedure, that will process one unit out of the set of
+units to process. Users then have several options in order to run
+applications:
+
+* Run it with project-related options (at least ``-P``): by default, the
+  app will process all units that belong to the root project that is
+  passed. If the user passes at least one file name as additional
+  command-line arguments, the app will process only these units.
+
+* Run it with one or several ``--auto-dir`` options. In this case, the
+  app will consider all Ada sources present in the given directories,
+  and will call ``Process_Unit`` on all of them, unless the user passes
+  one file name as additional command-line arguments: the app will
+  process only these units.
+
+* Just pass at least one file name on the command-line. In this case,
+  the app will consider only Ada sources in the current directory and
+  process only files passed on the command-line.
+
+Note that name resolution in Ada units requires the app to know where
+the sources are located: this is automatic when loading a project file,
+but just passing files on the command-line is not enough if all source
+files are not in the current directory.
+
+.. ada:object:: Trace : constant GNATCOLL.Traces.Trace_Handle
+    :package: Libadalang.Helpers.App
+    
+    :objtype: GNATCOLL.Traces.Trace_Handle
+    :defval: ``GNATCOLL.Traces.Create ("LIBADALANG.APP." & Name, GNATCOLL.Traces.From_Config)``
+    
+    
+.. ada:package:: Args
+
+Args
+----
+
+This package contains the arguments parser for your app. It contains
+the instantiation of the parser, and the set of default arguments, so
+that you can also use their values in your app if needed.
+
+.. ada:object:: Parser : Argument_Parser
+    :package: Libadalang.Helpers.App.Args
+    
+    :objtype: GNATCOLL.Opt_Parse.Argument_Parser
+    :defval: ``Create_Argument_Parser (Help => Description)``
+    
+    Argument parser for your application. Supports a set of default
+    options. You can add your own on this parser.
+    
+.. ada:generic-package-instantiation:: package Charset is new Parse_Option
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Charset is new Parse_Option
+                   (Parser, "-C", "--charset", "Charset to use for source decoding",
+                    Unbounded_String,
+                    Default_Val => To_Unbounded_String ("iso-8859-1"));
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Option
+    
+    
+.. ada:generic-package-instantiation:: package Project_File is new Parse_Option
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Project_File is new Parse_Option
+                   (Parser, "-P", "--project",
+                    Arg_Type    => Unbounded_String,
+                    Default_Val => Null_Unbounded_String,
+                    Help        => "Project file to use");
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Option
+    
+    
+.. ada:generic-package-instantiation:: package Scenario_Vars is new Parse_Option_List
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Scenario_Vars is new Parse_Option_List
+                   (Parser, Short => "-X", Long => "--scenario-variable",
+                    Arg_Type      => Unbounded_String,
+                    Accumulate    => True,
+                    Help          => "Scenario variables to pass to the project file");
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Option_List
+    
+    
+.. ada:generic-package-instantiation:: package Target is new Parse_Option
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Target is new Parse_Option
+                   (Parser, Long => "--target",
+                    Arg_Type      => Unbounded_String,
+                    Default_Val   => Null_Unbounded_String,
+                    Help          => "Name of the target to use when loading the"
+                                     & " project");
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Option
+    
+    
+.. ada:generic-package-instantiation:: package RTS is new Parse_Option
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package RTS is new Parse_Option
+                   (Parser, Long => "--RTS",
+                    Arg_Type      => Unbounded_String,
+                    Default_Val   => Null_Unbounded_String,
+                    Help          => "Name of the runtime (RTS) to use when loading"
+                                     & " the project");
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Option
+    
+    
+.. ada:generic-package-instantiation:: package Config_File is new Parse_Option
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Config_File is new Parse_Option
+                   (Parser, Long => "--config",
+                    Arg_Type      => Unbounded_String,
+                    Default_Val   => Null_Unbounded_String,
+                    Help          => "Name of the configuration project file. If"
+                                     & " passed, thid file must exist and neither"
+                                     & " --target, nor --RTS must be passed.");
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Option
+    
+    
+.. ada:generic-package-instantiation:: package Auto_Dirs is new Parse_Option_List
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Auto_Dirs is new Parse_Option_List
+                   (Parser, "-A", "--auto-dir",
+                    Arg_Type   => Unbounded_String,
+                    Accumulate => True,
+                    Help       =>
+                       "Directories to use for the auto provider. If at least one is"
+                       & " passed, the auto provider will be used, and project options"
+                       & " ignored");
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Option_List
+    
+    
+.. ada:generic-package-instantiation:: package Jobs is new Parse_Option
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Jobs is new Parse_Option
+                   (Parser, "-j", "--jobs",
+                    Arg_Type    => Natural,
+                    Default_Val => 1,
+                    Help        => "Number of parallel jobs to use. If zero, use"
+                                   & " maximal parallelism: create one job per CPU.",
+                    Enabled     => Enable_Parallelism);
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Option
+    
+    
+.. ada:generic-package-instantiation:: package No_Traceback is new Parse_Flag
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package No_Traceback is new Parse_Flag
+                   (Parser, Long => "--no-traceback",
+                    Help         => "Do not display traceback for exceptions");
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Flag
+    
+    
+.. ada:generic-package-instantiation:: package Sym_Traceback is new Parse_Flag
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Sym_Traceback is new Parse_Flag
+                   (Parser, Long => "--symbolic-traceback",
+                    Help         => "Show symbolic tracebacks for exceptions");
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Flag
+    
+    
+.. ada:generic-package-instantiation:: package Files is new Parse_Positional_Arg_List
+    :package: Libadalang.Helpers.App.Args
+    
+    .. code-block:: ada
+        
+        package Files is new Parse_Positional_Arg_List
+                   (Parser,
+                    Name        => "files",
+                    Arg_Type    => Unbounded_String,
+                    Help        => "Files to analyze",
+                    Allow_Empty => True);
+    
+    :instpkg: GNATCOLL.Opt_Parse.Parse_Positional_Arg_List
+    
+    
+.. ada:procedure:: procedure Run
+    :package: Libadalang.Helpers.App
+    
+    Run the app. You should just call this from your main procedure for
+    your project.
+    
+.. ada:procedure:: procedure Dump_Exception (E : Ada.Exceptions.Exception_Occurrence)
+    :package: Libadalang.Helpers.App
+    
+    Dump the exception ``E``, honoring the ``Args.No_Traceback`` flag
+    (i.e.  don't show tracebacks when asked not to).
+    

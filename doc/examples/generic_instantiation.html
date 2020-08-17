@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>9.3. Accessing actuals of generic instantiations &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10. Libadalang API breaking changes" href="../api_changes.html" />
+    <link rel="prev" title="9.2. Dealing with aggregate projects" href="aggregate_projects.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core_concepts.html">3. Core concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">9. Examples repository</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="advanced_iterators.html">9.1. Using advanced iterators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aggregate_projects.html">9.2. Dealing with aggregate projects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.3. Accessing actuals of generic instantiations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#input-source">9.3.1. Input source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-code">9.3.2. Sample code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#python">9.3.2.1. Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ada">9.3.2.2. Ada</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">9. </span>Examples repository</a> &raquo;</li>
+        
+      <li><span class="section-number">9.3. </span>Accessing actuals of generic instantiations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/examples/generic_instantiation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="accessing-actuals-of-generic-instantiations">
+<h1><span class="section-number">9.3. </span>Accessing actuals of generic instantiations<a class="headerlink" href="#accessing-actuals-of-generic-instantiations" title="Permalink to this headline">¶</a></h1>
+<p>A common need for Libadalang clients is to access actuals of generic
+instantiations. Here is a small example of how to do that.</p>
+<div class="section" id="input-source">
+<h2><span class="section-number">9.3.1. </span>Input source<a class="headerlink" href="#input-source" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">package</span> <span class="nc">Generic_Instantiation</span> <span class="kr">is</span>
+   <span class="kd">generic</span>
+      <span class="kd">type</span> <span class="kt">T</span> <span class="kr">is</span> <span class="kd">private</span><span class="p">;</span>
+   <span class="kd">package</span> <span class="nc">Test_Generic</span> <span class="kr">is</span>
+      <span class="n">A</span> <span class="p">:</span> <span class="n">T</span><span class="p">;</span>
+   <span class="kr">end</span> <span class="nf">Test_Generic</span><span class="p">;</span>
+
+   <span class="kd">package</span> <span class="nc">Inst</span> <span class="kr">is new</span> <span class="nc">Test_Generic</span> <span class="p">(</span>Integer<span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Generic_Instantiation</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sample-code">
+<h2><span class="section-number">9.3.2. </span>Sample code<a class="headerlink" href="#sample-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="python">
+<h3><span class="section-number">9.3.2.1. </span>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libadalang</span> <span class="k">as</span> <span class="nn">lal</span>
+
+<span class="c1"># Getting the fully qualified name of the generic instantiation&#39;s parameter</span>
+
+<span class="nb">print</span> <span class="n">unit</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
+   <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="n">lal</span><span class="o">.</span><span class="n">Identifier</span><span class="p">)</span> <span class="ow">and</span> <span class="n">n</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s1">&#39;Integer&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">p_referenced_decl</span><span class="p">()</span><span class="o">.</span><span class="n">p_fully_qualified_name</span>
+
+<span class="c1"># Getting the fully qualified name of the type of T, from the instantiation</span>
+
+<span class="c1"># First, get the instantiated generic declaration&#39;s subtree</span>
+<span class="n">inst</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">lal</span><span class="o">.</span><span class="n">GenericInstantiation</span><span class="p">)</span><span class="o">.</span><span class="n">p_designated_generic_decl</span>
+
+<span class="c1"># Then, find the &quot;A : T&quot; object decl</span>
+<span class="n">obj_decl</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">lal</span><span class="o">.</span><span class="n">ObjectDecl</span><span class="p">)</span>
+
+<span class="c1"># Then, print the type of the object_decl</span>
+<span class="nb">print</span> <span class="n">obj_decl</span><span class="o">.</span><span class="n">f_type_expr</span><span class="o">.</span><span class="n">p_designated_type_decl</span><span class="o">.</span><span class="n">p_fully_qualified_name</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ada">
+<h3><span class="section-number">9.3.2.2. </span>Ada<a class="headerlink" href="#ada" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kn">with</span> <span class="nn">Libadalang.Common</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Libadalang.Common</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Libadalang.Iterators</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Libadalang.Iterators</span><span class="p">;</span>
+<span class="kn">with</span> <span class="nn">Ada.Wide_Wide_Text_IO</span><span class="p">;</span> <span class="kn">use</span> <span class="nn">Ada.Wide_Wide_Text_IO</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="c1">--  Getting the fully qualified name of the generic instantiation&#39;s</span>
+<span class="c1">--  parameter:</span>
+
+<span class="n">Put_Line</span>
+  <span class="c1">--  Find the node corresponding to the generic actual.</span>
+  <span class="p">(</span><span class="n">Find_First</span>
+     <span class="p">(</span><span class="n">Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">,</span>
+      <span class="n">Kind_Is</span> <span class="p">(</span><span class="n">Ada_Identifier</span><span class="p">)</span>
+      <span class="ow">and</span> <span class="n">Text_Is</span> <span class="p">(</span><span class="s">&quot;Integer&quot;</span><span class="p">)).</span><span class="n">As_Identifier</span>
+   <span class="c1">--  Then, get the declaration referenced by the actual, and print the</span>
+   <span class="c1">--  fully qualified name of that declaration.</span>
+   <span class="p">.</span><span class="n">P_Referenced_Decl</span><span class="p">.</span><span class="n">P_Fully_Qualified_Name</span><span class="p">);</span>
+
+<span class="c1">--  Getting the fully qualified name of the type of T, from the</span>
+<span class="c1">--  instantiation `Inst`:</span>
+
+<span class="kr">declare</span>
+   <span class="c1">--  First, get the instantiated package declaration</span>
+   <span class="no">Inst</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Basic_Decl</span> <span class="p">:=</span>
+     <span class="c1">--  First, we get the generic instantiation node</span>
+     <span class="n">Find_First</span>
+       <span class="p">(</span><span class="n">Unit</span><span class="p">.</span><span class="n">Root</span><span class="p">,</span>
+        <span class="n">Kind_In</span>
+          <span class="p">(</span><span class="n">Ada_Generic_Instantiation</span><span class="p">&#39;</span><span class="na">First</span><span class="p">,</span>
+           <span class="n">Ada_Generic_Instantiation</span><span class="p">&#39;</span><span class="na">Last</span><span class="p">))</span>
+     <span class="p">.</span><span class="n">As_Generic_Instantiation</span>
+
+     <span class="c1">--  Then, from this node, get the instantiated generic declaration.</span>
+     <span class="p">.</span><span class="n">P_Designated_Generic_Decl</span><span class="p">;</span>
+
+   <span class="c1">--  From the instantiated generic, find the declaration of `A`</span>
+   <span class="no">Obj_Decl</span> <span class="p">:</span> <span class="kr">constant</span> <span class="n">Object_Decl</span> <span class="p">:=</span>
+     <span class="n">Find_First</span> <span class="p">(</span><span class="n">Inst</span><span class="p">,</span> <span class="n">Kind_Is</span> <span class="p">(</span><span class="n">Ada_Object_Decl</span><span class="p">)).</span><span class="n">As_Object_Decl</span><span class="p">;</span>
+<span class="kr">begin</span>
+   <span class="c1">--  Then get the instantiated type of A, and print its fully qualified</span>
+   <span class="c1">--  name.</span>
+   <span class="n">Put_Line</span>
+     <span class="p">(</span><span class="n">Obj_Decl</span><span class="p">.</span><span class="n">F_Type_Expr</span><span class="p">.</span><span class="n">P_Designated_Type_Decl</span>
+      <span class="p">.</span><span class="n">P_Fully_Qualified_Name</span><span class="p">);</span>
+<span class="kr">end</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api_changes.html" class="btn btn-neutral float-right" title="10. Libadalang API breaking changes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="aggregate_projects.html" class="btn btn-neutral float-left" title="9.2. Dealing with aggregate projects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

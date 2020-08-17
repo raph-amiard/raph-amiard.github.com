@@ -1,0 +1,1869 @@
+Libadalang API breaking changes
+###############################
+
+Remove ``Debug_Text`` APIs
+==========================
+
+The name of this function was misleading: it had the ``Debug`` prefix not
+because it was "safe for debug" to call it (just like ``Text``, it would
+crash on a null node), but because it turned the node text into ASCII using
+escaping for non-ASCII parts of the source, which can be useful for debug
+or logging. Users should prefer the ``Image`` function for debug, which
+should be familiar to Ada users.
+
+Current uses of ``Debug_Text`` can just call ``Text`` and transform its
+``Text_Type`` result into a ``String`` using
+``Langkit_Support.Text.Image``, which is exactly what ``Debug_Text`` did.
+Or they can of course switch to ``Image``, which is much better for
+debug/logging.
+
+:tn:
+    T702-025
+:apis:
+    ada
+
+Remove ``Short_Image`` APIs
+===========================
+
+For consistency, the functions called ``Short_Image`` or ``short_image``
+are now either renamed or merged with the equivalent ``Image``/``image``
+functions.
+
+:tn:
+    T702-024
+:apis:
+    all
+
+Rename ``Children_With_Trivia`` and make it return ghost nodes
+==============================================================
+
+For extra clarity, the ``Children_With_Trivia`` function in
+``Libadalang.Analysis`` has been renamed ``Children_And_Trivia``. Moreover,
+its returned array now includes children ghost nodes, so that the result of
+the ``Children`` function is always a subset of the result of the
+``Children_And_Trivia`` result.
+
+:tn:
+    T622-015
+:apis:
+    ada
+
+``DefiningName.find_all_refs/calls`` returns ``RefResult`` array
+================================================================
+
+``DefiningName.find_all_references/calls`` returns ``RefResult`` array,
+which contains the information of whether the reference was obtained via
+precise or imprecise resolution.
+
+Additionally, exceptions shouldn't be raised as part of the normal control
+flow of those properties, and a name resolution failure won't make them
+stop searching.
+
+:tn:
+    T330-005
+:apis:
+    all
+
+Enhance support for aggregate projects
+======================================
+
+Unit providers based on projects have been enhanced to better support
+aggregate projects.
+
+First, the Ada API makes it possible to create multiple unit providers from
+a single aggregate project so that each unit providers has access to a
+consistent set of analysis units: see
+``Libadalang.Project_Provider.Create_Project_Unit_Providers``. This is
+useful when you want to analyze an aggregate project that contains
+alternative implementations of the same unit.
+
+Second, the Ada API no longer provides a direct access to the
+``Project_Unit_Provider`` type. Since
+``Libadalang.Analysis.Create_Context`` takes a reference type
+(``Unit_Provider_Reference``), exposing the interface derivation is not
+necessary and just brings confusion.
+
+Third, the C, Python and OCaml APIs now provide the ability to create a
+project unit provider with a view narrowed to a sub-project (see the
+``project`` project unit provider constructor argument). If no sub-project
+is specified, then the constructor fallbacks to the project partition
+strategy described above: when the loaded project tree contains
+inconsistent units (i.e. multiple unit providers would be required), an
+error is raised.
+
+:tn:
+    SA09-018
+:apis:
+    all
+
+Unify naming of ``*primitive_subp*`` properties
+===============================================
+
+``BasicSubpDecl.primitive_subp_of`` is now named
+``BasicSubpDecl.primitive_subp_types``.
+
+``BasicSubpDecl.first_primitive_subp_of`` is now named
+``BasicSubpDecl.primitive_subp_type``.
+
+:tn:
+    SB28-029
+:apis:
+    all
+
+Change the grammar of ``AcceptStmt`` and ``EntryBody``
+======================================================
+
+To simplify the matching of those with an ``EntryDecl``, a new intermediate
+node, ``EntryCompletionFormalParams`` has been added, and contains the spec
+of entry completion parameters.
+
+:tn:
+    S918-035
+:apis:
+    all
+
+Get rid of ``Name.p_xref``
+==========================
+
+Its behavior is considered non intuitive, and is not properly
+documented, nor tested.
+
+The workaround is to replace calls to ``p_xref`` by the equivalent set of
+navigation property calls, such as ``p_previous_part``/``p_next_part`` for
+declarations and bodies.
+
+:tn:
+    S821-025
+:apis:
+    all
+
+Replace ``Name.p_referenced_id`` by ``Name.p_referenced_defining_name``
+=======================================================================
+
+``referenced_defining_name`` doesn't take any argument, and uses
+the result of ``referenced_decl`` on ``self``.
+
+Existing calls to ``self.referenced_id(self.referenced_decl)`` can just be
+replaced by ``self.referenced_defining_name``.
+
+Calls to ``self.referenced_id(other_decl)`` have no simple remplacement,
+but are considered non-important.
+
+:tn:
+    S828-005
+:apis:
+    all
+
+Rename ``BasicDecl.p_is_unit_root`` into ``p_is_compilation_unit_root``
+=======================================================================
+
+To be closer to common Ada terminology, and disambiguate between
+compilation and analysis units.
+
+:tn:
+    S821-027
+:apis:
+    all
+
+Libadalang API new features
+###########################
+
+Static evaluation of string expressions
+=======================================
+
+Add the possibility of evaluating static expressions
+as strings to the static evaluator.
+
+:tn:
+    T720-014
+:apis:
+    ada, python, ocaml
+
+Add ``Expr.P_Is_Dynamically_Tagged`` property
+=============================================
+
+We introduce a new property, ``P_Is_Dynamically_Tagged``, which will return
+whether an expression is dynamically tagged or not.
+
+:tn:
+    T709-021
+:apis:
+    ada
+
+New abstract class ``CondExpr``
+===============================
+
+We introduce a new abstract base class, ``CondExpr``, from which ``IfExpr``
+and ``CaseExpr`` derive, to map to the Ada Reference Manual notion of
+conditional expression. It exposes one property,
+``P_Dependent_Expressions``, which returns the list of dependent
+expressions.
+
+:tn:
+    T803-022
+:apis:
+    ada
+
+Add ``p_private_part_decl`` property
+====================================
+
+The current ``p_public_part_decl`` property allows one to retrieve the
+public declaration of a given constant object declaration from its
+private view. However, there was no equivalent property for the other
+way around. This adds the ``p_private_part_decl`` property, which can
+be called on the public declaration of a constant object in order to
+retrieve its completion in the private part.
+
+:tn:
+    T729-020
+:apis:
+    all
+
+Implement navigation on entries
+===============================
+
+It is now possible to call p_body_part on an entry declaration to
+retrieve its body, and likewise to call p_decl_part on an entry body
+to retrieve its declaration.
+
+:tn:
+    T706-023
+:apis:
+    all
+
+Implement name resolution for Test_Case aspect
+==============================================
+
+Names and types inside a Test_Case aspect, in particular in the right-hand
+side of the ``Requires`` and ``Ensures`` associations are now resolved as
+expected.
+
+:tn:
+    T722-027
+:apis:
+    all
+
+Add xref for stream attributes references
+=========================================
+
+From now on, stream attributes in stream attribute references such as in
+``R'Output (S, X)`` resolve to the declaration of the subprogram used as
+override for the corresponding attribute, if it has been set with the
+appropriate attribute def clause. Otherwise, it still resolves to None,
+indicating that the attribute has not been overridden.
+
+:tn:
+    T716-015
+:apis:
+    all
+
+Name resolution for task and entry attributes
+=============================================
+
+This adds name resolution support for entry attribute ``'Count`` and task
+attributes ``'Terminated``.
+
+:tn:
+    T703-010
+:apis:
+    all
+
+New Origin_Filename and Origin_Charset functions
+================================================
+
+The ``Libadalang.Common`` packages defines two new primitives for
+``Token_Reference``. The ``Origin_Filename`` function returns the name of
+the file from which the token was extracted, or an empty string if it comes
+from a memory buffer. The ``Origin_Charset`` function returns the name of
+the encoding used to decode the source buffer from which the token was
+extracted, or an empty string if the source buffer was already decoded.
+
+:tn:
+    T622-003
+:apis:
+    ada
+
+Expose ``p_discriminants_list`` property
+========================================
+
+This property can be called on any type and will return the list of its
+discriminants.
+
+:tn:
+    T527-038
+:apis:
+    all
+
+Handle ``-j0`` in the App framework
+===================================
+
+The App framework (in ``Libadalang.Helpers``) defines a ``--jobs/-j``
+command-line argument, taking a positive number of jobs to create. This
+argument nows also accepts zero, to create one job per CPU.
+
+:tn:
+    T217-005
+:apis:
+    all
+
+Add ``P_Shapes`` property
+=========================
+
+This property, when called on the ComponentList of a record definition,
+will return the list of all possible shapes that a record value of this
+type can take. Consider the following record definition:
+
+.. code:: ada
+
+   type R (A : Integer; B : Integer) is record
+      X : Integer;
+      case A is
+         when 1 .. 10 =>
+            Y_1 : Integer;
+            case B is
+               when 1 .. 10 =>
+                  Z_1 : Integer;
+               when others => null;
+            end case;
+         when 11 .. 20 =>
+            Y_2 : Integer;
+            case B is
+               when 1 .. 10 =>
+                  Z_2 : Integer;
+               when others => null;
+            end case;
+         when others => null;
+      end case;
+   end record;
+
+For this instance, this property will return the following results:
+
+.. code::
+
+   [
+       [X, Y_1, Z_1],
+       [X, Y_1],
+       [X, Y_2, Z_2],
+       [X, Y_2],
+       [X]
+   ]
+
+:tn:
+    T406-026
+:apis:
+    all
+
+More frequent precise element type in field docs
+================================================
+
+Up to now, the documentation for node fields that contain list nodes
+could already include the list of precise types for list elements. For
+instance, the documentation of the ``AbortStmt.f_names`` field, which
+contains "a list of Names" was::
+
+    This field contains a list that itself contains one of the following
+    nodes:
+
+    * Attribute_Ref
+
+    * Call_Expr
+
+    * ...
+
+While this precise type information is useful, it was not always present.
+For instance, the ``GenericSubpInstantiation.f_params`` field, which
+contains ``AssocList`` nodes, i.e. lists of ``BasicAssoc`` nodes, was
+lacking a documentation that states that these ``AssocList`` nodes actually
+contain only ``ParamAssoc`` nodes. This oversight is now fixed, so this
+information is now in all documentations, where useful.
+
+:tn:
+    T116-038
+:apis:
+    all
+
+Handle ``others`` designator in zip_with_params
+===============================================
+
+So far, zip_with_params would completely leave out the ``others``
+designator in an assoc list, not providing any binding for it in the
+resulting array. Now, it will return one additional binding per unmatched
+parameter, from that parameter to the expression associated to ``others``.
+
+:tn:
+    T331-026
+:apis:
+    all
+
+Add failsafe ``referenced_decl/name`` properties
+================================================
+
+Add ``Name.failsafe_referenced_decl`` and
+``Name.failsafe_referenced_def_name`` properties. Those properties act like
+their non failsafe counterpart, except that they'll never raise an
+exception, and they will track in the result whether it was found through
+precise or imprecise resolution.
+
+Note that for most purposes, those are purely better version of
+`referenced_decl`` and ``referenced_defining_name``, should be used in
+priority, and might replace those in a future version of LAL.
+
+:tn:
+    T402-020
+:apis:
+    all
+
+Resolve generic formal objects
+==============================
+
+When analyzing generic code from an instantiation, libadalang's name
+resolution mechanism now resolves references to generic formal objects to
+their actual wrapped in a synthetic object declaration, instead of
+resolving to the declaration of the formal. Take for example:
+
+.. code:: ada
+
+   generic
+       X : Integer;
+   package Foo_G is
+       type T is range 1 .. X;
+   end Foo_G;
+
+   package Foo_10 is new Foo_G (X => 10);
+   subtype U is Foo_10.T;
+
+By calling ``P_Designated_Type_Decl`` on node ``Foo_10.T``, you will reach
+``type T is range 1 .. X``. Previously, calling ``P_Referenced_Decl`` on
+``X``, would return the declaration ``X : Integer`` from the generic
+formal part.
+
+Now, it will instead generate a new object decl which contains the
+expression of the actual used for ``X``, which would be ``10`` here,
+thus allowing users to reflect upon the value used in the instantiation.
+
+Thanks to this, the static expression evaluator can now correctly evaluate
+static expressions inside generic code that refer to static formal
+objects. As such, calling ``P_Eval_As_Int`` on ``X`` taken from above will
+now correctly yield ``10`` instead of an error.
+
+:tn:
+    T103-024
+:apis:
+    all
+
+Add ``p_valid_keywords`` property
+=================================
+
+When called on any node, This property will return the list of keywords
+that are admissible at the location of the node.
+
+.. note::
+    This is work in progress. It will return all keywords for now,
+    without looking at the context.
+
+:tn:
+    T318-063
+:apis:
+    all
+
+Add ``p_is_visible`` property
+=============================
+
+This property can be called on a ``BasicDecl`` to determine if this
+declaration is visible from the point of view of a given node.
+
+.. ATTENTION::
+    Only package-level (public or private) declarations are supported
+    for now.
+
+:tn:
+    T212-032
+:apis:
+    all
+
+Preserve casing in fully_qualified_name output
+==============================================
+
+So far, the ``p_fully_qualified_name`` would always output the fully
+qualified name as a string in lower case. This fixes it by reusing
+the casing of the names that compose the fully qualified name as they
+appear in the source code.
+
+:tn:
+    T303-005
+:apis:
+    all
+
+Handle type's static predicates in nameres
+==========================================
+
+Until now, the name resolution mechanism would not take into account
+static predicates defined on a type when it should, for example to infer
+which variant of a record is being initialized by an aggregate, where
+the case conditions are types with static predicates.
+
+:tn:
+    SC11-029
+:apis:
+    all
+
+Handle membership expr in static evaluator
+==========================================
+
+This adds support for Ada's membership expression evaluation
+in libadalang's static expression evaluator.
+
+:tn:
+    T312-016
+:apis:
+    all
+
+Add a ``root_type`` property
+============================
+
+When called on a base type declaration, this property returns the root
+of the derivation hierarchy.
+
+:tn:
+    T205-043
+:apis:
+    all
+
+Add ``p_is_interface_type`` property
+====================================
+
+Add a ``p_is_interface_type`` property on ``BaseTypeDecl`` nodes. It
+returns whether the given type corresponds to an interface type.
+
+:tn:
+    SB13-036
+:apis:
+    all
+
+Add properties for computing unit dependencies
+==============================================
+
+This change adds three new properties that are about computing the set
+of units upon with a given one depends.
+
+* ``P_Withed_Units`` returns the set of units that are "with"ed by the
+  given unit.
+* ``P_Imported_Units`` returns the set of units that are directly imported
+  by the given unit, which the set of "with"ed units along with the parent
+  unit in case it's a child unit, etc.
+* ``P_Unit_Dependencies`` is like ``P_Imported_Units`` but includes
+  transitive dependencies, effectively returning the whole closure of units
+  which the given one depends upon.
+
+:tn:
+    S912-013
+:apis:
+    all
+
+Add built-in ``AdaNode.full_sloc_image``
+========================================
+
+A new built-in method has been added on nodes, ``full_sloc_image``. It will
+return a GNU conformant source location in the format
+``file:line:column:``, to make it easier to build diagnostics from nodes.
+
+:tn:
+    T102-018
+:apis:
+    all
+
+Add node iterator predicate ``Kind_In``
+=======================================
+
+The new ``Kind_In`` node predicate in the ``Libadalang.Iterators`` API
+allows one to filter nodes whose kind is in a given range. This makes it
+easy to look for nodes that derive from an abstract type.
+
+For instance, the following iterator will return all nodes that derive from
+``Basic_Decl``:
+
+.. code-block:: ada
+
+   Find (Root, Kind_In (Ada_Basic_Decl'First, Ada_Basic_Decl'Last));
+
+:tn:
+    SC19-006
+:apis:
+    ada
+
+Add property ``p_get_enum_representation_clause``
+=================================================
+
+Add the ``p_get_enum_representation_clause`` property on ``BaseTypeDecl``,
+which will return the ``EnumRepClause`` associated to the given type if
+that type designates an enum declaration and such a representation clause
+exists.
+
+:tn:
+    SC16-020
+:apis:
+    all
+
+Add a ``base_subp_declarations`` property
+=========================================
+
+When called on a given subprogram, this property returns a list of all
+subprograms which are overriden by the given subprogram.
+
+:tn:
+    SC05-029
+:apis:
+    all
+
+Add Python3 compatibility
+=========================
+
+The Python binding is now compatible with Python3.
+
+:tn:
+    SB13-026
+:apis:
+    all
+
+Implement ``SingleTokNode.canonical_text``
+==========================================
+
+Return the text of a single token node, but canonicalized, e.g. case folded
+and with GNAT brackets encoding decoded.
+
+:tn:
+    SB28-013
+:apis:
+    all
+
+More helpful error message for ``As_*`` node converters
+=======================================================
+
+``As_*`` node conversion functions raise a ``Constraint_Error`` when the
+input value does not fit in the output type. The message attached to this
+exception has been enhanced to contain input/output type information and
+mention Libadalang, so that it is easier to investigate complex code
+raising such ``Constraint_Error`` exceptions.
+
+:tn:
+    SB28-011
+:apis:
+    ada
+
+Introduce ``BasicSubpDecl.primitive_subp_tagged_type``
+======================================================
+
+Introduce a new property, ``BasicSubpDecl.primitive_subp_tagged_type``,
+that returns the tagged type of which the subprogram is a primitive of, if
+applicable.
+
+:tn:
+    SB13-037
+:apis:
+    all
+
+Add a ``Name.is_operator_name`` property
+========================================
+
+The new ``Name.is_operator_name`` property returns whether a given name
+designates an operator.
+
+:tn:
+    SB13-032
+:apis:
+    all
+
+Add a command line app framework for Ada API
+============================================
+
+Add a new package ``Libadalang.Helpers``, with a generic package ``App``,
+that allows users to easily create command line applications with default
+features such as automatic project handling/scenario variables handling.
+Learn more in Libadalang's Ada tutorial, or Ada API doc.
+
+:tn:
+    SB06-030
+:apis:
+    ada
+
+Add a ``p_is_array_slice`` property
+===================================
+
+Add a ``p_is_array_slice`` property, which tells whether the given
+``CallExpr`` represents an array slice.
+
+:tn:
+    SA31-049
+:apis:
+    all
+
+Add several utility properties on ``BaseTypeDecl``
+==================================================
+
+Those properties include several predicates, allowing to transparently
+query aspects of a type, without caring about it's syntactic/semantic
+aspects:
+
+* ``p_is_record_type`` returns whether the type is a record type.
+* ``p_is_char_type`` returns whether the type is a Character type.
+* ``p_is_tagged_type`` returns whether the type is a tagged type.
+* ``p_is_enum_type`` returns whether the type is an enum type.
+
+Also included is ``p_base_types`` which will return all the base types of a
+tagged type.
+
+Note that all those properties take an ``origin`` optional parameter, which
+will be used to determine the view that is available to you on the type. By
+default, the view is from the node you query.
+
+Some existing properties (``p_is_float_type`` and ``p_is_fixed_point``) now
+take an origin parameter. That means that, in the Python API at least, you
+now need to put parentheses when you call them:
+
+.. code-block:: python
+
+    # Before:
+    typ.p_is_float_type
+
+    # After:
+    typ.p_is_float_type
+    typ.p_is_float_type(origin=typ)
+
+:tn:
+    S923-017
+:apis:
+    all
+
+Improved handling of aggregate projects
+=======================================
+
+Until now, project unit providers used to reject all aggregate projects.
+This is impractical as it is not always possible to load directly aggregated
+projects. Hence, the goal of this enhancement is to enable Libadalang users
+to load aggregate projects as long as we can guarantee non-ambiguous
+resolution of dependencies.
+
+The project unit provider in all APIs now accepts aggregate projects as long
+as there is only one aggregated project.
+
+Additionally, the project unit provider in the Ada API
+(``Libadalang.Project_Provider``) provides two additional constructors
+(``Create_Project_Unit_Provider`` and
+``Create_Project_Unit_Provider_Reference``) which take any project tree
+(including all aggregate ones) plus one non-aggregate project in that tree.
+The project provider will then consider only this sub-project to resolve
+dependencies unambiguously.
+
+:tn:
+    S815-010
+:apis:
+    all
+
+Add a ``BasicDecl.p_is_formal`` property
+========================================
+
+This new property retruns whether a declaration is the nested declaration
+inside a ``GenericFormal`` node.
+
+Given the following Ada code:
+
+.. code:: ada
+
+   generic
+      type T is private;
+   package T is end T;
+
+You'll get the following output:
+
+.. code:: python
+
+   >>> u.root.find(lal.TypeDecl).p_is_formal
+   True
+
+   # GenericFormals are not the nested declaration, so it will return false
+   >>> u.root.find(lal.GenericFormal).p_is_formal
+   False
+
+:tn:
+    S905-012
+:apis:
+    all
+
+Add property ``BaseTypeDecl.p_discrete_range``
+==============================================
+
+Add a property, ``BaseTypeDecl.p_discrete_range``
+
+:tn:
+    SC05-015
+:apis:
+    all
+
+Add a ``BasicDecl.p_is_preelaborable`` property
+===============================================
+
+This new property returns whether a declaration is preelaborable. See ARM
+10.2.1 for more details.
+
+:tn:
+    S128-004
+:apis:
+    all
+
+Libadalang API bug fixes
+########################
+
+Handle library-level ``use all type`` clauses
+=============================================
+
+Previously, such clauses appearing at the library-level of a unit would
+be totally ignored, which could cause name resolution failures on nodes
+using this construct to gain visibility on a type's operations,
+including the case where the clause is used to make direct references
+to the literals of an enum type. This is now fixed.
+
+:tn:
+    T730-018
+:apis:
+    all
+
+Name resolution robustness of if/case stmts
+===========================================
+
+Previously, the entire name resolution of an if stmt or case stmt would
+fail whenever any of their alternatives' resolution would fail. Each
+alternative is now resolved independently, so that a failing one does not
+impact the others. Note that this change does not impact resolution of
+if/case expressions.
+
+:tn:
+    T729-016
+:apis:
+    all
+
+Nameres failure on generic instantiations
+=========================================
+
+Some generic instantiations could previously cause name resolution to
+crash, in particular when another generic declaration having the same
+name as one intended to be instantiated would be available to the
+resolution mechanism. The fix was to specifically filter out those
+declarations by only keeping those that are visible in the Ada sense.
+
+:tn:
+    T429-037
+:apis:
+    all
+
+Nameres crash on instantiations of Modular_IO
+=============================================
+
+Previously, name resolution would crash when trying to resolve names in
+a package instantiation whose designated generic package was Modular_IO
+from Ada.Text_IO. This was because the special handling of child units
+of Ada.Text_IO was missing a case for the Modular_IO package.
+
+:tn:
+    T717-023
+:apis:
+    all
+
+Nameres call to incomplete types' primitives
+============================================
+
+Name resolution could crash when trying to resolve a call to a primitive
+of a type when a primitive of the same name but defined on a different
+incomplete type is visible. In that case, the first visible primitive
+would always be chosen, which is erroneous if a call to the second one
+was intended.
+
+:tn:
+    T715-013
+:apis:
+    all
+
+Fix name resolution crash on runtime files
+==========================================
+
+Name resolution would crash when trying to analyze the following files
+from the runtime: a-stzfix.ads a-stzhas.ads a-szfzha.ads. The pattern
+leading to the crash was identified and was fixed altogether, thus name
+resolution will not be affected by new occurrences of it.
+
+:tn:
+    T708-024
+:apis:
+    all
+
+Fix ``Is_Write_Reference`` for dot calls
+========================================
+
+Previously, calling the ``Is_Write_Reference`` property on the prefix of a
+dot call would always yield ``False``. This is now fixed, by correctly
+identifying dot calls and checking that the first paremeter is out/in out.
+
+:tn:
+    T713-013
+:apis:
+    all
+
+Fix name resolution in type contracts
+=====================================
+
+Previously, name resolution could fail in type contracts (inside
+aspect associations such as ``Type_Invariant``, ``Predicate``, etc.) when
+references were made to entities defined after the entity on which the
+contract applies. This now behaves as expected.
+
+:tn:
+    T708-002
+:apis:
+    all
+
+Prevent name resolution in ``Convention`` aspect
+================================================
+
+The convention used for an entity, such as ``C`` in the ``Convention => C``
+aspect association was incorrectly resolved to the first visible entity
+named ``C``. This now behaves correctly, meaning the identifier used as the
+convention is never resolved to anything.
+
+:tn:
+    T708-003
+:apis:
+    all
+
+Implement name resolution for entry barriers
+============================================
+
+Previously, entry barriers were not resolved at all, meaning any xref
+or navigation inside the expression of the barrier would fail. It is now
+working as expected.
+
+:tn:
+    T706-017
+:apis:
+    all
+
+Name resolution on ``separate (X)`` clause
+==========================================
+
+Previously, libadalang would crash when calling ``P_Referenced_Decl`` on
+``X`` of a ``separate (X) ...`` clause. It will now correctly return the
+entity in which the subunit is rooted.
+
+:tn:
+    T703-024
+:apis:
+    all
+
+Fix ``P_Get_Aspect ("unchecked_union")``
+========================================
+
+Previously, calling ``P_Get_Aspect ("unchecked_union")`` on a type would
+always return an empty result, even when a ``Pragma Unchecked_Union`` was
+associated to it.
+
+:tn:
+    T706-009
+:apis:
+    all
+
+Do not consider ``Subp'Address`` a call
+=======================================
+
+Previously, the mentionned pattern would be resolved as a call to
+``Subp``, meaning that ``P_Is_Call`` would return ``True`` when invoked
+on ``Subp``.
+
+:tn:
+    T703-009
+:apis:
+    all
+
+Name resolution of ``use at`` clauses
+=====================================
+
+Implement name resolution of address clauses (``for .. use at ..``),
+which were previously not resolved at all.
+
+:tn:
+    T702-057
+:apis:
+    all
+
+Name resolution for generic renaming decls
+==========================================
+
+Implements name resolution for generic renaming declarations, which were
+previously not resolved at all. Properties such as ``P_Referenced_Decl``
+will now work as expected on those.
+
+:tn:
+    T703-002
+:apis:
+    all
+
+Fix ``zip_with_params`` on incomplete type decls
+================================================
+
+This fixes an issue with calling ``P_Zip_With_Params`` on an discriminant
+constraint that constrains the incomplete view of a discriminated type
+would yield an empty result.
+
+:tn:
+    T701-019
+:apis:
+    all
+
+Fix exception message for invalid conversions in ``As_*`` functions
+===================================================================
+
+On attempts to run invalid node conversions, such as:
+
+.. code-block:: ada
+
+    D : constant Subp_Decl := ...;
+    P : constant Pragma := D.As_Pragma;
+
+The ``As_*`` functions used to raise ``Constraint_Error`` exceptions with a
+wrong message:
+
+.. code-block:: text
+
+   invalid type conversion from Pragma to SubpDecl
+
+This is now fixed and sends the correct message:
+
+.. code-block:: text
+
+   invalid type conversion from SubpDecl to Pragma
+
+:tn:
+    T622-019
+:apis:
+    ada
+
+``Libadalang.Analysis.*_Text`` raise a ``Constraint_Error``
+===========================================================
+
+When called on null nodes, ``Libadalang.Analysis.Text`` and
+``Libadalang.Analysis.Debug_Text`` raise a ``Constraint_Error`` exception.
+These functions now raise ``Property_Error`` exception instead, clearly
+showing that calling them on null nodes is not valid.
+
+:tn:
+    T622-008
+:apis:
+    all
+
+Name resolution bug with custom string literals
+===============================================
+
+String literals for custom string types were inaccurately typed and could
+make name resolution involving such literals imprecise as well.
+
+:tn:
+    T610-034
+:apis:
+    all
+
+Inconsistent results of navigation properties
+=============================================
+
+This fixes a bug where navigation properties such as ``P_Previous_Part``,
+``P_Canonical_Part`` and so on could yield different results across
+calls on a same ``Body`` node retrieved in different ways. This should not
+happen because the previous part of a node is predetermined and must not
+depend on the path taken to reach said node.
+
+:tn:
+    T610-028
+:apis:
+    all
+
+Bug in the resolution of if-expressions
+=======================================
+
+This fixes name resolution of if-expressions, in particular when the
+branches have different but compatible types. For example, type-checking
+would previously fail in some situations where the ``then`` branch has
+type ``T'Class`` and the else branch has type ``U'Class`` where ``U``
+derives from ``T``.
+
+:tn:
+    T605-007
+:apis:
+    all
+
+Fix name resolution for ``Access`` attribute
+============================================
+
+A bug in the resolution of the ``Access`` attribute would trigger
+resolution failures on valid expressions.
+
+:tn:
+    T609-035
+:apis:
+    all
+
+Name resolution for ``Storage_Size`` attribute.
+===============================================
+
+The attribute ``Storage_Size`` applied to an access type reference is now
+correctly recognized and does not trigger a ``Property_Error`` anymore.
+
+:tn:
+    T609-023
+:apis:
+    all
+
+Fix name resolution for some attributes
+=======================================
+
+Some expressions involving attributes such as ``'First`` would not be
+entirely resolved. In particular, when the expression is of the form
+``X.Y'First``, ``X`` would not be resolved at all.
+
+:tn:
+    T608-074
+:apis:
+    all
+
+Fix type conversion of explicit dereference
+===========================================
+
+This fixes a bug in libadalang's name resolution mechanism, where we would
+not check in certain cases that a type was indeed dereferencable before
+assigning it to the prefix of an explicit dereference.
+
+:tn:
+    T529-014
+:apis:
+    all
+
+Missed child units during ``find_all_references``
+=================================================
+
+Until now, child units defining a subprogram body at the top-level without
+a corresponding specification unit would be "forgotten" in calls to
+find_all_references & co. This is now fixed.
+
+:tn:
+    T510-001
+:apis:
+    all
+
+Fix defining name's navigation queries crash
+============================================
+
+Previously, any navigation property (next_part, previous_part, etc.)
+called on a defining name would crash whenever its associated basic
+decl would not have the requested part. As such, calling p_next_part
+on the defining name of an abstract subprogram would always crash.
+
+:tn:
+    T410-017
+:apis:
+    all
+
+Fix ``is_static_decl`` for array types
+======================================
+
+Previously, calling ``is_static_decl`` on the declaration of an array
+type would always yield ``False``. This now returns True when all
+array indices are static.
+
+:tn:
+    T416-026
+:apis:
+    all
+
+Nameres bug for subp defined in a declare block
+===============================================
+
+This fixes a bug where libadalang would fail to retrieve the body part of
+a subprogram declaration made in a declare block.
+
+:tn:
+    T327-046
+:apis:
+    all
+
+Fix navigation for subps inside of separate pkg
+===============================================
+
+Navigation would previously not work when trying to go to the body of a
+subprogram declared in a package whose body was separate.
+
+:tn:
+    T108-060
+:apis:
+    all
+
+Resolve ``Truncation`` attribute
+================================
+
+The ``Truncation`` attribute was not resolved correctly.
+
+:tn:
+    T110-038
+:apis:
+    all
+
+Fix nameres of quantifier expressions
+=====================================
+
+So far, resolving any name or type inside a quantifier expression
+could result in a ``invalid equation for logic resolution`` error.
+This is now fixed.
+
+:tn:
+    T407-009
+:apis:
+    all
+
+Resolve formal in discriminant constraint
+=========================================
+
+Libadalang now correctly resolves references to the discriminant inside
+discriminant constraints, as in:
+
+.. code:: ada
+
+   type R (X : Integer) is null record;
+   type R_Access is access T;
+
+   subtype T is R_Access (X => 12);
+   --                     ^ This reference is now resolved
+
+:tn:
+    T320-016
+:apis:
+    all
+
+Zip_with_params bug on variant record access
+============================================
+
+Until now, zip_with_params would not yield any result when trying
+to match an actual from a discriminant constraint with the discriminant
+when the constraint type was an access on the variant record. This is
+now fixed.
+
+:tn:
+    S625-016
+:apis:
+    all
+
+Handle static object renamings.
+===============================
+
+Previously, LAL would never consider an object renaming a static
+declaration, even when its renamed entity was static. This fix changes
+the behavior of ``p_is_static_decl`` (and transitively that of
+``p_is_static_expr``) to take this case into account, and also updates
+the static expression evaluator accordingly.
+
+:tn:
+    T401-019
+:apis:
+    all
+
+Various bug fixes in name resolution
+====================================
+
+This fixes various bugs in libadalang's name resolution mechanism,
+including:
+
+* A bug related to the use of a package renaming as an actual for
+  a generic formal package.
+* A bug related to visibility on a generic package's formals when
+  using a qualified name to access it.
+* A crash when trying to resolve a subprogram renaming a built-in
+  attribute.
+
+:tn:
+    T304-008
+:apis:
+    all
+
+Various bug fixes in name resolution
+====================================
+
+This fixes various bugs in libadalang's name resolution mechanism,
+including:
+
+* A crash when trying to resolve a formal subprogram's default value being a
+  built-in attribute reference.
+* A bug where library-level subprogram would not have visibility on the
+  private part of their parent package.
+
+:tn:
+    T304-010
+:apis:
+    all
+
+Resolve range constraints in case constructs.
+=============================================
+
+Until now, Libadalang would not even try to resolve names appearing
+in a range constraint of a subtype indication used in a case statement
+or expression. Such constraints should now be correctly resolved.
+
+:tn:
+    T302-029
+:apis:
+    all
+
+Fix the ``p_primitive_subp_*`` properties for subp body specs
+=============================================================
+
+Previously, calling one of the ``p_primitive_subp_*`` properties (e.g.
+``p_primitive_subp_tagged_type``) on the subprogram spec of the *body* of a
+subprogram would always yield a null node instead of the expected result.
+
+:tn:
+    T214-020
+:apis:
+    all
+
+Fix name resolution of index constraints.
+=========================================
+
+Consider the following subtype declaration:
+
+.. code:: ada
+
+   type Arr_Type is (Character range <>) of Integer;
+   subtype Arr_A_E of Arr_Type ('A' .. 'E');
+
+Previously, the literals ``'A'`` and ``'E'`` would be assigned incorrect
+types because we did not take into account the expected index type
+(here ``Character``) of the constraint array type.
+
+:tn:
+    T211-029
+:apis:
+    all
+
+Fix name resolution on ``AttributeDefClause`` nodes
+===================================================
+
+Libadalang would previously crash when resolving names on
+``AttributeDefClause`` nodes of the form ``for X'Address use Y'Address``
+when the ``System`` package was not visible from the clause.
+
+:tn:
+    T214-014
+:apis:
+    all
+
+Fix name resolution of binary operations when at least one operand has a universal type
+=======================================================================================
+
+Libadalang would often wrongly assume that both operands of a binary
+operation have the same type, overlooking the case where one of the
+operands has an universal type, in which case it can get implicitly
+converted to the type of the other operand.
+
+:tn:
+    T203-023
+:apis:
+    all
+
+Crash in the ``P_Doc`` property
+===============================
+
+Using the ``P_Doc`` property on files that contain carriage return
+characters trigger assertion failures. This is now fixed, and carriage
+returns that are the last line characters are now discarded from
+``P_Doc``'s result.
+
+:tn:
+    T205-050
+:apis:
+    all
+
+Fix static evaluator on character literals
+==========================================
+
+The static evaluator was wrongly evaluating a character literal whose
+type derives ``Standard.Character``.
+
+:tn:
+    SB14-019
+:apis:
+    all
+
+Crash when resolving exception renaming clause
+==============================================
+
+Until now, name resolution would crash when attempting to resolve any name
+appearing on the right-hand side of an exception renaming clause.
+
+:tn:
+    T124-016
+:apis:
+    all
+
+Fix crash on top-level subprogram renamings
+===========================================
+
+Libadalang used to crash when the nameres mechanism encountered an analysis
+unit containing a single subprogram renaming at the top-level.
+
+:tn:
+    T122-020
+:apis:
+    all
+
+Fix fully_qualified_name for generic decls
+==========================================
+
+Consider the following snippet:
+
+.. code:: ada
+
+   package Foo is
+       generic
+       package Bar is
+           X : Integer;
+       end Bar;
+
+       package My_Bar is new Bar;
+   end Foo;
+
+Previously, calling ``fully_qualified_name`` on the declaration of ``X``
+would return ``Foo.Bar.X`` no matter how ``X`` was retrieved.
+
+With this change, when the declaration of ``X`` is reached from an
+instantiation of ``Bar`` (e.g. through ``My_Bar.X``),
+``fully_qualified_name`` will return the qualified name to that particular
+instance of ``X``, i.e. ``Foo.My_Bar.X``.
+
+:tn:
+    SB29-001
+:apis:
+    all
+
+Exception when calling property via introspection
+=================================================
+
+When calling a property via the ``Libadalang.Introspection`` API, if the
+``self`` parameter was null, it would raise a ``Constraint_Error``
+exception.
+
+:tn:
+    SB14-036
+:apis:
+    all
+
+Memory leak in properties to find-all-references
+================================================
+
+All calls to the find-all-references properties (``p_find_all_references``,
+``p_find_all_overrides``, ``p_find_all_calls``,
+``p_find_all_derived_types``) used to trigger memory leaks. This is now
+fixed.
+
+:tn:
+    SC13-001
+:apis:
+    all
+
+Resolve defaults for generic formal subprograms
+===============================================
+
+Defaults for generic formal subprograms were not correctly resolved, and
+would cause crashes when trying to find the referenced declaration.
+
+.. code:: ada
+
+    procedure Foo;
+
+    generic
+        with procedure Bar is Foo;
+        --                    ^ Not resolved
+    package Baz is
+    end Baz;
+
+:tn:
+    SB29-014
+:apis:
+    all
+
+Fix nameres involving generic instantiations with formal objects
+================================================================
+
+In some complex name resolution situations, we would try to resolve a
+formal object in an instance. That would cause a crash if the formal object
+was completed by a literal.
+
+:tn:
+    SB22-060
+:apis:
+    all
+
+Fix static evaluation of range attributes
+=========================================
+
+
+Before this fix, static evaluation of range attributes on derived type
+definitions would not evaluate the constraints on the base type, only the
+explicit constraints on the derived type, such evaluating the range of type
+``B`` in the following code would crash:
+
+.. code-block:: ada
+
+   type A is range 1 .. 10;
+   type B is new A;
+
+Similarly, subtypes would not be handled at all, so the evaluation of the
+range of any subtypes would crash.
+
+.. code-block:: ada
+
+   type A is range 1 .. 10;
+   subtype B is A;  --  CRASH
+   subtype B is A range 1 .. 5;  --  CRASH
+
+:tn:
+    SC04-024
+:apis:
+    all
+
+Resolution of calls to primitives
+=================================
+
+So far for calls of the form ``X.Foo``, libadalang would always resolve
+``Foo`` to the base-most declaration of the subprogram `Foo`. This is not
+accurate in case the type of ``X`` is statically known to be a child type
+which provides an override of `Foo`. After this change, ``Foo`` in
+``X.Foo`` now correctly resolves to the most precise override available of
+``Foo`` for ``X``.
+
+:tn:
+    SC04-030
+:apis:
+    all
+
+Package navigation in presence of homonyms
+==========================================
+
+Before this change, the ``p_package_previous_part`` private property
+would return a wrong result when applied on given package if this package
+contained a entity with the same name as the package itself. These wrong
+results would then propagate to common navigation properties such as
+``p_decl_part``.
+
+:tn:
+    S916-024
+:apis:
+    all
+
+Navigation of subprograms with anonymous access parameters
+==========================================================
+
+Navigation, for example through ``p_canonical_part``, was broken when
+used on subprograms that themselves take as parameter an anonymous
+access on another subprogram. This was fixed by handling anonymous
+access on subprograms in a piece of logic that previously would
+take them into account.
+
+:tn:
+    SB21-019
+:apis:
+    all
+
+Fix behavior of ``BasicDecl.has_aspect``
+========================================
+
+The behavior of the ``BasicDecl.has_aspect`` property was invalid when the
+aspect was non boolean-valued. It is now fixed.
+
+:tn:
+    SB14-045
+:apis:
+    all
+
+P_syntactic_fully_qualified_name can crash in presence of parsing errors
+========================================================================
+
+The ``p_syntactic_fully_qualified_name`` property could crash when called
+on a unit with parsing errors because we didn't handle the case where its
+body would be an ``ErrorDecl``. This is now fixed.
+
+:tn:
+    SB04-032
+:apis:
+    all
+
+Crash when resolving ambiguous case stmts
+=========================================
+
+Consider the following code pattern:
+
+.. code:: ada
+
+    function Foo return Integer;
+    procedure Foo;
+
+    ...
+
+    case Foo is
+        when ... => ...
+    end case;
+
+Name resolution would crash here while attempting to construct
+the xref equation for the case statement due to the presence of
+procedure ``Foo``, which by definition has no return type and
+therefore would provoke a null dereference. This is now fixed.
+
+:tn:
+    SB13-013
+:apis:
+    all
+
+Find_all_references crash with empty files
+==========================================
+
+Find_all_references could crash if one or several source files in
+the project was empty. This is because those are parsed as empty
+lists of compilation units which was unexpected. This is now correctly
+handled.
+
+:tn:
+    SB05-054
+:apis:
+    all
+
+Nameres crash with calls on shadowed types
+==========================================
+
+In case a type was shadowed by an object, resolving a call on that
+object could crash because the construction of the xref equation
+would assume the type was a possible target for the call. This was
+fixed by early discarding types when resolving calls in which the
+context does not allow a type.
+
+:tn:
+    SA24-055
+:apis:
+    all
+
+Fix ``BasicDecl.doc`` not working on generic packages
+=====================================================
+
+The ``BasicDecl.doc`` property was not working correctly on generic
+packages, returning wrong or no documentation.
+
+:tn:
+    SB08-016
+:apis:
+    all
+
+Resolution of array slices
+==========================
+
+So far name resolution would fail on complex array accesses involving
+slices. That was because those were not taken into account at all in our
+many parts of our name resolution mechanism. This patch adds support for
+them in the bottom-up name resolution mechanism.
+
+:tn:
+    SA24-035
+:apis:
+    all
+
+Fix ``doc``'s leading whitespace stripping
+==========================================
+
+The ``p_doc`` property previously stripped leading whitespace according to
+the leading whitespace of the first line, and raised a ``Property_Error``
+if that caused stripping non whitespace characters on subsequent lines.
+Now, it takes the least indented line as a reference for stripping.
+
+:tn:
+    SA15-023
+:apis:
+    all
+
+Resolution of calls to entries of ``SingleTaskTypeDecl``
+========================================================
+
+So far name resolution was failing on calls to an entry defined in a
+``Task`` declaration (not a task type declaration). This was because
+``SingleTaskTypeDecl`` would not reimplement the ``defining_env`` primitive
+which we use to retrieve names defined by this type. This change provides
+the implementation of this primitive for a ``SingleTaskTypeDecl`` node.
+
+:tn:
+    SA22-011
+:apis:
+    all
+
+Resolution of top-level child generic subp bodies
+=================================================
+
+So far name resolution could fail in certain cases when trying to resolve
+references inside a top-level generic child subprogram body, in particular
+those that would refer to names declared in the private part of the parent
+unit, because the body would not have full visibility on the parent.
+This change fixes this by adjusting the env spec of generic subp decls to
+rectify the parent env.
+
+:tn:
+    SA22-010
+:apis:
+    all
+
+Resolution of separate generic subprograms
+==========================================
+
+So far name resolution would fail when trying to resolve references to
+generic parameters in the body of separate generic subprogram. That was
+because the lexical env containing the generic parameters was not
+accessible from within the separate. This change fixes this by weakening
+the condition necessary to add a ``referenced_env`` to the generic formal
+part, which separate bodies now satisfy.
+
+:tn:
+    SA08-022
+:apis:
+    all
+
+Duplicates in the output of ``p_find_all_overrides``
+====================================================
+
+The output of the ``p_find_all_overrides`` property could in certain cases
+contain multiple instances of the same override. This change makes sure it
+does not anymore.
+
+:tn:
+    SA22-009
+:apis:
+    all
+
+Handle parsing errors in ``with`` clauses
+=========================================
+
+When working on incomplete ``with`` clauses (for instance due to a parsing
+error), name resolution used to raise a ``Constraint_Error``. This is now
+fixed.
+
+:tn:
+    SA08-038
+:apis:
+    all
+
+Handle missing standard & implementation defined attributes
+===========================================================
+
+We implemented name resolution for a lot of attributes that were missing,
+both standard and implementation defined. The common characteristic is
+being supported by GNAT.
+
+Here is the full list: ``Ceiling``, ``Floor``, ``Rounding``, ``Callable``,
+``Type_Class``, ``Storage_Pool``, ``Width``, ``Component_Size``,
+``Position``, ``Mantissa``, ``Model_Mantissa``, ``Machine_Mantissa``,
+``Fore``, ``Aft``, ``Digits``, ``Modulus``, ``Epsilon``, ``Model_Epsilon``,
+``Safe_Large``, ``Safe_Small``.
+
+In addition, resolution for unhandled attributes now fails explicitly.
+
+:tn:
+    SA04-043
+:apis:
+    all
+
+Handle ``Pred``/``Succ`` attributes in static evaluator
+=======================================================
+
+So far, the static evaluator wouldn't properly evaluate ``Pred`` and
+``Succ`` attributes, which could in turn cause failures in name resolution.
+This is now handled.
+
+:tn:
+    SA04-042
+:apis:
+    all
+
+Handle full type view resolution correctly for operators
+========================================================
+
+So far, when using user defined operators, the full view of the type might
+not be correctly resolved. This is now fixed.
+
+:tn:
+    SA04-044
+:apis:
+    all
+
+Fix association of ``pragma Volatile``
+======================================
+
+``pragma Volatile`` is now correctly associated with the declaration
+referenced by the first argument.
+
+:tn:
+    SB25-043
+:apis:
+    all
+
+Handle full type view resolution correctly in case of hiding
+============================================================
+
+In some complex situations where an entity similarly caused hiding, full
+view of a type might not be resolved correctly, causing name resolution
+failures.
+
+:tn:
+    SA04-045
+:apis:
+    all
+
+Resolution of binop for private types with scalar completion
+============================================================
+
+So far name resolution did fail on some very simple cases where a type is
+private but is a scalar type in the private view, such as:
+
+.. code:: ada
+
+    procedure Test_Binop_Res is
+       package P is
+          type A is private;
+       private
+          type A is range 1 .. 20;
+       end P;
+
+       package body P is
+          C : A := 12;
+          B : A := 12 * C;
+          pragma Test_Statement;
+       end P;
+    begin
+       null;
+    end Test_Binop_Res;
+
+This is because  the resolution of built-in operators resolved to the
+canonical type to get the base subtype, which is wrong. This is now fixed.
+
+:tn:
+    SA02-027
+:apis:
+    all
+
+Resolve more SPARK specific attributes and pragmas
+==================================================
+
+Some SPARK specific pragmas and attributes were not yet resolved.
+The ``Loop_Invariant`` pragma and the ``Loop_Entry`` attribute were not
+resolved correctly. In addition, some bugs wrt. indexing the result of some
+attributes, such as ``'Old/'Loop_Invariant`` have been fixed.
+
+:tn:
+    S906-013
+:apis:
+    all
+

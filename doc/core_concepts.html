@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3. Core concepts &mdash; Libadalang User Manual 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Standard unit pecularities" href="standard_unit.html" />
+    <link rel="prev" title="2. Building Libadalang" href="building.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Libadalang User Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">2. Building Libadalang</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Core concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#analysis-contexts-and-units">3.1. Analysis contexts and units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tokens-and-trivias">3.2. Tokens and trivias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#syntax-and-semantic-tree">3.3. Syntax and semantic tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unit-providers">3.4. Unit providers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aggregate-projects">3.4.1. Aggregate projects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="standard_unit.html">4. Standard unit pecularities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_tutorial.html">5. Ada API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_tutorial.html">6. Python API Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ada_api_ref.html">7. Ada API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api_ref.html">8. Python API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">9. Examples repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html">10. Libadalang API breaking changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-new-features">11. Libadalang API new features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_changes.html#libadalang-api-bug-fixes">12. Libadalang API bug fixes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design_documents/index.html">13. Development design documents</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Libadalang User Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>Core concepts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/core_concepts.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="core-concepts">
+<span id="id1"></span><h1><span class="section-number">3. </span>Core concepts<a class="headerlink" href="#core-concepts" title="Permalink to this headline">¶</a></h1>
+<p>Regardless of which language you use in order to write your programs, the
+Libadalang API comes with several core concepts. Understanding these upfront
+will make your programming experience easier, so the goal of this section is to
+make you familiar with them.</p>
+<div class="section" id="analysis-contexts-and-units">
+<h2><span class="section-number">3.1. </span>Analysis contexts and units<a class="headerlink" href="#analysis-contexts-and-units" title="Permalink to this headline">¶</a></h2>
+<p>In order to use Libadalang, the first thing you need to do is to create an
+analysis context. These are holders that embed all data and computations done
+during source code analysis. The second step is to create what we call an
+analysis unit: a holder for computations with respect to a single source file.</p>
+<p>Analysis units really map to source files: Libadalang will process one source
+file that contains several compilation units as one analysis unit; similarly a
+subunit (“separate”) gets a dedicated unit.</p>
+<p>In order to create an analysis unit, you just need to have a context at hand
+and provide either a source file or a buffer that contains the source text to
+be analyzed. This will decode the source text (from <code class="docutils literal notranslate"><span class="pre">UTF-8</span></code>, <code class="docutils literal notranslate"><span class="pre">ISO-8859-1</span></code>,
+etc.), run the lexer on it to get a stream of tokens, and then run the parser
+to get the parsing tree. Note that creating an analysis unit always succeeds:
+if there are parsing errors or if there is an error opening the file, a
+analysis unit is returned nevertheless, with error messages stored in a
+diagnostics vector.</p>
+<p>While you can create analysis units explicitly using the analysis context API,
+semantic analysis also create them on demand. For instance, trying to resolve
+<code class="docutils literal notranslate"><span class="pre">Ada.Containers.Hash_Type</span></code> will automatically load an analysis unit for the
+<code class="docutils literal notranslate"><span class="pre">Ada.Containers</span></code> runtime unit in order to fetch and return the node
+corresponding to the <code class="docutils literal notranslate"><span class="pre">Hash_Type</span></code> type declaration.</p>
+</div>
+<div class="section" id="tokens-and-trivias">
+<h2><span class="section-number">3.2. </span>Tokens and trivias<a class="headerlink" href="#tokens-and-trivias" title="Permalink to this headline">¶</a></h2>
+<p>While traditional lexers only give you access to regular tokens and discard
+information such as white spaces and comments, Libadalang can preserve all
+formatting information. This option, enabled by default when creating analysis
+contexts, makes Libadalang suitable for a lot of usages beyond regular
+compiler-style analysis.</p>
+<p>In order to achieve this, Libadalang keeps track of two distinct sequences of
+“lexemes”: regular tokens and trivias. The sequence of regular tokens
+(identifiers, keywords, etc.) is the one that the parser will use to create its
+parsing tree, while the sequence of trivias is just ignored by parsers, but
+still preserved for later analysis.</p>
+<p>Although Libadalang exposes both sequences as a single one (ranges of tokens
+for the analysis units or for single nodes), getting the index of a regular
+token will return the position of this token in the list of regular tokens, and
+conversely for trivias. You can see this in the following example:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="kd">procedure</span> <span class="nf">Foo</span><span class="p">;</span>  <span class="c1">--  Comment</span>
+</pre></div>
+</div>
+<p>This source will yield 3 tokens and 3 trivias:</p>
+<ol class="arabic simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">procedure</span></code> keyword (token index 1),</p></li>
+<li><p>the first white space trivia (trivia index 1),</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">Foo</span></code> identifier (token index 2),</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">;</span></code> token (token index 3),</p></li>
+<li><p>the second white space trivia (trivia index 2),</p></li>
+<li><p>the comment trivia (trivia index 3).</p></li>
+</ol>
+<p>Depending on the context, “token” designates either only regular tokens or both
+regular tokens and trivias.</p>
+</div>
+<div class="section" id="syntax-and-semantic-tree">
+<h2><span class="section-number">3.3. </span>Syntax and semantic tree<a class="headerlink" href="#syntax-and-semantic-tree" title="Permalink to this headline">¶</a></h2>
+<p>After a successful parsing step, an analysis unit holds the resulting parsing
+tree. Each node in this tree has several characteristics:</p>
+<ul class="simple">
+<li><p>a specific kind (identifier, object declaration, binary expression, …),</p></li>
+<li><p>a first token and a last one (we derive source location and source text
+excerpts from these).</p></li>
+</ul>
+<p>Nodes can be grouped by kind in three categories:</p>
+<dl class="simple">
+<dt>Regular nodes</dt><dd><p>These have a definite number of children. For instance, binary operations
+always have three children: the left operand, the operator and the right
+operand. Some children can be null, for example the default expression in a
+parameter specification node.</p>
+</dd>
+<dt>List nodes</dt><dd><p>These can have any number of children (including zero).</p>
+</dd>
+<dt>Token nodes</dt><dd><p>They encompass exactly one token and have no children. For instance: string
+literals.</p>
+</dd>
+</dl>
+<p>Sometimes, a node is created to mean the absence of some keywords. For example
+the <code class="docutils literal notranslate"><span class="pre">Mode_Default</span></code> node is created to describe the absence of explicit mode
+for parameter specification. We call these “ghost” nodes.</p>
+<p>Children for all nodes can be accessed by index, but only the children of
+regular nodes get named accessors. For instance, parameter specification
+nodes have a <code class="docutils literal notranslate"><span class="pre">mode</span></code> field as their third children; this field is exposed as
+the <code class="docutils literal notranslate"><span class="pre">F_Mode</span></code> function in the Ada API and the <code class="docutils literal notranslate"><span class="pre">.f_mode</span></code> attribute in the
+Python API.</p>
+<p>The syntax tree also serves for semantic analysis. Look for functions whose
+names match <code class="docutils literal notranslate"><span class="pre">P_*</span></code> in the Ada API or <code class="docutils literal notranslate"><span class="pre">.p_*</span></code> node members in the Python API:
+these are what we call node <em>properties</em> (hence the P prefix). They compute
+semantic information on top of the syntax tree. The most useful example is the
+<code class="docutils literal notranslate"><span class="pre">P_Xref</span></code> property, which computes cross-reference information.  On legal Ada
+code bases, properties are always supposed to return a correct result. However,
+on incorrect code, they can either return approximate results, or raise
+<code class="docutils literal notranslate"><span class="pre">Property_Error</span></code> exceptions (<code class="docutils literal notranslate"><span class="pre">PropertyError</span></code> in Python).</p>
+<p>In interactive tools such as IDEs, the source code can evolve so that it is
+necessary to recompute information. In Libadalang, the analysis unit creation
+primitives can reload an analysis unit if the corresponding source file was
+already analyzed before. As a result, the previous syntax tree is released and
+replaced with the new one: any attempt to use references to released nodes will
+raise a <code class="docutils literal notranslate"><span class="pre">Stale_Reference_Error</span></code> exception (<code class="docutils literal notranslate"><span class="pre">StaleReferenceError</span></code> in
+Python).</p>
+</div>
+<div class="section" id="unit-providers">
+<span id="id3"></span><h2><span class="section-number">3.4. </span>Unit providers<a class="headerlink" href="#unit-providers" title="Permalink to this headline">¶</a></h2>
+<p>Some Ada constructs such as <code class="docutils literal notranslate"><span class="pre">with</span></code> clauses require name resolution in
+Libadalang to “jump” from one source file to another. As an example, processing
+the <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">Ada.Text_IO;</span></code> statement requires to load the source files that
+contain the <code class="docutils literal notranslate"><span class="pre">Ada</span></code> package specification and the <code class="docutils literal notranslate"><span class="pre">Ada.Text_IO</span></code> one.</p>
+<p>Depending on projects, knowing which source file to use in order to find a
+compilation unit can be arbitrarily complex. This is why Libadalang comes with
+the concept of unit provider: given a unit name (<code class="docutils literal notranslate"><span class="pre">Ada.Strings.Unbounded</span></code>) and
+a unit kind (specification/body), a unit provider must either return a source
+file to read, or raise an error if the unit name is not valid.</p>
+<p>The analysis context constructor takes an unit provider: name resolution will
+use this provider whenever it needs to resolve a unit reference to a source
+file. In the absence of an explicit unit provider, the default one will look
+for source files in the current directory following the GNAT naming convention:
+for instance <code class="docutils literal notranslate"><span class="pre">parent-child.ads</span></code> for the specification of the <code class="docutils literal notranslate"><span class="pre">Parent.Child</span></code>
+unit.</p>
+<p>Libadalang allows you to create your own unit provider, should the naming
+convention of your project be totally custom, but it also comes with two very
+useful providers:</p>
+<ul class="simple">
+<li><p>one that takes a GPR project file and gives access to all Ada sources
+referenced by the corresponding project tree (the “project unit provider”),</p></li>
+<li><p>one that looks for all source files that match a given file name pattern in a
+given list of directory (the “auto unit provider”).</p></li>
+</ul>
+<div class="section" id="aggregate-projects">
+<span id="unit-providers-aggregate"></span><h3><span class="section-number">3.4.1. </span>Aggregate projects<a class="headerlink" href="#aggregate-projects" title="Permalink to this headline">¶</a></h3>
+<p>Due to the very nature of Libadalang’s operations regarding name resolution, it
+expects exactly one source file for each unit name/kind. This assumption
+allows the “get to the definition” operation to return exactly one result. The
+<a class="reference external" href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/gnat_project_manager.html#aggregate-projects">aggregate project</a>
+formalism is lax and allows concurrent declarations and implementations to
+coexist in a single project tree, which violates the assumption described in
+the previous paragraph.</p>
+<p>For instance, consider the following aggregate project:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="c1">--  &quot;agg.gpr&quot;</span>
+
+<span class="n">aggregate</span> <span class="n">project</span> <span class="n">Agg</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Project_Files</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;main32.gpr&quot;</span><span class="p">,</span> <span class="s">&quot;main64.gpr&quot;</span><span class="p">);</span>
+<span class="kr">end</span> <span class="nf">Agg</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The following sources (two alternative implementations of the same package):</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="c1">--  &quot;arch32/arch.ads&quot;</span>
+<span class="kd">package</span> <span class="nc">Arch</span> <span class="kr">is</span>
+   <span class="kd">type</span> <span class="kt">Target_Address</span> <span class="kr">is</span> <span class="ow">mod</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">32</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Arch</span><span class="p">;</span>
+
+<span class="c1">--  &quot;arch64/arch.ads&quot;</span>
+<span class="kd">package</span> <span class="nc">Arch</span> <span class="kr">is</span>
+   <span class="kd">type</span> <span class="kt">Target_Address</span> <span class="kr">is</span> <span class="ow">mod</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">64</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Arch</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>And finally the following alternative main projects:</p>
+<div class="highlight-ada notranslate"><div class="highlight"><pre><span></span><span class="c1">--  &quot;main32.gpr&quot;</span>
+<span class="n">project</span> <span class="n">Main32</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Source_Dirs</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="s">&quot;arch32&quot;</span><span class="p">);</span>
+   <span class="kr">for</span> <span class="n">Main</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;main.adb&quot;</span><span class="p">);</span>
+   <span class="kr">for</span> <span class="n">Object_Dir</span> <span class="kn">use</span> <span class="s">&quot;obj/main32&quot;</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Main32</span><span class="p">;</span>
+
+<span class="c1">--  &quot;main64.gpr&quot;</span>
+<span class="n">project</span> <span class="n">Main64</span> <span class="kr">is</span>
+   <span class="kr">for</span> <span class="n">Source_Dirs</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="s">&quot;arch64&quot;</span><span class="p">);</span>
+   <span class="kr">for</span> <span class="n">Main</span> <span class="kn">use</span> <span class="p">(</span><span class="s">&quot;main.adb&quot;</span><span class="p">);</span>
+   <span class="kr">for</span> <span class="n">Object_Dir</span> <span class="kn">use</span> <span class="s">&quot;obj/main64&quot;</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nf">Main64</span><span class="p">;</span>
+
+<span class="c1">--  &quot;main.adb&quot;</span>
+<span class="kn">with</span> <span class="nn">Ada.Text_IO</span><span class="p">,</span> <span class="n">Arch</span><span class="p">;</span>
+<span class="kd">procedure</span> <span class="nf">Main</span> <span class="kr">is</span>
+<span class="kr">begin</span>
+   <span class="n">Ada</span><span class="p">.</span><span class="n">Text_IO</span><span class="p">.</span><span class="n">Put_Line</span>
+     <span class="p">(</span><span class="s">&quot;Arch.Target_Address&#39;Size =&quot;</span> <span class="o">&amp;</span> <span class="n">Arch</span><span class="p">.</span><span class="n">Target_Address</span><span class="p">&#39;</span><span class="na">Size</span><span class="p">&#39;</span><span class="na">Image</span><span class="p">);</span>
+<span class="kr">end</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Building the aggregate project with <code class="docutils literal notranslate"><span class="pre">gprbuild</span> <span class="pre">-Pagg</span> <span class="pre">-p</span> <span class="pre">-j8</span> <span class="pre">-q</span></code> yields two
+alternative <code class="docutils literal notranslate"><span class="pre">main</span></code> executables:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ obj/main32/main
+Arch.Target_Address<span class="s1">&#39;Size = 32</span>
+<span class="s1">$ obj/main64/main</span>
+<span class="s1">Arch.Target_Address&#39;</span><span class="nv">Size</span> <span class="o">=</span> <span class="m">64</span>
+</pre></div>
+</div>
+<p>Just like the output of the “main” program depends on which <code class="docutils literal notranslate"><span class="pre">Arch</span></code> package is
+used, the result of the “get to the definition” query on
+<code class="docutils literal notranslate"><span class="pre">Arch.Target_Address</span></code> above depends on it.</p>
+<p>Because of this, Libadalang’s project provider has multiple ways to work, each
+one coming with its own restrictions on the aggregate projects passed to it:</p>
+<ol class="arabic simple">
+<li><p>When only passed an aggregate project, that project must contain at most one
+source file per unit name/kind. It is not the case in the example above,
+because there are two files (<code class="docutils literal notranslate"><span class="pre">arch32/arch.ads</span></code> and <code class="docutils literal notranslate"><span class="pre">arch64/arch.ads</span></code>)
+associated to the spec of the <code class="docutils literal notranslate"><span class="pre">Arch</span></code> unit.</p></li>
+<li><p>When passed an aggregate project plus a reference to a specific project file
+in the whole project tree, the unit provider will consider only the source
+files that this project file and all its dependencies own contain.  In the
+example above, this means that one could give the <code class="docutils literal notranslate"><span class="pre">agg.gpr</span></code> project file
+plus a reference to the <code class="docutils literal notranslate"><span class="pre">main32.gpr</span></code> project: Libadalang would then
+only analyze the <code class="docutils literal notranslate"><span class="pre">arch32/arch.ads</span></code> source file.</p></li>
+<li><p>Libadalang can also create several project providers, each one having a
+restricted view on the sub-project it has access to, so that only one source
+file is available for each unit name/kind.</p></li>
+</ol>
+<p>While the two first options are available in all Libadalang APIs, option 3. is
+currently available only in its Ada API.</p>
+<p>See the <a class="reference internal" href="examples/aggregate_projects.html#examples-aggregate-projects"><span class="std std-ref">Dealing with aggregate projects</span></a> section for related code examples.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="standard_unit.html" class="btn btn-neutral float-right" title="4. Standard unit pecularities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="building.html" class="btn btn-neutral float-left" title="2. Building Libadalang" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018, AdaCore
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
